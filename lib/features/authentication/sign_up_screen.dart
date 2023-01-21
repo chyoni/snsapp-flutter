@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/authentication/email_screen.dart';
 import 'package:tiktok/features/authentication/login_screen.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
 
@@ -16,6 +17,14 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
+  void onUsernamePasswordTap(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const EmailScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,9 +32,9 @@ class SignUpScreen extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
           child: Column(
-            children: const [
+            children: [
               Gaps.v80,
-              Text(
+              const Text(
                 "Sign up for Tiktok",
                 style: TextStyle(
                   fontSize: Sizes.size24,
@@ -33,7 +42,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
               Gaps.v20,
-              Text(
+              const Text(
                 "Create a profile, follow other accounts, make your own videos, and more.",
                 style: TextStyle(
                   fontSize: Sizes.size16,
@@ -43,11 +52,13 @@ class SignUpScreen extends StatelessWidget {
               ),
               Gaps.v40,
               AuthButton(
-                  icon: FaIcon(FontAwesomeIcons.user),
+                  onTap: onUsernamePasswordTap,
+                  icon: const FaIcon(FontAwesomeIcons.user),
                   text: "Use email & password"),
               Gaps.v16,
               AuthButton(
-                  icon: FaIcon(FontAwesomeIcons.apple),
+                  onTap: onUsernamePasswordTap,
+                  icon: const FaIcon(FontAwesomeIcons.apple),
                   text: "Continue with Apple"),
             ],
           ),
