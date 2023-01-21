@@ -33,3 +33,5 @@
   - `errorText` - 이 TextField의 decoration에는 errorText라는 프로퍼티가 있는데 이게 끝내주는 것 같다. 되게 간단하게 에러 메시지를 보여줄 수 있다.
 
 ### #08 PasswordScreen
+
+### #09 BirthdayScreen
