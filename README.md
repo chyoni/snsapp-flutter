@@ -31,3 +31,5 @@
 - New features:
   - `FocusScope.of(context).unfocus()` - 이게 이제 텍스트 필드가 아닌 다른 부분을 클릭했을 때 키보드를 내려주는 뭐 그런 녀석인데 되게 간단
   - `errorText` - 이 TextField의 decoration에는 errorText라는 프로퍼티가 있는데 이게 끝내주는 것 같다. 되게 간단하게 에러 메시지를 보여줄 수 있다.
+
+### #08 PasswordScreen
