@@ -39,3 +39,7 @@
 ### #10 LoginFormScreen
 
 - New features: - `Form`, `TextFormField` - 지금까지는 TextField로 값을 Controller를 통해 다루었다면 Form Widget안에 TextFormField를 사용해서 FormState를 다루어서 사용할 수도 있다. 그게 LoginFormScreen으로 구현된 내용들이다.
+
+### #11 InterestsScreen
+
+- New features: - `ScrollBar`, `ScrollController` - 그 헤더에 텍스트가 스크롤바가 얼마나 내려갔느냐에 따라 텍스트가 보여지고 안보여지고를 아주 간단하게 ScrollController로 구현할 수 있다.

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/widgets/form_button.dart';
+import 'package:tiktok/features/onboarding/interests_screen.dart';
 
 class LoginFormScreen extends StatefulWidget {
   const LoginFormScreen({super.key});
@@ -31,6 +32,12 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (formKey.currentState != null) {
       if (formKey.currentState!.validate()) {
         formKey.currentState?.save();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const InterestsScreen(),
+          ),
+        );
       }
     }
   }
@@ -64,6 +71,9 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                       ),
                     ),
                     validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Please enter email";
+                      }
                       return null;
                     },
                     onSaved: onSavedEmail),
@@ -78,6 +88,9 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
                     ),
                   ),
                   validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please enter password";
+                    }
                     return null;
                   },
                   onSaved: onSavedPassword,
