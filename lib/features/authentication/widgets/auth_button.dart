@@ -5,7 +5,7 @@ import 'package:tiktok/constants/sizes.dart';
 class AuthButton extends StatelessWidget {
   final String text;
   final FaIcon icon;
-  final Function(BuildContext context) onTap;
+  final void Function(BuildContext context) onTap;
 
   const AuthButton({
     super.key,
@@ -38,15 +38,20 @@ class AuthButton extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: icon,
               ),
-              Expanded(
-                child: Text(
-                  text,
-                  style: const TextStyle(
-                    fontSize: Sizes.size16,
-                    fontWeight: FontWeight.w600,
+              Flex(
+                direction: Axis.horizontal,
+                children: [
+                  Expanded(
+                    child: Text(
+                      text,
+                      style: const TextStyle(
+                        fontSize: Sizes.size16,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  textAlign: TextAlign.center,
-                ),
+                ],
               ),
             ],
           ),

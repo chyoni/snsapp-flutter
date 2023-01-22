@@ -35,3 +35,7 @@
 ### #08 PasswordScreen
 
 ### #09 BirthdayScreen
+
+### #10 LoginFormScreen
+
+- New features: - `Form`, `TextFormField` - 지금까지는 TextField로 값을 Controller를 통해 다루었다면 Form Widget안에 TextFormField를 사용해서 FormState를 다루어서 사용할 수도 있다. 그게 LoginFormScreen으로 구현된 내용들이다.
