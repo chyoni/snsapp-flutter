@@ -59,3 +59,7 @@
 ### #15 pushAndRemoveUntil
 
 - New features: - `pushAndRemoveUntil` - 이 녀석은 네비게이팅을 할 때 그 전 페이지를 돌아갈 수 있냐 없냐를 결정할 수 있는 함수
+
+### #16 BottomNavigationBar
+
+- New features: - `BottomNavigationBar` - 이 녀석이 이제 바텀 네비게이션바를 만들 수 있는 녀석
