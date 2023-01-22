@@ -55,3 +55,7 @@
 
 - New features: - `AnimatedCrossFade` - 이 녀석은 두 가지의 화면을 가지고 애니메이션으로 onboard screen을 구현할 수 있는데 구현하는 방식이 재밌다.
   사용자의 드래그 offset을 통해서 왼쪽에서 오른쪽 또는 오른쪽에서 왼쪽으로 이동하는 것을 감지해서 페이지를 보여주냐 마냐를 설정하고 애니메이션을 주는녀석
+
+### #15 pushAndRemoveUntil
+
+- New features: - `pushAndRemoveUntil` - 이 녀석은 네비게이팅을 할 때 그 전 페이지를 돌아갈 수 있냐 없냐를 결정할 수 있는 함수

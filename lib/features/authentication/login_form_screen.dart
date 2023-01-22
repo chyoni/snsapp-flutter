@@ -32,11 +32,16 @@ class _LoginFormScreenState extends State<LoginFormScreen> {
     if (formKey.currentState != null) {
       if (formKey.currentState!.validate()) {
         formKey.currentState?.save();
-        Navigator.push(
+        // ! pushAndRemoveUntil은 새로운 페이지로 라우팅을 하는데 그 전 페이지들로 다시 돌아갈 수 있냐마냐를 결정할 수 있다.
+        // ! 그게 세번째 인자인 Function(route)인데 얘가 false를 리턴하면 그 전 페이지로 돌아갈 수 없게 네비게이팅한다.
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
             builder: (context) => const InterestsScreen(),
           ),
+          (route) {
+            return false;
+          },
         );
       }
     }
