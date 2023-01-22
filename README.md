@@ -50,3 +50,8 @@
 
 - New features: - `DefaultTabController`, `TabBarView`, `TabPageSelector` - 이 녀석들을 가지고 그 앱을 설치하고 최초로 실행하면 막 튜토리얼 같은 화면들 그걸 이제 onboard screen이라고 하는데
   그것들을 저 세 아이들로 구현하기 아주 용이하다.
+
+### #14 OnBoard Screen 2
+
+- New features: - `AnimatedCrossFade` - 이 녀석은 두 가지의 화면을 가지고 애니메이션으로 onboard screen을 구현할 수 있는데 구현하는 방식이 재밌다.
+  사용자의 드래그 offset을 통해서 왼쪽에서 오른쪽 또는 오른쪽에서 왼쪽으로 이동하는 것을 감지해서 페이지를 보여주냐 마냐를 설정하고 애니메이션을 주는녀석
