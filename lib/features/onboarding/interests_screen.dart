@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/onboarding/widgets/interest_button.dart';
 
 const interests = [
   "Daily Life",
@@ -118,33 +119,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   spacing: 15,
                   children: [
                     for (var interest in interests)
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: Sizes.size16,
-                          horizontal: Sizes.size24,
-                        ),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Colors.black.withOpacity(0.1),
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              Sizes.size32,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.05),
-                                blurRadius: 5,
-                                spreadRadius: 5,
-                              )
-                            ]),
-                        child: Text(
-                          interest,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
+                      InterestButton(interest: interest),
                   ],
                 )
               ],
@@ -165,15 +140,14 @@ class _InterestsScreenState extends State<InterestsScreen> {
               horizontal: Sizes.size10,
             ),
             decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor,
               borderRadius: BorderRadius.circular(Sizes.size8),
-              border: Border.all(
-                color: Colors.black.withOpacity(0.3),
-              ),
             ),
             child: const Text(
               "Next",
               textAlign: TextAlign.center,
               style: TextStyle(
+                color: Colors.white,
                 fontSize: Sizes.size16,
                 fontWeight: FontWeight.w500,
               ),

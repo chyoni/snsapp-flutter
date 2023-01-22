@@ -43,3 +43,5 @@
 ### #11 InterestsScreen
 
 - New features: - `ScrollBar`, `ScrollController` - 그 헤더에 텍스트가 스크롤바가 얼마나 내려갔느냐에 따라 텍스트가 보여지고 안보여지고를 아주 간단하게 ScrollController로 구현할 수 있다.
+
+### #12 Interests Button
