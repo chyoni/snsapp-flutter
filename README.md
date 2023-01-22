@@ -45,3 +45,8 @@
 - New features: - `ScrollBar`, `ScrollController` - 그 헤더에 텍스트가 스크롤바가 얼마나 내려갔느냐에 따라 텍스트가 보여지고 안보여지고를 아주 간단하게 ScrollController로 구현할 수 있다.
 
 ### #12 Interests Button
+
+### #13 OnBoard Screen
+
+- New features: - `DefaultTabController`, `TabBarView`, `TabPageSelector` - 이 녀석들을 가지고 그 앱을 설치하고 최초로 실행하면 막 튜토리얼 같은 화면들 그걸 이제 onboard screen이라고 하는데
+  그것들을 저 세 아이들로 구현하기 아주 용이하다.
