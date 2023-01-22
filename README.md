@@ -67,3 +67,5 @@
 ### #17 CupertinoTabScaffold
 
 - New features: - `CupertinoTabScaffold`, `CupertinoTabBar` - 이제 이것들은 애플 테마로 만들어진 바텀 네비게이션 바, `BottomNavigationBar`는 MaterialApp에 적합한 테마 즉 구글 테마로 만들어진 바텀 네비게이션 바
+
+### #18 Custom Bottom Navigation Bar
