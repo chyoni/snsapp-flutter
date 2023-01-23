@@ -22,6 +22,14 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Stack(children: [
+        Offstage(
+          offstage: selectedIndex != 0,
+          child: const Center(
+            child: Text("Home"),
+          ),
+        )
+      ]),
       bottomNavigationBar: BottomAppBar(
         color: Colors.black,
         child: Padding(
@@ -33,24 +41,28 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 text: "Home",
                 isSelected: selectedIndex == 0,
                 icon: FontAwesomeIcons.house,
+                selectedIcon: FontAwesomeIcons.house,
                 onTap: () => onTap(0),
               ),
               NavTab(
                 text: "Discover",
                 isSelected: selectedIndex == 1,
-                icon: FontAwesomeIcons.magnifyingGlass,
+                icon: FontAwesomeIcons.compass,
+                selectedIcon: FontAwesomeIcons.solidCompass,
                 onTap: () => onTap(1),
               ),
               NavTab(
                 text: "Inbox",
                 isSelected: selectedIndex == 3,
                 icon: FontAwesomeIcons.message,
+                selectedIcon: FontAwesomeIcons.solidMessage,
                 onTap: () => onTap(3),
               ),
               NavTab(
                 text: "Profile",
                 isSelected: selectedIndex == 4,
                 icon: FontAwesomeIcons.user,
+                selectedIcon: FontAwesomeIcons.solidUser,
                 onTap: () => onTap(4),
               ),
             ],

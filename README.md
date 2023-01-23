@@ -69,3 +69,18 @@
 - New features: - `CupertinoTabScaffold`, `CupertinoTabBar` - 이제 이것들은 애플 테마로 만들어진 바텀 네비게이션 바, `BottomNavigationBar`는 MaterialApp에 적합한 테마 즉 구글 테마로 만들어진 바텀 네비게이션 바
 
 ### #18 Custom Bottom Navigation Bar
+
+### #19 Remain my nav tab page
+
+- 인스타그램, 페이스북 등 우리가 흔히 사용하는 앱은 우리가 바텀 네비게이션 탭에서 예를 들어 홈 버튼에서 뭔가 스크롤을 죽죽 내리다가 프로필 탭을 눌렀다가 다시 홈으로 와도 우리가 딱 스크롤을 내린 그 지점으로 다시 돌아온다. 그것은 화면이 destroy 되지 않았다는 뜻인데 그것을 구현하는 방식이 `Stack`에 바텀 네비게이션에서 사용될 스크린을 차곡차곡 쌓아두고 `Offstage`라는 widget을 사용하는 방법이다.
+
+```dart
+body: Stack(children: [
+  Offstage(
+    offstage: selectedIndex != 0,
+    child: const Center(
+      child: Text("Home"),
+    ),
+  )
+]),
+```
