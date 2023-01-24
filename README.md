@@ -98,3 +98,7 @@ body: Stack(children: [
 ### #23 VisibilityDetector
 
 - New features: - `VisibilityDetector` - 현재 문제가 뭐였냐면, 다음 비디오가 완전히 보이기 전에 실행이 되고 있는 상태였음, 그래서 비디오가 정확히 전부 다 보이기전까지 실행하는것을 멈춘상태에서 다 보일 때 실행하게끔 변경
+
+### #24 IgnorePointer
+
+- New features: - `IgnorePointer` - 비디오 정지 중에 노출되는 플레이 버튼 아이콘이 Stack의 맨 위에 올려있고 그 아래에 GestureDetector가 있기 때문에 당연히 아이콘을 눌러도 비디오 실행이 다시 되지 않는다. 그렇다고 그 아이콘도 GestureDetector로 감싸기 보단 IgnorePointer라는 위젯을 사용해서 해당 아이콘의 포인팅을 무시하는 방법을 사용
