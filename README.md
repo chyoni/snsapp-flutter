@@ -90,3 +90,7 @@ body: Stack(children: [
 ### #21 Infinite Scroll
 
 - 현재 커밋의 `video_timeline_screen.dart` 파일 참고
+
+### #22 VideoPlayer
+
+- New features: - `VideoPlayer`, `VideoPlayerController` - flutter의 패키지 중 하나로 비디오를 실행하고 컨트롤할 수 있는 녀석들, 그리고 이 커밋에서 어떻게 flutter로 로컬 assets에 접근하는지 yaml 파일을 작업하는 내용들도 있다.
