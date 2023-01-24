@@ -94,3 +94,7 @@ body: Stack(children: [
 ### #22 VideoPlayer
 
 - New features: - `VideoPlayer`, `VideoPlayerController` - flutter의 패키지 중 하나로 비디오를 실행하고 컨트롤할 수 있는 녀석들, 그리고 이 커밋에서 어떻게 flutter로 로컬 assets에 접근하는지 yaml 파일을 작업하는 내용들도 있다.
+
+### #23 VisibilityDetector
+
+- New features: - `VisibilityDetector` - 현재 문제가 뭐였냐면, 다음 비디오가 완전히 보이기 전에 실행이 되고 있는 상태였음, 그래서 비디오가 정확히 전부 다 보이기전까지 실행하는것을 멈춘상태에서 다 보일 때 실행하게끔 변경
