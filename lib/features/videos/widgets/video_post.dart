@@ -18,10 +18,14 @@ class VideoPost extends StatefulWidget {
   State<VideoPost> createState() => _VideoPostState();
 }
 
-class _VideoPostState extends State<VideoPost> {
+class _VideoPostState extends State<VideoPost>
+    with SingleTickerProviderStateMixin {
   // ! VideoPlayer의 실행 비디오를 설정
   final VideoPlayerController _videoPlayerController =
       VideoPlayerController.asset("assets/videos/video.mp4");
+  late final AnimationController _animationController;
+  bool _isPaused = false;
+  final Duration _animationDuration = const Duration(milliseconds: 200);
 
   // ! 비디오 컨트롤러의 비디오 전체 길이가 현재 사용자의 비디오 실행기간이 같다 즉, 비디오가 다 끝났다면 props로 받은 onVideoFinished()를 실행
   void _onVideoChange() {
@@ -44,6 +48,19 @@ class _VideoPostState extends State<VideoPost> {
   void initState() {
     super.initState();
     _initVideoPlayer();
+    // ! value는 기본값, lowerBound와 upperBound는 하단값 / 상단값
+    _animationController = AnimationController(
+      vsync: this,
+      lowerBound: 1.0,
+      upperBound: 1.5,
+      value: 1.5,
+      duration: _animationDuration,
+    );
+    // ! 애니메이션 컨트롤러의 이벤트 리스너를 등록 (이 녀석은 스케일 업->다운(reverse()), 다운->업(forward())이 일어날 때 호출될 것임
+    // ! 그리고 그렇게 scale이 커지고 작아지는 순간에 모든 과정을 다 화면에 뿌려주기 위해 setState를 호출)
+    _animationController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -61,9 +78,16 @@ class _VideoPostState extends State<VideoPost> {
   void _onTogglePause() {
     if (_videoPlayerController.value.isPlaying) {
       _videoPlayerController.pause();
+      // ! 플레이 중 스탑을 하면 애니메이션 컨트롤러가 upperBound -> lowerBound로 value를 변경하는 statement
+      _animationController.reverse();
     } else {
       _videoPlayerController.play();
+      // ! 스탑 중 플레이를 하면 애니메이션 컨트롤러가 lowerBound -> upperBound로 value를 변경하는 statement
+      _animationController.forward();
     }
+    setState(() {
+      _isPaused = !_isPaused;
+    });
   }
 
   @override
@@ -85,11 +109,18 @@ class _VideoPostState extends State<VideoPost> {
               onTap: _onTogglePause,
             ),
           ),
-          const Positioned.fill(
+          Positioned.fill(
             child: IgnorePointer(
               child: Center(
-                child: FaIcon(FontAwesomeIcons.play,
-                    color: Colors.white, size: Sizes.size52),
+                child: Transform.scale(
+                  scale: _animationController.value,
+                  child: AnimatedOpacity(
+                    opacity: _isPaused ? 1 : 0,
+                    duration: _animationDuration,
+                    child: const FaIcon(FontAwesomeIcons.play,
+                        color: Colors.white, size: Sizes.size52),
+                  ),
+                ),
               ),
             ),
           ),

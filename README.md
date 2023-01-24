@@ -102,3 +102,7 @@ body: Stack(children: [
 ### #24 IgnorePointer
 
 - New features: - `IgnorePointer` - 비디오 정지 중에 노출되는 플레이 버튼 아이콘이 Stack의 맨 위에 올려있고 그 아래에 GestureDetector가 있기 때문에 당연히 아이콘을 눌러도 비디오 실행이 다시 되지 않는다. 그렇다고 그 아이콘도 GestureDetector로 감싸기 보단 IgnorePointer라는 위젯을 사용해서 해당 아이콘의 포인팅을 무시하는 방법을 사용
+
+### #25 AnimationController
+
+- 비디오를 play -> pause, pause -> play로 컨트롤할 때 앞에 보여지는 플레이 버튼의 scaling에 대한 애니메이션 효과를 넣음
