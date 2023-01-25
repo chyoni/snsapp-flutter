@@ -124,3 +124,5 @@ body: Stack(children: [
 - 키보드가 노출될 때 Scaffold의 bottomNavigationBar를 사용해서 커멘트 입력창을 만들면 해당 bottomNavigationBar가 사라졌다가 키보드가 없어질 때 나타나기 때문에, bottomNavigationBar에서 그냥 Stack에 Positioned widget으로 변경했고, 그 안에 TextField를 넣었음.
 
 ### #30 Comment sheet and text field DONE
+
+### #31 Discover Screen Init
