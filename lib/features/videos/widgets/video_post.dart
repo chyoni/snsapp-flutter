@@ -108,6 +108,8 @@ class _VideoPostState extends State<VideoPost>
     // ! 이 showModalBottomSheet은 Future 타입이고 그 이유는 얘가 실행되면 얘가 다시 닫힐때까지 이 밑에 코드가 실행되지 않는다.
     await showModalBottomSheet(
       context: context,
+      // ! 얘는 만약 이 모달 바텀 시트안에서 스크롤뷰를 사용할 때 그녀석의 크기를 조절하고 싶으면 이 값을 true로 준다.
+      isScrollControlled: true,
       // ! 이 backgroundColor를 transparent로 해주지 않으면 borderRadius를 주어도 radius가 안 먹네 ?
       backgroundColor: Colors.transparent,
       builder: (context) => const VideoComments(),

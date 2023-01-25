@@ -32,6 +32,9 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // ! 이거는 이제 키보드가 노출될 때 화면의 사이즈를 변경하는 작업을 안하겠다는 의미
+      // ! 왜 넣었냐면 댓글창에서 코멘트 입력하려고 키보드 띄우면 뒤에 동영상 부분이 쪼그라 들어서
+      resizeToAvoidBottomInset: false,
       backgroundColor: selectedIndex == 0 ? Colors.black : Colors.white,
       body: Stack(
         children: [
