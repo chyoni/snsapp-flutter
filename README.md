@@ -114,3 +114,7 @@ body: Stack(children: [
 ### #27 RefreshIndicator
 
 - flutter에서 제공하는 RefreshIndicator가 있다, 그리고 Scaffold의 기본 백그라운드 컬러는 흰색이다.
+
+### #28 showModalBottomSheet
+
+- New features: - `showModalBottomSheet()` - 얘는 이제 바텀시트가 모달로 나오는 그런 아이

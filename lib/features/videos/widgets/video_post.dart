@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/videos/widgets/video_button.dart';
+import 'package:tiktok/features/videos/widgets/video_comments.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -71,7 +72,9 @@ class _VideoPostState extends State<VideoPost>
   }
 
   void _onVisibilityChanged(VisibilityInfo info) {
-    if (info.visibleFraction == 1 && !_videoPlayerController.value.isPlaying) {
+    if (info.visibleFraction == 1 &&
+        !_isPaused &&
+        !_videoPlayerController.value.isPlaying) {
       _videoPlayerController.play();
     }
   }
@@ -95,6 +98,21 @@ class _VideoPostState extends State<VideoPost>
     setState(() {
       _isAllDesc = !_isAllDesc;
     });
+  }
+
+  void _onCommentsTap(BuildContext context) async {
+    if (_videoPlayerController.value.isPlaying) {
+      _onTogglePause();
+    }
+    // ! flutter에서 제공하는 바텀 모달 시트
+    // ! 이 showModalBottomSheet은 Future 타입이고 그 이유는 얘가 실행되면 얘가 다시 닫힐때까지 이 밑에 코드가 실행되지 않는다.
+    await showModalBottomSheet(
+      context: context,
+      // ! 이 backgroundColor를 transparent로 해주지 않으면 borderRadius를 주어도 radius가 안 먹네 ?
+      backgroundColor: Colors.transparent,
+      builder: (context) => const VideoComments(),
+    );
+    _onTogglePause();
   }
 
   @override
@@ -215,8 +233,8 @@ class _VideoPostState extends State<VideoPost>
             bottom: 30,
             right: 20,
             child: Column(
-              children: const [
-                CircleAvatar(
+              children: [
+                const CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
@@ -225,11 +243,16 @@ class _VideoPostState extends State<VideoPost>
                   child: Text("백예린"),
                 ),
                 Gaps.v20,
-                VideoButton(icon: FontAwesomeIcons.solidHeart, text: "2.9M"),
+                const VideoButton(
+                    icon: FontAwesomeIcons.solidHeart, text: "2.9M"),
                 Gaps.v20,
-                VideoButton(icon: FontAwesomeIcons.solidComment, text: "33K"),
+                GestureDetector(
+                  onTap: () => _onCommentsTap(context),
+                  child: const VideoButton(
+                      icon: FontAwesomeIcons.solidComment, text: "33K"),
+                ),
                 Gaps.v20,
-                VideoButton(icon: FontAwesomeIcons.share, text: "Share"),
+                const VideoButton(icon: FontAwesomeIcons.share, text: "Share"),
               ],
             ),
           ),
