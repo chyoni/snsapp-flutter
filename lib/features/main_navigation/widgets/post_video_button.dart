@@ -3,7 +3,12 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/sizes.dart';
 
 class PostVideoButton extends StatelessWidget {
-  const PostVideoButton({super.key});
+  final bool isNotHome;
+
+  const PostVideoButton({
+    super.key,
+    required this.isNotHome,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -40,13 +45,13 @@ class PostVideoButton extends StatelessWidget {
             horizontal: Sizes.size11,
           ),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: isNotHome ? Colors.black : Colors.white,
             borderRadius: BorderRadius.circular(Sizes.size8),
           ),
-          child: const Center(
+          child: Center(
             child: FaIcon(
               FontAwesomeIcons.plus,
-              color: Colors.black,
+              color: isNotHome ? Colors.white : Colors.black,
               size: Sizes.size20,
             ),
           ),
