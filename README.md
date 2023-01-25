@@ -106,3 +106,7 @@ body: Stack(children: [
 ### #25 AnimationController
 
 - 비디오를 play -> pause, pause -> play로 컨트롤할 때 앞에 보여지는 플레이 버튼의 scaling에 대한 애니메이션 효과를 넣음
+
+### #26 Convert addListener to AnimatedBuilder
+
+- 이전 커밋에서는 이벤트리스너를 사용하여 애니메이션을 실행 시 계속해서 build 함수를 리턴하는 setState를 사용했다면, AnimatedBuilder를 사용해서 애니메이션 시 새롭게 렌더링할 컴포넌트만 딱 집어서 빌드하는 방법으로 교체
