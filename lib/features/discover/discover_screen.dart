@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
@@ -25,6 +24,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
     with TickerProviderStateMixin {
   late final TabController _tabController;
   final TextEditingController _textEditingController = TextEditingController();
+  bool _showClearButton = false;
 
   @override
   void initState() {
@@ -39,10 +39,26 @@ class _DiscoverScreenState extends State<DiscoverScreen>
   }
 
   void _onSearchChanged(String value) {
-    print("Searching for value: $value");
+    if (_textEditingController.value.text.isNotEmpty) {
+      setState(() {
+        _showClearButton = true;
+      });
+    } else {
+      setState(() {
+        _showClearButton = false;
+      });
+    }
+  }
+
+  void _clearSearchTextTap() {
+    setState(() {
+      _textEditingController.text = "";
+      _showClearButton = false;
+    });
   }
 
   void _onSearchSubmitted(String value) {
+    // ignore: avoid_print
     print("Submitted $value");
   }
 
@@ -60,11 +76,58 @@ class _DiscoverScreenState extends State<DiscoverScreen>
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 1,
-          title: CupertinoSearchTextField(
+          title: TextField(
             controller: _textEditingController,
             onChanged: _onSearchChanged,
             onSubmitted: _onSearchSubmitted,
             autocorrect: false,
+            decoration: InputDecoration(
+              hintText: "Search",
+              iconColor: Colors.grey,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(Sizes.size12),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: Sizes.size14,
+              ),
+              fillColor: Colors.grey.shade200,
+              prefixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  FaIcon(
+                    FontAwesomeIcons.magnifyingGlass,
+                    size: Sizes.size14,
+                    color: Colors.grey,
+                  ),
+                ],
+              ),
+              suffixIcon: _showClearButton
+                  ? GestureDetector(
+                      onTap: _clearSearchTextTap,
+                      child: Container(
+                        width: 10,
+                        padding: const EdgeInsets.only(
+                          left: 0,
+                          right: Sizes.size10,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            FaIcon(
+                              FontAwesomeIcons.solidCircleXmark,
+                              size: Sizes.size16,
+                              color: Colors.grey,
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  : null,
+            ),
           ),
           bottom: TabBar(
             controller: _tabController,

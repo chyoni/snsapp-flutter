@@ -142,3 +142,5 @@ body: Stack(children: [
 ### #34 TabController
 
 - tabBarView를 통제하기 위해 TabController를 사용한다. 현재탭에서 다른탭으로 전환 시 키보드를 내리는 작업을 구현
+
+### #35 Custom TextField No CupertinoTextField
