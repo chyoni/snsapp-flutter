@@ -126,3 +126,7 @@ body: Stack(children: [
 ### #30 Comment sheet and text field DONE
 
 ### #31 Discover Screen Init
+
+### #32 GridView
+
+- Flutter에서 Gridview를 만드는 방법
