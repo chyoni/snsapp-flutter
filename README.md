@@ -130,3 +130,11 @@ body: Stack(children: [
 ### #32 GridView
 
 - Flutter에서 Gridview를 만드는 방법
+
+### #33 AspectRatio / FadeInImage / DefaultTextStyle / AssetImage
+
+- New features:
+  - `AspectRatio` - 이 위젯의 child는 비율을 정할 수 있다.
+  - `FadeInImage` - Image를 렌더링할 때 로드하는 동안에는 정해진 placeholder image를 보여주고 로드가 끝나면 FadeIn으로 스르륵 이미지를 보여준다.
+  - `DefaultTextStyle` - 이 녀석은 이 녀석의 child로 들어오는 위젯들의 텍스트 스타일 기본값을 지정해줄 수 있다.
+  - `AssetImage` - `NetworkImage`가 있다면 `AssetImage`도 있는법.
