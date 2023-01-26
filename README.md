@@ -138,3 +138,7 @@ body: Stack(children: [
   - `FadeInImage` - Image를 렌더링할 때 로드하는 동안에는 정해진 placeholder image를 보여주고 로드가 끝나면 FadeIn으로 스르륵 이미지를 보여준다.
   - `DefaultTextStyle` - 이 녀석은 이 녀석의 child로 들어오는 위젯들의 텍스트 스타일 기본값을 지정해줄 수 있다.
   - `AssetImage` - `NetworkImage`가 있다면 `AssetImage`도 있는법.
+
+### #34 TabController
+
+- tabBarView를 통제하기 위해 TabController를 사용한다. 현재탭에서 다른탭으로 전환 시 키보드를 내리는 작업을 구현
