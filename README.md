@@ -162,3 +162,7 @@ body: Stack(children: [
 ### #40 RotationTransition Animation
 
 ### #41 SlideTransition Animation
+
+### #42 AnimatedModalBarrier
+
+- `AnimatedModalBarrier`는 그 모달창 뒤에 오버레이 띄워주는 녀석

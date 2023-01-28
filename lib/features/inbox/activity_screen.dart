@@ -39,6 +39,7 @@ class _ActivityScreenState extends State<ActivityScreen>
       "icon": FontAwesomeIcons.tiktok,
     }
   ];
+  bool _showBarrier = false;
 
   late final AnimationController _animationController;
   // ! begin 0.0 과 end 0.5 가 의미하는건 180도만 회전할 것을 의미 만약, end가 1.0이면 360도 회전
@@ -51,6 +52,11 @@ class _ActivityScreenState extends State<ActivityScreen>
       Tween(begin: const Offset(0, -1), end: Offset.zero)
           .animate(_animationController);
 
+  late final Animation<Color?> _barrierAnimation = ColorTween(
+    begin: Colors.transparent,
+    end: Colors.black38,
+  ).animate(_animationController);
+
   @override
   void initState() {
     super.initState();
@@ -60,12 +66,18 @@ class _ActivityScreenState extends State<ActivityScreen>
     );
   }
 
-  void _onTitleTap() {
+  void _toggleTitleAnimation() async {
     if (_animationController.isCompleted) {
-      _animationController.reverse();
+      // ! await이 추가된 이유는 reverse나 forward나 정해진 시간동안에 애니메이션이 일어나는데 그 시간전에 setState가 발동해서 바로 배리어가 사라져버림
+      // ! 그게 별로 안이쁘니까 기다렸다가 setState를 실행
+      await _animationController.reverse();
     } else {
       _animationController.forward();
     }
+
+    setState(() {
+      _showBarrier = !_showBarrier;
+    });
   }
 
   // ! 이건 우리가 알림을 제스쳐로 지울 때 그 녀석을 위젯트리에서도 날려줘야한다. Dismissible은 위젯을 날리지만 위젯트리에서는 남아있기 때문에 날려줘야한다.
@@ -79,7 +91,7 @@ class _ActivityScreenState extends State<ActivityScreen>
     return Scaffold(
       appBar: AppBar(
         title: GestureDetector(
-          onTap: _onTitleTap,
+          onTap: _toggleTitleAnimation,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -201,6 +213,12 @@ class _ActivityScreenState extends State<ActivityScreen>
                 ),
             ],
           ),
+          if (_showBarrier)
+            AnimatedModalBarrier(
+              color: _barrierAnimation,
+              dismissible: true,
+              onDismiss: _toggleTitleAnimation,
+            ),
           SlideTransition(
             position: _panelAnimation,
             child: Container(
