@@ -170,3 +170,5 @@ body: Stack(children: [
 ### #43 Chat Screen
 
 ### #44 AnimatedList
+
+### #45 AnimatedList add / remove item
