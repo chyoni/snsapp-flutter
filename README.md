@@ -156,3 +156,5 @@ body: Stack(children: [
 ### #38 Dismissible
 
 - `Dismissible`는 그 앱에서 보면 알림뜰 때 제스쳐로 옆으로 드래그하면 알림 슉 하고 사라지는거 구현해주는 기능
+
+### #39 Dismissible's onDismissed function
