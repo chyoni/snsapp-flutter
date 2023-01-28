@@ -148,3 +148,7 @@ body: Stack(children: [
 ### #36 ListTile
 
 - ListTile은 리스트 아이템을 간단하게 만들어내는 위젯
+
+### #37 RichText
+
+- RichText는 그 글자안에 어디까지는 뭐 굵고 어디까지는 색이 다르고 이렇게 한 문장에도 여러 스타일을 줄 때 이녀석을 쓰면 용이하다.

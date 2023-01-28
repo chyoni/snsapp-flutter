@@ -20,6 +20,10 @@ class TikTokApp extends StatelessWidget {
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: Color(0xFFE9435A),
           ),
+          // ! 이거는 그 클릭할때 반짝하는 이펙트 없애는거
+          splashColor: Colors.transparent,
+          // ! 이거는 길게 누를때 반짝하는거 없애는거
+          // highlightColor: Colors.transparent,
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
