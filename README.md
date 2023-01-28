@@ -160,3 +160,5 @@ body: Stack(children: [
 ### #39 Dismissible's onDismissed function
 
 ### #40 RotationTransition Animation
+
+### #41 SlideTransition Animation
