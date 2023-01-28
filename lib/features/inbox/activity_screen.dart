@@ -10,8 +10,31 @@ class ActivityScreen extends StatefulWidget {
   State<ActivityScreen> createState() => _ActivityScreenState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen> {
+class _ActivityScreenState extends State<ActivityScreen>
+    with SingleTickerProviderStateMixin {
   final List<String> _notifications = List.generate(20, (index) => "${index}h");
+
+  late final AnimationController _animationController;
+  // ! begin 0.0 과 end 0.5 가 의미하는건 180도만 회전할 것을 의미 만약, end가 1.0이면 360도 회전
+  late final Animation<double> _animation =
+      Tween(begin: 0.0, end: 0.5).animate(_animationController);
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+  }
+
+  void _onTitleTap() {
+    if (_animationController.isCompleted) {
+      _animationController.reverse();
+    } else {
+      _animationController.forward();
+    }
+  }
 
   // ! 이건 우리가 알림을 제스쳐로 지울 때 그 녀석을 위젯트리에서도 날려줘야한다. Dismissible은 위젯을 날리지만 위젯트리에서는 남아있기 때문에 날려줘야한다.
   void _onDismissed(String noti) {
@@ -23,7 +46,23 @@ class _ActivityScreenState extends State<ActivityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("All activity"),
+        title: GestureDetector(
+          onTap: _onTitleTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text("All activity"),
+              Gaps.h2,
+              RotationTransition(
+                turns: _animation,
+                child: const FaIcon(
+                  FontAwesomeIcons.chevronDown,
+                  size: Sizes.size14,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       body: ListView(
         children: [
