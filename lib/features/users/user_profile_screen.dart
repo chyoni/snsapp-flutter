@@ -248,22 +248,71 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 ),
                 itemBuilder: (context, index) => Column(
                   children: [
-                    Container(
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          Sizes.size4,
+                    Stack(
+                      children: [
+                        Container(
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              Sizes.size4,
+                            ),
+                          ),
+                          child: AspectRatio(
+                            aspectRatio: 9 / 15,
+                            child: FadeInImage.assetNetwork(
+                              fit: BoxFit.cover,
+                              placeholder: "assets/images/placeholder.jpg",
+                              image:
+                                  "https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80",
+                            ),
+                          ),
                         ),
-                      ),
-                      child: AspectRatio(
-                        aspectRatio: 9 / 15,
-                        child: FadeInImage.assetNetwork(
-                          fit: BoxFit.cover,
-                          placeholder: "assets/images/placeholder.jpg",
-                          image:
-                              "https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80",
+                        if (index == 0)
+                          Positioned(
+                            top: 5,
+                            left: 5,
+                            child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: Sizes.size4,
+                                  vertical: Sizes.size2,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context).primaryColor,
+                                  borderRadius: BorderRadius.circular(
+                                    Sizes.size4,
+                                  ),
+                                ),
+                                child: const Text(
+                                  "Pinned",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: Sizes.size12,
+                                  ),
+                                )),
+                          ),
+                        Positioned(
+                          bottom: 2,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.play_arrow_outlined,
+                                size: Sizes.size28,
+                                color: Colors.white,
+                              ),
+                              Gaps.h5,
+                              Text(
+                                "4.1M",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ],
                 ),
