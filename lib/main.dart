@@ -35,7 +35,7 @@ class TikTokApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const MainNavigationScreen() // ! 1. SignUpScreen(),
+        home: const MainNavigationScreen() // SignUpScreen(),
         );
   }
 }
