@@ -174,3 +174,8 @@ body: Stack(children: [
 ### #45 AnimatedList add / remove item
 
 ### #46 ChatDetail Screen
+
+### #47 CustomScrollView
+
+- CustomScrollView는 ScrollView를 사용하기 굉장히 좋은 것들을 가져다놓은건데 그 녀석들이 이 아래와 같다.
+- `SliverAppBar`, `SliverToBoxAdapter`
