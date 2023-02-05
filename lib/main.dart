@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/authentication/sign_up_screen.dart';
+import 'package:tiktok/features/main_navigation/main_navigation_screen.dart';
 
 void main() async {
   // ! 얘는 runApp()을 호출하기전 설정해야할 무언가가 있을 때 runApp() 이전에 호출시키는 녀석
@@ -46,7 +46,7 @@ class TikTokApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const SignUpScreen() //MainNavigationScreen()
+        home: const MainNavigationScreen() //SignUpScreen()
         );
   }
 }

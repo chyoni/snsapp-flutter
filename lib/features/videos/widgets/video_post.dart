@@ -31,6 +31,7 @@ class _VideoPostState extends State<VideoPost>
       VideoPlayerController.asset("assets/videos/video.mp4");
   late final AnimationController _animationController;
   bool _isPaused = false;
+  bool _isMuted = false;
   bool _isAllDesc = false;
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
@@ -51,9 +52,26 @@ class _VideoPostState extends State<VideoPost>
     // ! 만약, Web이라면 소리를 0으로 한 상태로 autoplay를 하겠다는 의미
     if (kIsWeb) {
       await _videoPlayerController.setVolume(0);
+      _isMuted = true;
     }
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
+  }
+
+  void _onVolumeHighTap() async {
+    if (!_isMuted) return;
+    await _videoPlayerController.setVolume(1);
+    setState(() {
+      _isMuted = !_isMuted;
+    });
+  }
+
+  void _onVolumeMuteTap() async {
+    if (_isMuted) return;
+    await _videoPlayerController.setVolume(0);
+    setState(() {
+      _isMuted = !_isMuted;
+    });
   }
 
   @override
@@ -247,6 +265,18 @@ class _VideoPostState extends State<VideoPost>
             right: 20,
             child: Column(
               children: [
+                !_isMuted
+                    ? GestureDetector(
+                        onTap: _onVolumeMuteTap,
+                        child: const VideoButton(
+                            icon: FontAwesomeIcons.volumeHigh, text: ""),
+                      )
+                    : GestureDetector(
+                        onTap: _onVolumeHighTap,
+                        child: const VideoButton(
+                            icon: FontAwesomeIcons.volumeXmark, text: ""),
+                      ),
+                Gaps.v10,
                 const CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
