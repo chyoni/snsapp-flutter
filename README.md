@@ -192,3 +192,5 @@ body: Stack(children: [
 ### #50 SwitchListTile, CheckboxListTile
 
 ### #51 showCupertinoDialog, showDialog
+
+### #52 showCupertinoModalPopup
