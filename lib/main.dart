@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/sign_up_screen.dart';
 
-void main() {
+void main() async {
+  // ! 얘는 runApp()을 호출하기전 설정해야할 무언가가 있을 때 runApp() 이전에 호출시키는 녀석
+  WidgetsFlutterBinding.ensureInitialized();
+  // ! 이거는 이제 디바이스가 세로로 놓여져 있을 때 보여지는 화면으로만 보여지게 하는 녀석,
+  // ! 즉, 가로로 바꿔도 화면이 전환되지 않게끔 설정해줌
+  await SystemChrome.setPreferredOrientations(
+    [
+      DeviceOrientation.portraitUp,
+    ],
+  );
   runApp(const TikTokApp());
 }
 

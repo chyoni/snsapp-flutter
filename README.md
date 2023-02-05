@@ -198,3 +198,5 @@ body: Stack(children: [
 ### #53 OrientationBuilder
 
 - 이녀석은 이제 핸드폰을 가로로 만들었을 때와 세로로 만들었을 때 다르게 렌더링하기 위해 필요한 Builder고 그 작업에 대한 커밋
+
+### #54 setPreferredOrientations
