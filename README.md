@@ -202,3 +202,5 @@ body: Stack(children: [
 ### #54 setPreferredOrientations
 
 ### #55 Mute or not on video
+
+### #56 Responsive Design (Web view)
