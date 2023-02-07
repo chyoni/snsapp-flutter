@@ -79,57 +79,62 @@ class _DiscoverScreenState extends State<DiscoverScreen>
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           elevation: 1,
-          title: TextField(
-            controller: _textEditingController,
-            onChanged: _onSearchChanged,
-            onSubmitted: _onSearchSubmitted,
-            autocorrect: false,
-            decoration: InputDecoration(
-              hintText: "Search",
-              iconColor: Colors.grey,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(Sizes.size12),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: Sizes.size14,
-              ),
-              fillColor: Colors.grey.shade200,
-              prefixIcon: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  FaIcon(
-                    FontAwesomeIcons.magnifyingGlass,
-                    size: Sizes.size14,
-                    color: Colors.grey,
-                  ),
-                ],
-              ),
-              suffixIcon: _showClearButton
-                  ? GestureDetector(
-                      onTap: _clearSearchTextTap,
-                      child: Container(
-                        width: 10,
-                        padding: const EdgeInsets.only(
-                          left: 0,
-                          right: Sizes.size10,
+          title: Container(
+            constraints: const BoxConstraints(
+              maxWidth: Breakpoints.sm,
+            ),
+            child: TextField(
+              controller: _textEditingController,
+              onChanged: _onSearchChanged,
+              onSubmitted: _onSearchSubmitted,
+              autocorrect: false,
+              decoration: InputDecoration(
+                hintText: "Search",
+                iconColor: Colors.grey,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(Sizes.size12),
+                  borderSide: BorderSide.none,
+                ),
+                filled: true,
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: Sizes.size14,
+                ),
+                fillColor: Colors.grey.shade200,
+                prefixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    FaIcon(
+                      FontAwesomeIcons.magnifyingGlass,
+                      size: Sizes.size14,
+                      color: Colors.grey,
+                    ),
+                  ],
+                ),
+                suffixIcon: _showClearButton
+                    ? GestureDetector(
+                        onTap: _clearSearchTextTap,
+                        child: Container(
+                          width: 10,
+                          padding: const EdgeInsets.only(
+                            left: 0,
+                            right: Sizes.size10,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisSize: MainAxisSize.min,
+                            children: const [
+                              FaIcon(
+                                FontAwesomeIcons.solidCircleXmark,
+                                size: Sizes.size16,
+                                color: Colors.grey,
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          mainAxisSize: MainAxisSize.min,
-                          children: const [
-                            FaIcon(
-                              FontAwesomeIcons.solidCircleXmark,
-                              size: Sizes.size16,
-                              color: Colors.grey,
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : null,
+                      )
+                    : null,
+              ),
             ),
           ),
           bottom: TabBar(
