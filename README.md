@@ -204,3 +204,9 @@ body: Stack(children: [
 ### #55 Mute or not on video
 
 ### #56 Responsive Design (Web view)
+
+### #57 LayoutBuilder 
+
+- 얘는 builder function의 parameter로 context, constraints를 받는데 여기서 constraints의 maxWidth, maxHeight은 스크린의 사이즈가 아니라
+  해당 layout의 사이즈를 가르킨다. 그래서 얘를 사용하는 이유는 스크린의 사이즈가 아니라 스크린안에 이 layout의 사이즈의 변함에 따라 보여지고 말고를 정할 수 있고 그러기 위해 사용하는 widget 
+- 이 커밋에서는 discover 화면에 gridview의 item들의 layout 사이즈에 따라 하단 아바타와 유저네임을 보여주냐마냐를 결정할 때 사용했다.
