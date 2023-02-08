@@ -1,5 +1,8 @@
 {
   "signUpTitle": "{nameOfTheApp}에 가입하세요",
   "signUpSubTitle": "계정을 만들고, 다른 계정을 팔로우하고, 나만의 비디오를 만들어 공유해보세요.",
-  "loginLinkString": "Log in"
+  "loginLinkString": "Log in",
+  "likeCount": "{likeCount}",
+  "commentCount": "{commentCount}",
+  "commentTitle": "{value} {commentCount, plural, =1{댓글} other{댓글들}}"
 }

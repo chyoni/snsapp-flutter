@@ -80,13 +80,59 @@ class S {
     );
   }
 
-  /// `Log in {gender, select, male{sir} female{madam} other{human}}`
+  /// `Log in {gender, select, male{sir} female{madam} other{}}`
   String loginLinkString(String gender) {
     return Intl.message(
-      'Log in ${Intl.gender(gender, male: 'sir', female: 'madam', other: 'human')}',
+      'Log in ${Intl.gender(gender, male: 'sir', female: 'madam', other: '')}',
       name: 'loginLinkString',
       desc: '',
       args: [gender],
+    );
+  }
+
+  /// `{likeCount}`
+  String likeCount(int likeCount) {
+    final NumberFormat likeCountNumberFormat = NumberFormat.compact(
+      locale: Intl.getCurrentLocale(),
+    );
+    final String likeCountString = likeCountNumberFormat.format(likeCount);
+
+    return Intl.message(
+      '$likeCountString',
+      name: 'likeCount',
+      desc: 'Enter the like count',
+      args: [likeCountString],
+    );
+  }
+
+  /// `{commentCount}`
+  String commentCount(int commentCount) {
+    final NumberFormat commentCountNumberFormat = NumberFormat.compact(
+      locale: Intl.getCurrentLocale(),
+    );
+    final String commentCountString =
+        commentCountNumberFormat.format(commentCount);
+
+    return Intl.message(
+      '$commentCountString',
+      name: 'commentCount',
+      desc: 'Enter the comment count',
+      args: [commentCountString],
+    );
+  }
+
+  /// `{value} {commentCount, plural, =1{comment} other{comments}}`
+  String commentTitle(int value, num commentCount) {
+    final NumberFormat valueNumberFormat = NumberFormat.compact(
+      locale: Intl.getCurrentLocale(),
+    );
+    final String valueString = valueNumberFormat.format(value);
+
+    return Intl.message(
+      '$valueString ${Intl.plural(commentCount, one: 'comment', other: 'comments')}',
+      name: 'commentTitle',
+      desc: 'Enter the comment count',
+      args: [valueString, commentCount],
     );
   }
 }

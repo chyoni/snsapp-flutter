@@ -108,7 +108,7 @@ class SignUpScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () => onLoginTap(context),
                     child: Text(
-                      S.of(context).loginLinkString("male"),
+                      S.of(context).loginLinkString("other"),
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600,

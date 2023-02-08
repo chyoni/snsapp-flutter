@@ -20,21 +20,31 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(gender) =>
-      "Log in ${Intl.gender(gender, female: 'madam', male: 'sir', other: 'human')}";
+  static String m0(commentCount) => "${commentCount}";
 
-  static String m1(nameOfTheApp) => "Log into your ${nameOfTheApp} account";
+  static String m1(value, commentCount) =>
+      "${value} ${Intl.plural(commentCount, one: 'comment', other: 'comments')}";
 
-  static String m2(videoCount) =>
+  static String m2(likeCount) => "${likeCount}";
+
+  static String m3(gender) =>
+      "Log in ${Intl.gender(gender, female: 'madam', male: 'sir', other: '')}";
+
+  static String m4(nameOfTheApp) => "Log into your ${nameOfTheApp} account";
+
+  static String m5(videoCount) =>
       "Create a profile, follow other accounts, make your own ${Intl.plural(videoCount, zero: 'no videos', one: 'video', other: 'videos')}, and more.";
 
-  static String m3(nameOfTheApp) => "Sign up for ${nameOfTheApp}";
+  static String m6(nameOfTheApp) => "Sign up for ${nameOfTheApp}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "loginLinkString": m0,
-        "loginTitle": m1,
-        "signUpSubTitle": m2,
-        "signUpTitle": m3
+        "commentCount": m0,
+        "commentTitle": m1,
+        "likeCount": m2,
+        "loginLinkString": m3,
+        "loginTitle": m4,
+        "signUpSubTitle": m5,
+        "signUpTitle": m6
       };
 }

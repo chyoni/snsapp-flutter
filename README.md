@@ -260,3 +260,7 @@ flutter gen-l10n
 ### #66 Select, Plural Localization
 
 - 신기한게 엄청 많다. 변수로 어떤것을 받을 수도 있는데 intl_en.arb 파일을 보면 그 형식을 알 수 있다.
+
+### #67 Numbers l10n
+
+- 숫자, 개수도 역시 localization이 가능하다.

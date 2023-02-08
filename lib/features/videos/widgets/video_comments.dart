@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/generated/l10n.dart';
 import 'package:tiktok/utils.dart';
 
 class VideoComments extends StatefulWidget {
@@ -50,7 +51,7 @@ class _VideoCommentsState extends State<VideoComments> {
           appBar: AppBar(
             // ! backbutton 안 보이게
             automaticallyImplyLeading: false,
-            title: const Text("2541 comments"),
+            title: Text(S.of(context).commentTitle(22154, 22154)),
             backgroundColor:
                 isDarkMode(context) ? Colors.black : Colors.grey.shade50,
             actions: [
