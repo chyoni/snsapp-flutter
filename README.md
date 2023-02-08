@@ -244,3 +244,7 @@ flutter gen-l10n
 ```
 - `main.dart`에 커밋과 같이 작성
 - 사용하기
+
+### #64 AppLocalizations
+
+  - 위에서 사용한거 그대로 사용하는데, 변수로도 localization이 가능함
