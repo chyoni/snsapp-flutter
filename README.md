@@ -248,3 +248,11 @@ flutter gen-l10n
 ### #64 AppLocalizations
 
   - 위에서 사용한거 그대로 사용하는데, 변수로도 localization이 가능함
+
+### #65 Use 'Flutter Intl' extension
+
+- 위에서 한 작업을 모두 알아서 해주는 플러그인이다.
+
+- 우선 첫번째로 저 익스텐션을 깔고 Command + Shift + P 를 입력해서 팔레트 창을 노출시킨 후 거기에 intl 이라고 입력하면 `Flutter Intl: Initialize`라는 녀석이 나온다. 
+얘를 클릭하면 generated 폴더랑, l10n폴더랑 알아서 다 만들어줌. 그리고 추가적인 Locale이 필요하면 같은 방법으로 `Flutter Intl: Add locale`을 클릭해서 원하는 locale(ko)를 입력하면 된다.
+그리고 또 신기한건 localization하고 싶은 스트링을 하이라이팅하고 Command + . 을 클릭하면 Extract to ARB가 있는데 이거 클릭하면 알아서 만들어줌

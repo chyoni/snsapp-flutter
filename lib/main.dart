@@ -5,8 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/sign_up_screen.dart';
 import 'package:tiktok/features/main_navigation/main_navigation_screen.dart';
+import 'package:tiktok/generated/l10n.dart';
 import 'package:tiktok/utils.dart';
-import 'package:flutter_gen/gen_l10n/intl_generated.dart';
 
 void main() async {
   // ! 얘는 runApp()을 호출하기전 설정해야할 무언가가 있을 때 runApp() 이전에 호출시키는 녀석
@@ -31,8 +31,16 @@ class TikTokApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'TikTok',
         // ! AppLocalizations 이 녀석은 flutter gen-l10n 실행 시 만들어지는 파일안에 있는 클래스
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: AppLocalizations.supportedLocales,
+        localizationsDelegates: const [
+          S.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          GlobalMaterialLocalizations.delegate,
+        ],
+        supportedLocales: const [
+          Locale("en"),
+          Locale("ko"),
+        ],
         themeMode: ThemeMode.system,
         darkTheme: ThemeData(
           useMaterial3: true,
@@ -92,7 +100,7 @@ class TikTokApp extends StatelessWidget {
             unselectedLabelColor: Colors.grey.shade500,
           ),
         ),
-        home: const SignUpScreen() //   MainNavigationScreen()
+        home: const MainNavigationScreen() //SignUpScreen()
         );
   }
 }
