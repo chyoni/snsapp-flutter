@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
@@ -37,22 +38,17 @@ class SignUpScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Gaps.v80,
-                  const Text(
+                  Text(
                     "Sign up for Tiktok",
-                    style: TextStyle(
-                      fontSize: Sizes.size24,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5!
+                        .copyWith(color: Colors.white),
                   ),
                   Gaps.v20,
                   Text(
                     "Create a profile, follow other accounts, make your own videos, and more.",
-                    style: TextStyle(
-                      fontSize: Sizes.size16,
-                      color: isDarkMode(context)
-                          ? Colors.grey.shade300
-                          : Colors.black45,
-                    ),
+                    style: Theme.of(context).textTheme.bodyText1,
                     textAlign: TextAlign.center,
                   ),
                   Gaps.v40,
