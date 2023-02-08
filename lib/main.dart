@@ -4,9 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/sign_up_screen.dart';
-import 'package:tiktok/features/main_navigation/main_navigation_screen.dart';
 import 'package:tiktok/generated/l10n.dart';
-import 'package:tiktok/utils.dart';
 
 void main() async {
   // ! 얘는 runApp()을 호출하기전 설정해야할 무언가가 있을 때 runApp() 이전에 호출시키는 녀석
@@ -100,7 +98,7 @@ class TikTokApp extends StatelessWidget {
             unselectedLabelColor: Colors.grey.shade500,
           ),
         ),
-        home: const MainNavigationScreen() //SignUpScreen()
+        home: const SignUpScreen() // MainNavigationScreen()
         );
   }
 }

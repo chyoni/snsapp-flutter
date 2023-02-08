@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:intl/locale.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/login_screen.dart';
@@ -32,6 +30,8 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ! 이거는 l10n 파일 있으면 어떤 파일로 로드할지 그냥 픽스해버리는거
+    S.load(const Locale("en"));
     if (kDebugMode) {
       print(Localizations.localeOf(context));
     }
@@ -53,7 +53,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gaps.v20,
                   Text(
-                    S.of(context).signUpSubTitle,
+                    S.of(context).signUpSubTitle(3),
                     style: const TextStyle(
                       fontSize: Sizes.size16,
                       fontWeight: FontWeight.w500,
@@ -108,7 +108,7 @@ class SignUpScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () => onLoginTap(context),
                     child: Text(
-                      "Log in",
+                      S.of(context).loginLinkString("male"),
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.w600,
