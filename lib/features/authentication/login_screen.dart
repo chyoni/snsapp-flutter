@@ -32,7 +32,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               Gaps.v80,
               const Text(
-                "Log in for Tiktok",
+                "Log in for TikTok",
                 style: TextStyle(
                   fontSize: Sizes.size24,
                   fontWeight: FontWeight.w700,
@@ -62,7 +62,7 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: isDarkMode(context) ? Colors.black : Colors.grey.shade200,
+        color: isDarkMode(context) ? Colors.black : Colors.grey.shade50,
         elevation: 3,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: Sizes.size36),

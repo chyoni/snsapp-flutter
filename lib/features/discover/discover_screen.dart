@@ -173,8 +173,8 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               ),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: width > Breakpoints.lg ? 6 : 2,
-                crossAxisSpacing: Sizes.size10,
-                mainAxisSpacing: Sizes.size10,
+                crossAxisSpacing: Sizes.size8,
+                mainAxisSpacing: Sizes.size8,
                 // ! 9 너비, 20 높이로 생각하면됨
                 childAspectRatio: 9 / 20,
               ),
@@ -204,6 +204,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                       style: TextStyle(
                         fontSize: Sizes.size16,
                         fontWeight: FontWeight.w600,
+                        height: 1.1,
                       ),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,

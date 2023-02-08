@@ -30,6 +30,7 @@ class TikTokApp extends StatelessWidget {
         title: 'TikTok',
         themeMode: ThemeMode.system,
         darkTheme: ThemeData(
+          useMaterial3: true,
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.black,
             foregroundColor: Colors.white,
@@ -59,6 +60,7 @@ class TikTokApp extends StatelessWidget {
           ),
         ),
         theme: ThemeData(
+          useMaterial3: true,
           scaffoldBackgroundColor: Colors.white,
           primaryColor: const Color(0xFFE9435A),
           textSelectionTheme: const TextSelectionThemeData(
@@ -69,11 +71,12 @@ class TikTokApp extends StatelessWidget {
           // ! 이거는 길게 누를때 반짝하는거 없애는거
           textTheme: GoogleFonts.mavenProTextTheme(),
           // highlightColor: Colors.transparent,
-          appBarTheme: const AppBarTheme(
+          appBarTheme: AppBarTheme(
+            surfaceTintColor: Colors.grey.shade50,
             backgroundColor: Colors.white,
             foregroundColor: Colors.black,
             elevation: 0,
-            titleTextStyle: TextStyle(
+            titleTextStyle: const TextStyle(
               color: Colors.black,
               fontSize: Sizes.size16 + Sizes.size2,
               fontWeight: FontWeight.w600,
@@ -84,7 +87,7 @@ class TikTokApp extends StatelessWidget {
             unselectedLabelColor: Colors.grey.shade500,
           ),
         ),
-        home: const MainNavigationScreen() //SignUpScreen()
+        home: const SignUpScreen() // MainNavigationScreen()
         );
   }
 }
