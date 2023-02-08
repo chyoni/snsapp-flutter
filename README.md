@@ -235,7 +235,7 @@ body: Stack(children: [
 ### #62 Localizations
 
 ### #63 l10n
-
+- `Flutter Intl` extension 다운로드 
 - `l10n.yaml` 파일 생성 
 - `intl` 폴더에 커밋과 같이 생성
 ```bash
