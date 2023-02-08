@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/inbox/activity_screen.dart';
 import 'package:tiktok/features/inbox/chats_screen.dart';
+import 'package:tiktok/utils.dart';
 
 class InboxScreen extends StatelessWidget {
   const InboxScreen({super.key});
@@ -47,9 +48,9 @@ class InboxScreen extends StatelessWidget {
                 fontSize: Sizes.size16,
               ),
             ),
-            trailing: const FaIcon(
+            trailing: FaIcon(
               FontAwesomeIcons.chevronRight,
-              color: Colors.black,
+              color: isDarkMode(context) ? Colors.white : Colors.black,
               size: Sizes.size14,
             ),
           ),
@@ -84,9 +85,9 @@ class InboxScreen extends StatelessWidget {
                 fontSize: Sizes.size14,
               ),
             ),
-            trailing: const FaIcon(
+            trailing: FaIcon(
               FontAwesomeIcons.chevronRight,
-              color: Colors.black,
+              color: isDarkMode(context) ? Colors.white : Colors.black,
               size: Sizes.size14,
             ),
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/utils.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   const ChatDetailScreen({super.key});
@@ -60,9 +61,11 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                       Sizes.size32,
                     ),
                     color: Colors.green.shade400,
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.white,
+                        color: isDarkMode(context)
+                            ? Colors.grey.shade900
+                            : Colors.white,
                         spreadRadius: 5,
                       )
                     ],
@@ -147,7 +150,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             bottom: 0,
             width: MediaQuery.of(context).size.width,
             child: BottomAppBar(
-              color: Colors.grey.shade100,
+              color: isDarkMode(context)
+                  ? Colors.grey.shade900
+                  : Colors.grey.shade100,
               child: Padding(
                 padding: const EdgeInsets.only(
                   top: Sizes.size12,
@@ -178,7 +183,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: Sizes.size14,
                               ),
-                              fillColor: Colors.white,
+                              fillColor: isDarkMode(context)
+                                  ? Colors.grey.shade800
+                                  : Colors.white,
                               suffixIcon: GestureDetector(
                                 onTap: _showEmojiTap,
                                 child: Container(
@@ -190,11 +197,13 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     mainAxisSize: MainAxisSize.min,
-                                    children: const [
+                                    children: [
                                       FaIcon(
                                         FontAwesomeIcons.faceLaugh,
                                         size: Sizes.size20,
-                                        color: Colors.black,
+                                        color: isDarkMode(context)
+                                            ? Colors.grey.shade300
+                                            : Colors.black,
                                       ),
                                     ],
                                   ),
