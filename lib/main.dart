@@ -42,12 +42,20 @@ class TikTokApp extends StatelessWidget {
           ),
           brightness: Brightness.dark,
           scaffoldBackgroundColor: Colors.black,
+          // ! Text Input 같은 필드에 focus할 때
+          textSelectionTheme: const TextSelectionThemeData(
+            cursorColor: Color(0xFFE9435A),
+          ),
           primaryColor: const Color(0xFFE9435A),
           textTheme: GoogleFonts.robotoTextTheme(
             ThemeData(brightness: Brightness.dark).textTheme,
           ),
           bottomAppBarTheme: BottomAppBarTheme(
             color: Colors.grey.shade900,
+          ),
+          tabBarTheme: TabBarTheme(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.grey.shade500,
           ),
         ),
         theme: ThemeData(
@@ -71,8 +79,12 @@ class TikTokApp extends StatelessWidget {
               fontWeight: FontWeight.w600,
             ),
           ),
+          tabBarTheme: TabBarTheme(
+            labelColor: Colors.black,
+            unselectedLabelColor: Colors.grey.shade500,
+          ),
         ),
-        home: const SignUpScreen() //MainNavigationScreen()
+        home: const MainNavigationScreen() //SignUpScreen()
         );
   }
 }

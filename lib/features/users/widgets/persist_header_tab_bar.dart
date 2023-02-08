@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/utils.dart';
 
 class PersistHeaderTabBar extends SliverPersistentHeaderDelegate {
   @override
@@ -8,16 +9,17 @@ class PersistHeaderTabBar extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade300),
+        color: isDarkMode(context) ? Colors.black : Colors.white,
+        border: Border.all(
+            color: isDarkMode(context) ? Colors.black26 : Colors.grey.shade300),
       ),
-      child: const TabBar(
-        labelPadding: EdgeInsets.all(Sizes.size12),
-        labelColor: Colors.black,
-        indicatorColor: Colors.black,
+      child: TabBar(
+        labelPadding: const EdgeInsets.all(Sizes.size12),
+        labelColor: isDarkMode(context) ? Colors.white : Colors.black,
+        indicatorColor: isDarkMode(context) ? Colors.white : Colors.black,
         indicatorWeight: 3,
         indicatorSize: TabBarIndicatorSize.label,
-        tabs: [
+        tabs: const [
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: Sizes.size12,

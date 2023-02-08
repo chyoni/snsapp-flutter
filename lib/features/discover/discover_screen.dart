@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/breakpoints.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/utils.dart';
 
 final tabs = [
   "Top",
@@ -90,7 +91,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               autocorrect: false,
               decoration: InputDecoration(
                 hintText: "Search",
-                iconColor: Colors.grey,
+                iconColor: isDarkMode(context) ? Colors.white : Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(Sizes.size12),
                   borderSide: BorderSide.none,
@@ -99,7 +100,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: Sizes.size14,
                 ),
-                fillColor: Colors.grey.shade200,
+                fillColor: isDarkMode(context)
+                    ? Colors.grey.shade900
+                    : Colors.grey.shade200,
                 prefixIcon: Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -143,13 +146,12 @@ class _DiscoverScreenState extends State<DiscoverScreen>
             padding: const EdgeInsets.symmetric(
               horizontal: Sizes.size16,
             ),
-            labelColor: Colors.black,
             labelPadding: const EdgeInsets.symmetric(
               vertical: Sizes.size16,
               horizontal: Sizes.size16,
             ),
             unselectedLabelColor: Colors.grey.shade500,
-            indicatorColor: Colors.black,
+            indicatorColor: isDarkMode(context) ? Colors.white : Colors.black,
             isScrollable: true,
             labelStyle: const TextStyle(
               fontWeight: FontWeight.w600,
@@ -211,7 +213,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                       DefaultTextStyle(
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: Colors.grey.shade600,
+                          color: isDarkMode(context)
+                              ? Colors.grey.shade300
+                              : Colors.grey.shade600,
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -233,7 +237,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                             FaIcon(
                               FontAwesomeIcons.heart,
                               size: Sizes.size14,
-                              color: Colors.grey.shade600,
+                              color: isDarkMode(context)
+                                  ? Colors.grey.shade300
+                                  : Colors.grey.shade600,
                             ),
                             Gaps.h2,
                             const Text(
