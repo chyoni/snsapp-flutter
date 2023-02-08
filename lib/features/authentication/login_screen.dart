@@ -4,6 +4,7 @@ import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/login_form_screen.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
+import 'package:tiktok/utils.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -42,7 +43,6 @@ class LoginScreen extends StatelessWidget {
                 "Manage your account, check notifications, comment on videos, and more.",
                 style: TextStyle(
                   fontSize: Sizes.size16,
-                  color: Colors.black45,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -52,15 +52,17 @@ class LoginScreen extends StatelessWidget {
                   icon: const FaIcon(FontAwesomeIcons.user),
                   text: "Use email & password"),
               Gaps.v16,
-              // AuthButton(
-              //     icon: FaIcon(FontAwesomeIcons.apple),
-              //     text: "Continue with Apple"),
+              AuthButton(
+                onTap: (context) => onEmailLoginTap(context),
+                icon: const FaIcon(FontAwesomeIcons.apple),
+                text: "Continue with Apple",
+              ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.grey.shade200,
+        color: isDarkMode(context) ? Colors.black : Colors.grey.shade200,
         elevation: 3,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: Sizes.size36),
