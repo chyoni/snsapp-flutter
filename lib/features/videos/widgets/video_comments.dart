@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/utils.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({super.key});
@@ -44,12 +45,14 @@ class _VideoCommentsState extends State<VideoComments> {
           borderRadius: BorderRadius.circular(Sizes.size20),
         ),
         child: Scaffold(
-          backgroundColor: Colors.grey.shade50,
+          backgroundColor:
+              isDarkMode(context) ? Colors.black : Colors.grey.shade50,
           appBar: AppBar(
             // ! backbutton 안 보이게
             automaticallyImplyLeading: false,
             title: const Text("2541 comments"),
-            backgroundColor: Colors.grey.shade50,
+            backgroundColor:
+                isDarkMode(context) ? Colors.black : Colors.grey.shade50,
             actions: [
               IconButton(
                 onPressed: _onClosePressed,
@@ -107,13 +110,17 @@ class _VideoCommentsState extends State<VideoComments> {
                           FaIcon(
                             FontAwesomeIcons.heart,
                             size: Sizes.size20,
-                            color: Colors.grey.shade500,
+                            color: isDarkMode(context)
+                                ? Colors.grey.shade300
+                                : Colors.grey.shade500,
                           ),
                           Gaps.v3,
                           Text(
                             "52.2K",
                             style: TextStyle(
-                              color: Colors.grey.shade500,
+                              color: isDarkMode(context)
+                                  ? Colors.grey.shade300
+                                  : Colors.grey.shade500,
                             ),
                           ),
                         ],
@@ -126,7 +133,8 @@ class _VideoCommentsState extends State<VideoComments> {
                 bottom: 0,
                 width: size.width,
                 child: BottomAppBar(
-                  color: Colors.white,
+                  color:
+                      isDarkMode(context) ? Colors.grey.shade900 : Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.only(
                       left: Sizes.size16,
@@ -142,7 +150,6 @@ class _VideoCommentsState extends State<VideoComments> {
                           foregroundColor: Colors.white,
                           foregroundImage: NetworkImage(
                               "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.nemopan.com%2Ffiles%2Fattach%2Fimages%2F6294%2F480%2F473%2F012%2Fe6fdf0be95a17f41126453c1a06b62fd.jpg&f=1&nofb=1&ipt=3787e4fb142c7940f5592b642d0eef37e5eb6113200a999ec88c507baaeed7a7&ipo=images"),
-                          child: Text("신세경"),
                         ),
                         Gaps.h10,
                         Expanded(
@@ -165,7 +172,9 @@ class _VideoCommentsState extends State<VideoComments> {
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
-                                fillColor: Colors.grey.shade200,
+                                fillColor: isDarkMode(context)
+                                    ? Colors.grey.shade800
+                                    : Colors.grey.shade200,
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: Sizes.size12,
                                   vertical: Sizes.size10,
@@ -178,19 +187,25 @@ class _VideoCommentsState extends State<VideoComments> {
                                     children: [
                                       FaIcon(
                                         FontAwesomeIcons.at,
-                                        color: Colors.grey.shade900,
+                                        color: isDarkMode(context)
+                                            ? Colors.grey.shade300
+                                            : Colors.grey.shade900,
                                         size: Sizes.size20,
                                       ),
                                       Gaps.h8,
                                       FaIcon(
                                         FontAwesomeIcons.gift,
-                                        color: Colors.grey.shade900,
+                                        color: isDarkMode(context)
+                                            ? Colors.grey.shade300
+                                            : Colors.grey.shade900,
                                         size: Sizes.size20,
                                       ),
                                       Gaps.h8,
                                       FaIcon(
                                         FontAwesomeIcons.faceSmile,
-                                        color: Colors.grey.shade900,
+                                        color: isDarkMode(context)
+                                            ? Colors.grey.shade300
+                                            : Colors.grey.shade900,
                                         size: Sizes.size20,
                                       ),
                                       Gaps.h8,

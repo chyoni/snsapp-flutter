@@ -47,7 +47,7 @@ class TikTokApp extends StatelessWidget {
             cursorColor: Color(0xFFE9435A),
           ),
           primaryColor: const Color(0xFFE9435A),
-          textTheme: GoogleFonts.robotoTextTheme(
+          textTheme: GoogleFonts.mavenProTextTheme(
             ThemeData(brightness: Brightness.dark).textTheme,
           ),
           bottomAppBarTheme: BottomAppBarTheme(
@@ -67,7 +67,7 @@ class TikTokApp extends StatelessWidget {
           // ! 이거는 그 클릭할때 반짝하는 이펙트 없애는거
           splashColor: Colors.transparent,
           // ! 이거는 길게 누를때 반짝하는거 없애는거
-          textTheme: GoogleFonts.robotoTextTheme(),
+          textTheme: GoogleFonts.mavenProTextTheme(),
           // highlightColor: Colors.transparent,
           appBarTheme: const AppBarTheme(
             backgroundColor: Colors.white,
