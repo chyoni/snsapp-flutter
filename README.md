@@ -224,3 +224,10 @@ body: Stack(children: [
   파일에서 theme을 전부 다 구현해놓고 시작하던가.
 
 ### #60 Google fonts, TextTheme
+
+### #61 Theme 
+
+- https://pub.dev/packages/flex_color_scheme
+
+- 지금까지는 이 theme을 매뉴얼로 다 작업해서 darkMode와 lightMode를 구분해서 설정했는데, 사실 이 관련 library가 있다. 그건 `flex_color_scheme` 이라는 library고 이거를 쓰면 간단하게 지금까지 한 걸 
+  구현 할 수 있지만 직접해보는 것에 의의를 두었다.
