@@ -233,3 +233,14 @@ body: Stack(children: [
   구현 할 수 있지만 직접해보는 것에 의의를 두었다.
 
 ### #62 Localizations
+
+### #63 l10n
+
+- `l10n.yaml` 파일 생성 
+- `intl` 폴더에 커밋과 같이 생성
+```bash
+# 아래 명령어 실행 (이거 실행하면 l10n.yaml 파일에 적힌 내용에 따라 .dart_tool 이라는 폴더에 localization을 생성 )
+flutter gen-l10n 
+```
+- `main.dart`에 커밋과 같이 작성
+- 사용하기
