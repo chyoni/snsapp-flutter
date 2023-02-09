@@ -285,3 +285,4 @@ flutter gen-l10n
   플러터는 iOS, Android 할 것 없이 browser모두 지원해주기 때문에 우린 이것을 쓰면 안된다. 그렇다고 그 전에 사용하던 방식(PageRouterBuilder, MaterialPageRouteBuilder)도 좋지 않다. 
   왜냐하면 그 전에 사용하던 방식의 navigator는 URL이 없다. 그래서 모든 페이지가 다 같은 URL로 보인다. 이것이 문제다 그 전 Navigator는.
 
+### #72 go_router with parameter
