@@ -7,9 +7,11 @@ import 'package:tiktok/features/users/widgets/persist_header_tab_bar.dart';
 
 class UserProfileScreen extends StatefulWidget {
   final String username;
+  final String tab;
   const UserProfileScreen({
     super.key,
     required this.username,
+    required this.tab,
   });
 
   @override
@@ -30,12 +32,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Scaffold(
       body: SafeArea(
         child: DefaultTabController(
+          initialIndex: widget.tab == "likes" ? 1 : 0,
           length: 2,
           child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return [
                 SliverAppBar(
-                  title: const Text("c_cxxx"),
+                  title: Text(widget.username),
                   actions: [
                     IconButton(
                       onPressed: _onGearPressed,
@@ -61,9 +64,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Text(
-                            "@c_cxxx",
-                            style: TextStyle(
+                          Text(
+                            "@${widget.username}",
+                            style: const TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: Sizes.size16,
                             ),

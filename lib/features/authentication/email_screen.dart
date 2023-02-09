@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
@@ -13,9 +12,10 @@ class EmailScreenArgs {
 
 class EmailScreen extends StatefulWidget {
   static String routeName = "/email";
-
+  final username;
   const EmailScreen({
     super.key,
+    this.username,
   });
 
   @override
@@ -71,10 +71,6 @@ class _EmailScreenState extends State<EmailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as EmailScreenArgs;
-    if (kDebugMode) {
-      print(args.username);
-    }
     return GestureDetector(
       onTap: onScaffoldTap,
       child: Scaffold(
@@ -90,7 +86,7 @@ class _EmailScreenState extends State<EmailScreen> {
             children: [
               Gaps.v40,
               Text(
-                "What is your email ${args.username}?",
+                "What is your email ${widget.username}?",
                 style: const TextStyle(
                   fontSize: Sizes.size20,
                   fontWeight: FontWeight.w700,

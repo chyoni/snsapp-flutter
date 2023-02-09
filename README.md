@@ -286,3 +286,5 @@ flutter gen-l10n
   왜냐하면 그 전에 사용하던 방식의 navigator는 URL이 없다. 그래서 모든 페이지가 다 같은 URL로 보인다. 이것이 문제다 그 전 Navigator는.
 
 ### #72 go_router with parameter
+
+### #73 How to send queryParameter, extra data in go_router
