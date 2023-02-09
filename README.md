@@ -288,3 +288,7 @@ flutter gen-l10n
 ### #72 go_router with parameter
 
 ### #73 How to send queryParameter, extra data in go_router
+
+### #74 go_router with pageBuilder
+
+- go_router를 사용해서도 역시 pageBuilder를 만들 수 있고 이는 우리만의 애니메이션을 가지게 한다.

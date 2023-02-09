@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok/features/authentication/email_screen.dart';
 import 'package:tiktok/features/authentication/login_screen.dart';
@@ -17,7 +18,18 @@ final router = GoRouter(
     ),
     GoRoute(
       path: UsernameScreen.routeName,
-      builder: (context, state) => const UsernameScreen(),
+      // ! builder와 다르게 PageBuilder는 web에서만 애니메이션이 먹는듯하다.
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          child: const UsernameScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        );
+      },
     ),
     GoRoute(
       path: EmailScreen.routeName,
