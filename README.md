@@ -276,3 +276,12 @@ flutter gen-l10n
 ### #70 pushNamed with Args
 
 - 라우팅을 route name으로 하는데 그 때 페이지로부터 args 받는 방법
+
+### #71 why we use go_router package and pushNamed Limitation
+
+- https://pub.dev/packages/go_router
+
+- pushNamed 이 방법은 flutter가 추천하지 않는다. 그래서 우리도 새로운 navigator를 사용할거다. 왜 추천하지 않냐면, 웹 브라우저에서 이 기능을 사용할 경우 forward 버튼이 정상적으로 동작하지 않는다.
+  플러터는 iOS, Android 할 것 없이 browser모두 지원해주기 때문에 우린 이것을 쓰면 안된다. 그렇다고 그 전에 사용하던 방식(PageRouterBuilder, MaterialPageRouteBuilder)도 좋지 않다. 
+  왜냐하면 그 전에 사용하던 방식의 navigator는 URL이 없다. 그래서 모든 페이지가 다 같은 URL로 보인다. 이것이 문제다 그 전 Navigator는.
+

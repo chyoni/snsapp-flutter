@@ -3,11 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/authentication/email_screen.dart';
-import 'package:tiktok/features/authentication/login_screen.dart';
-import 'package:tiktok/features/authentication/sign_up_screen.dart';
-import 'package:tiktok/features/authentication/username_screen.dart';
 import 'package:tiktok/generated/l10n.dart';
+import 'package:tiktok/router.dart';
 
 void main() async {
   // ! 얘는 runApp()을 호출하기전 설정해야할 무언가가 있을 때 runApp() 이전에 호출시키는 녀석
@@ -28,7 +25,8 @@ class TikTokApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       debugShowCheckedModeBanner: false,
       title: 'TikTok',
       // ! AppLocalizations 이 녀석은 flutter gen-l10n 실행 시 만들어지는 파일안에 있는 클래스
@@ -101,13 +99,6 @@ class TikTokApp extends StatelessWidget {
           unselectedLabelColor: Colors.grey.shade500,
         ),
       ),
-      initialRoute: SignUpScreen.routeName,
-      routes: {
-        SignUpScreen.routeName: (context) => const SignUpScreen(),
-        UsernameScreen.routeName: (context) => const UsernameScreen(),
-        LoginScreen.routeName: (context) => const LoginScreen(),
-        EmailScreen.routeName: (context) => const EmailScreen(),
-      },
     );
   }
 }

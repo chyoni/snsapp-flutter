@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/login_screen.dart';
@@ -14,7 +15,11 @@ class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   void onLoginTap(BuildContext context) {
-    Navigator.of(context).pushNamed(LoginScreen.routeName);
+    context.push(LoginScreen.routeName);
+
+    // ! push와 go의 차이점은 push는 stack에 맨 위로 화면을 쌓는거고 go는 그냥 바로 이동시킨다.
+    // ! 그래서 push와 다르게 go를 사용하면 전 화면으로 돌아갈 수 없다.
+    //context.go(LoginScreen.routeName);
   }
 
   void onUsernamePasswordTap(BuildContext context) {
@@ -31,7 +36,7 @@ class SignUpScreen extends StatelessWidget {
     //     ),
     //   ),
     // );
-    Navigator.of(context).pushNamed(UsernameScreen.routeName);
+    context.push(UsernameScreen.routeName);
   }
 
   @override
