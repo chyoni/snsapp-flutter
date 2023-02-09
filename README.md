@@ -268,3 +268,7 @@ flutter gen-l10n
 ### #68 PageRouteBuilder
 
 - 라우팅할 때 스스로 애니메이션을 만들고 할 수 있는 builder
+
+### #69 pushNamed
+
+- 라우팅할 때 route name을 지정해서 라우팅할 수 있다.
