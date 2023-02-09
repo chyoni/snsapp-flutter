@@ -38,10 +38,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
   // ! StatefulWidget에서는 context를 안 던져줘도 알아서 context를 사용할 수 있다.
   void onNextTap() {
     if (_username.isEmpty) return;
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => const EmailScreen(),
-      ),
+    Navigator.of(context).pushNamed(
+      EmailScreen.routeName,
+      arguments: EmailScreenArgs(username: _username),
     );
   }
 

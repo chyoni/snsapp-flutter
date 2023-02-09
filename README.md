@@ -272,3 +272,7 @@ flutter gen-l10n
 ### #69 pushNamed
 
 - 라우팅할 때 route name을 지정해서 라우팅할 수 있다.
+
+### #70 pushNamed with Args
+
+- 라우팅을 route name으로 하는데 그 때 페이지로부터 args 받는 방법
