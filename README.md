@@ -264,3 +264,7 @@ flutter gen-l10n
 ### #67 Numbers l10n
 
 - 숫자, 개수도 역시 localization이 가능하다.
+
+### #68 PageRouteBuilder
+
+- 라우팅할 때 스스로 애니메이션을 만들고 할 수 있는 builder
