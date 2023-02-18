@@ -13,7 +13,8 @@ class VideoRecordingScreen extends StatefulWidget {
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   bool _hasPermission = false;
-  late final CameraController _cameraController;
+  bool _isSelfieMode = false;
+  late CameraController _cameraController;
 
   Future<void> initCamera() async {
     // ! selfi mode랑 back mode 둘 다 말함
@@ -21,8 +22,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
 
     if (cameras.isEmpty) return;
 
-    _cameraController =
-        CameraController(cameras[0], ResolutionPreset.ultraHigh);
+    _cameraController = CameraController(
+        cameras[_isSelfieMode ? 1 : 0], ResolutionPreset.ultraHigh);
     await _cameraController.initialize();
   }
 
@@ -50,6 +51,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     initPermissions();
   }
 
+  void _toggleSelfieMode() async {
+    _isSelfieMode = !_isSelfieMode;
+    await initCamera();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,7 +78,22 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                 ],
               ),
             )
-          : CameraPreview(_cameraController),
+          : Stack(
+              alignment: Alignment.center,
+              fit: StackFit.expand,
+              children: [
+                CameraPreview(_cameraController),
+                Positioned(
+                  top: 60,
+                  left: 20,
+                  child: IconButton(
+                    color: Colors.white,
+                    icon: const Icon(Icons.camera_alt),
+                    onPressed: () => _toggleSelfieMode(),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }
