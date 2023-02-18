@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/widgets/form_button.dart';
 import 'package:tiktok/features/onboarding/interests_screen.dart';
 
 class BirthdayScreen extends StatefulWidget {
+  static String routeName = "/birthday";
   const BirthdayScreen({super.key});
 
   @override
@@ -33,14 +35,15 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
 
   // ! StatefulWidget에서는 context를 안 던져줘도 알아서 context를 사용할 수 있다.
   void onNextTap() {
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (context) => const InterestsScreen(),
-      ),
-      (route) {
-        return false;
-      },
-    );
+    // Navigator.of(context).pushAndRemoveUntil(
+    //   MaterialPageRoute(
+    //     builder: (context) => const InterestsScreen(),
+    //   ),
+    //   (route) {
+    //     return false;
+    //   },
+    // );
+    context.push(InterestsScreen.routeName);
   }
 
   void setTextFieldDate(DateTime date) {

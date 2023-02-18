@@ -11,6 +11,7 @@ import 'package:tiktok/features/videos/video_timeline_screen.dart';
 import 'package:tiktok/utils.dart';
 
 class MainNavigationScreen extends StatefulWidget {
+  static String routeName = "/main";
   const MainNavigationScreen({super.key});
 
   @override
