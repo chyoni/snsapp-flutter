@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gallery_saver/gallery_saver.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPreviewScreen extends StatefulWidget {
@@ -19,6 +19,7 @@ class VideoPreviewScreen extends StatefulWidget {
 
 class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
   late final VideoPlayerController _videoPlayerController;
+  bool _savedVideo = false;
 
   Future<void> _initVideo() async {
     _videoPlayerController =
@@ -37,12 +38,31 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
     _initVideo();
   }
 
+  Future<void> _onSaveToGallery() async {
+    if (_savedVideo) return;
+
+    await GallerySaver.saveVideo(
+      widget.video.path,
+      albumName: "TikTokClone",
+    );
+    _savedVideo = true;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
         title: const Text("Preview Video"),
+        actions: [
+          IconButton(
+            onPressed: _onSaveToGallery,
+            icon: _savedVideo
+                ? const FaIcon(FontAwesomeIcons.check)
+                : const FaIcon(FontAwesomeIcons.download),
+          )
+        ],
       ),
       body: _videoPlayerController.value.isInitialized
           ? VideoPlayer(_videoPlayerController)

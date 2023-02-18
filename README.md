@@ -314,3 +314,9 @@ flutter gen-l10n
 ### #78 Recorded video and VideoPreviewScreen
 
 - 비디오를 촬영하고, 촬영한 비디오가 어디에 저장되는지, 그 비디오를 가지고 프리뷰 화면으로 넘겨주는거까지의 커밋
+
+### #79 Save video
+
+```yaml
+gallery_saver: 2.3.2
+```
