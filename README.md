@@ -303,3 +303,5 @@ flutter gen-l10n
   camera: 0.10.3
   permission_handler: 10.2.0
   ```
+
+### #76 FlashMode
