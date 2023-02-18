@@ -11,10 +11,26 @@ class VideoRecordingScreen extends StatefulWidget {
   State<VideoRecordingScreen> createState() => _VideoRecordingScreenState();
 }
 
-class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
+class _VideoRecordingScreenState extends State<VideoRecordingScreen>
+    with TickerProviderStateMixin {
   bool _hasPermission = false;
   bool _isSelfieMode = false;
   late CameraController _cameraController;
+  late final AnimationController _recordButtonAnimationController =
+      AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 300),
+  );
+  late final AnimationController _progressAnimationController =
+      AnimationController(
+    vsync: this,
+    duration: const Duration(seconds: 10),
+    lowerBound: 0.0,
+    upperBound: 1.0,
+  );
+  late final Animation<double> _buttonAnimation =
+      Tween(begin: 1.0, end: 1.3).animate(_recordButtonAnimationController);
+
   late FlashMode _flashMode;
 
   Future<void> initCamera() async {
@@ -52,6 +68,16 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
   void initState() {
     super.initState();
     initPermissions();
+    // ! CircularProgressIndicator에 걸은 Animation을 실행하기 위해 listener를 걸고 그 안에 setState를 실행
+    _progressAnimationController.addListener(() {
+      setState(() {});
+    });
+    // ! addStatusListener는 만약에 Animation을 걸었을 경우에 Animation이 끝난 상태인지 아닌지 판단이 가능하게 된다.
+    _progressAnimationController.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _onStopRecording();
+      }
+    });
   }
 
   void _toggleSelfieMode() async {
@@ -64,6 +90,16 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
     await _cameraController.setFlashMode(newFlashMode);
     _flashMode = newFlashMode;
     setState(() {});
+  }
+
+  void _onStartRecording(TapDownDetails _) {
+    _recordButtonAnimationController.forward();
+    _progressAnimationController.forward();
+  }
+
+  void _onStopRecording() {
+    _recordButtonAnimationController.reverse();
+    _progressAnimationController.reset();
   }
 
   @override
@@ -123,7 +159,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                         color: _flashMode == FlashMode.auto
                             ? Colors.amber.shade200
                             : Colors.white,
-                        icon: const Icon(Icons.flash_auto_rounded),
+                        icon: const Icon(Icons.flash_auto),
                         onPressed: () => _setFlashMode(FlashMode.auto),
                       ),
                       Gaps.v10,
@@ -135,6 +171,37 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen> {
                         onPressed: () => _setFlashMode(FlashMode.torch),
                       ),
                     ],
+                  ),
+                ),
+                Positioned(
+                  bottom: 30,
+                  child: GestureDetector(
+                    onTapDown: _onStartRecording,
+                    onTapUp: (details) => _onStopRecording(),
+                    child: ScaleTransition(
+                      scale: _buttonAnimation,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SizedBox(
+                            width: Sizes.size56,
+                            height: Sizes.size56,
+                            child: CircularProgressIndicator(
+                              color: Colors.red,
+                              value: _progressAnimationController.value,
+                            ),
+                          ),
+                          Container(
+                            width: Sizes.size48,
+                            height: Sizes.size48,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               ],

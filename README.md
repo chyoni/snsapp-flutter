@@ -305,3 +305,8 @@ flutter gen-l10n
   ```
 
 ### #76 FlashMode
+
+### #77 Recording button animation
+
+- Button Scale Animation
+- Recording time Progress Animation
