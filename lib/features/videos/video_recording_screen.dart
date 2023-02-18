@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/videos/video_preview_screen.dart';
 
 class VideoRecordingScreen extends StatefulWidget {
   const VideoRecordingScreen({super.key});
@@ -39,9 +40,13 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
     if (cameras.isEmpty) return;
 
+    // ! enableAudio를 false로 한 건 Android Emulator에서 자동 재생이 정상적이지 않기 때문 이거는 실제 핸드폰에서는 상관없고 에뮬레이터로 할 때만 이렇게 !
     _cameraController = CameraController(
-        cameras[_isSelfieMode ? 1 : 0], ResolutionPreset.ultraHigh);
+        cameras[_isSelfieMode ? 1 : 0], ResolutionPreset.ultraHigh,
+        enableAudio: false);
     await _cameraController.initialize();
+    // ! Only iOS
+    await _cameraController.prepareForVideoRecording();
 
     _flashMode = _cameraController.value.flashMode;
   }
@@ -92,14 +97,35 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     setState(() {});
   }
 
-  void _onStartRecording(TapDownDetails _) {
+  Future<void> _onStartRecording(TapDownDetails _) async {
+    if (_cameraController.value.isRecordingVideo) return;
+    await _cameraController.startVideoRecording();
+
     _recordButtonAnimationController.forward();
     _progressAnimationController.forward();
   }
 
-  void _onStopRecording() {
+  Future<void> _onStopRecording() async {
+    if (!_cameraController.value.isRecordingVideo) return;
     _recordButtonAnimationController.reverse();
     _progressAnimationController.reset();
+
+    final video = await _cameraController.stopVideoRecording();
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VideoPreviewScreen(video: video),
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    _cameraController.dispose();
+    _recordButtonAnimationController.dispose();
+    _recordButtonAnimationController.dispose();
+    super.dispose();
   }
 
   @override
