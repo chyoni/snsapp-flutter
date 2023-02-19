@@ -11,11 +11,10 @@ class EmailScreenArgs {
 }
 
 class EmailScreen extends StatefulWidget {
-  static String routeName = "/email";
-  final username;
+  final String username;
   const EmailScreen({
     super.key,
-    this.username,
+    required this.username,
   });
 
   @override

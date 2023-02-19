@@ -342,3 +342,8 @@ flutter run
 - 이에 대한 작업을 구현한 커밋
 
 ### #83 Zoom In-Out
+
+### #84 Route Change
+
+- 내가 원하는건 Signup 화면에서 /Signup 에서 Email, Username, Password, Birthday를 다 작성하길 원함 /Email, /Username, ... 이게 아님
+  그래서 최초 라우팅 path만 지정하고 그 안에서 다음 페이지로 넘길 땐 Navigator를 사용. 나머지 화면도 마찬가지.

@@ -7,7 +7,6 @@ import 'package:tiktok/features/authentication/widgets/form_button.dart';
 import 'package:tiktok/features/onboarding/interests_screen.dart';
 
 class BirthdayScreen extends StatefulWidget {
-  static String routeName = "/birthday";
   const BirthdayScreen({super.key});
 
   @override
@@ -43,7 +42,7 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
     //     return false;
     //   },
     // );
-    context.push(InterestsScreen.routeName);
+    context.pushReplacementNamed(InterestsScreen.routeName);
   }
 
   void setTextFieldDate(DateTime date) {
