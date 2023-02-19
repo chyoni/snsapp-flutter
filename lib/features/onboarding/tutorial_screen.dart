@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/common/widgets/main_navigation/main_navigation_screen.dart';
 
 enum Direction { right, left }
 
@@ -55,7 +54,8 @@ class _TutorialScreenState extends State<TutorialScreen> {
     //   ),
     //   (route) => false,
     // );
-    context.go(MainNavigationScreen.routeName);
+    // ! go / push 차이점은 go는 스택위에 쌓는게 아니고 아예 다른 화면으로 전환하는거라 이전 페이지가 없다. 즉 pop을 해도 전 화면으로 갈 수 없다란뜻
+    context.go("/home");
   }
 
   @override

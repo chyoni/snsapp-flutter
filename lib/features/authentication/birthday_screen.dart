@@ -42,7 +42,8 @@ class _BirthdayScreenState extends State<BirthdayScreen> {
     //     return false;
     //   },
     // );
-    context.pushReplacementNamed(InterestsScreen.routeName);
+    // ! pushReplacementNamed랑 goNamed랑 똑같다
+    context.goNamed(InterestsScreen.routeName);
   }
 
   void setTextFieldDate(DateTime date) {
