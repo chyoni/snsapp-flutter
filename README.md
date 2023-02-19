@@ -328,3 +328,7 @@ gallery_saver: 2.3.2
 - https://docs.flutter.dev/deployment/ios#review-xcode-project-settings
 
 ### #81 Image picker
+
+### #82 didChangeAppLifecycleState
+
+- 얘는 이제 AppLifecycle의 state를 통해 앱을 관리하는 메소드이고, 이 메소드를 사용하려면 WidgetsBindingObserver라는 Mixin을 사용해야 한다.

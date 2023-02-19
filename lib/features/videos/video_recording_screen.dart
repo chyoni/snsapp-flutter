@@ -15,7 +15,7 @@ class VideoRecordingScreen extends StatefulWidget {
 }
 
 class _VideoRecordingScreenState extends State<VideoRecordingScreen>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   bool _hasPermission = false;
   bool _isSelfieMode = false;
   late CameraController _cameraController;
@@ -75,6 +75,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
   void initState() {
     super.initState();
     initPermissions();
+    WidgetsBinding.instance.addObserver(this);
     // ! CircularProgressIndicator에 걸은 Animation을 실행하기 위해 listener를 걸고 그 안에 setState를 실행
     _progressAnimationController.addListener(() {
       setState(() {});
@@ -142,6 +143,20 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
         ),
       ),
     );
+  }
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (!_hasPermission) return;
+
+    if (state == AppLifecycleState.inactive &&
+        _cameraController.value.isInitialized) {
+      _cameraController.dispose();
+    } else if (state == AppLifecycleState.resumed) {
+      await initCamera();
+      setState(() {});
+    }
+    super.didChangeAppLifecycleState(state);
   }
 
   @override
