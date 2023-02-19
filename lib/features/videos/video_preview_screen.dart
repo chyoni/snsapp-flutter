@@ -8,9 +8,12 @@ import 'package:video_player/video_player.dart';
 
 class VideoPreviewScreen extends StatefulWidget {
   final XFile video;
+  // ! 얘는 비디오를 방금 만든게 아니고, 내 갤러리에서 가져온 비디오일 때 true가 된다. (저장 버튼을 안보이게해서 또 저장하지 않기 위해)
+  final bool isFromGallery;
   const VideoPreviewScreen({
     super.key,
     required this.video,
+    required this.isFromGallery,
   });
 
   @override
@@ -56,12 +59,13 @@ class _VideoPreviewScreenState extends State<VideoPreviewScreen> {
       appBar: AppBar(
         title: const Text("Preview Video"),
         actions: [
-          IconButton(
-            onPressed: _onSaveToGallery,
-            icon: _savedVideo
-                ? const FaIcon(FontAwesomeIcons.check)
-                : const FaIcon(FontAwesomeIcons.download),
-          )
+          if (!widget.isFromGallery)
+            IconButton(
+              onPressed: _onSaveToGallery,
+              icon: _savedVideo
+                  ? const FaIcon(FontAwesomeIcons.check)
+                  : const FaIcon(FontAwesomeIcons.download),
+            )
         ],
       ),
       body: _videoPlayerController.value.isInitialized
