@@ -327,8 +327,18 @@ gallery_saver: 2.3.2
 
 - https://docs.flutter.dev/deployment/ios#review-xcode-project-settings
 
+혹시, 새로운 패키지를 깔고 다시 Xcode에서 Build할 때 해당 패키지가 없다라는 에러가 나오면, 아래 명령어를 차례대로 수행하고 다시 실행
+
+```bash
+flutter clean
+flutter run
+```
+
 ### #81 Image picker
 
 ### #82 didChangeAppLifecycleState
 
 - 얘는 이제 AppLifecycle의 state를 통해 앱을 관리하는 메소드이고, 이 메소드를 사용하려면 WidgetsBindingObserver라는 Mixin을 사용해야 한다.
+- 이에 대한 작업을 구현한 커밋
+
+### #83 Zoom In-Out

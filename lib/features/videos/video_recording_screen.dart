@@ -35,6 +35,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
       Tween(begin: 1.0, end: 1.3).animate(_recordButtonAnimationController);
 
   late FlashMode _flashMode;
+  late double maxZoom, minZoom;
 
   Future<void> initCamera() async {
     // ! selfi mode랑 back mode 둘 다 말함
@@ -50,6 +51,8 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     // ! Only iOS
     await _cameraController.prepareForVideoRecording();
 
+    maxZoom = await _cameraController.getMaxZoomLevel();
+    minZoom = await _cameraController.getMinZoomLevel();
     _flashMode = _cameraController.value.flashMode;
   }
 
@@ -100,7 +103,7 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
     setState(() {});
   }
 
-  Future<void> _onStartRecording(TapDownDetails _) async {
+  Future<void> _onStartRecording() async {
     if (_cameraController.value.isRecordingVideo) return;
     await _cameraController.startVideoRecording();
 
@@ -125,6 +128,20 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
         ),
       ),
     );
+  }
+
+  Future<void> _onPanUpdated(LongPressMoveUpdateDetails details) async {
+    double dy = details.localOffsetFromOrigin.dy;
+
+    if (dy < 0 && dy < -maxZoom) await _cameraController.setZoomLevel(maxZoom);
+    if (dy < 0 && dy > -maxZoom) await _cameraController.setZoomLevel(dy * -1);
+    if (dy > 0) await _cameraController.setZoomLevel(minZoom);
+    // if (details.delta.dy < 0) {
+    //   if ((details.delta.dy * 10) * -1 > 10) {
+    //     await _cameraController.setZoomLevel(10);
+    //   }
+    //   await _cameraController.setZoomLevel((details.delta.dy * 10) * -1);
+    // }
   }
 
   Future<void> _onPickVideoPressed() async {
@@ -245,8 +262,11 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
                     children: [
                       const Spacer(),
                       GestureDetector(
-                        onTapDown: _onStartRecording,
-                        onTapUp: (details) => _onStopRecording(),
+                        onLongPressStart: (details) => _onStartRecording(),
+                        onLongPressEnd: (details) => _onStopRecording(),
+                        onLongPressMoveUpdate: (details) =>
+                            _onPanUpdated(details),
+                        // onPanUpdate: (details) => _onPanUpdated(details),
                         child: ScaleTransition(
                           scale: _buttonAnimation,
                           child: Stack(
