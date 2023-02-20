@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/main.dart';
 
 class PersistHeaderTabBar extends SliverPersistentHeaderDelegate {
   @override
@@ -9,20 +10,20 @@ class PersistHeaderTabBar extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       decoration: BoxDecoration(
-        color: TikTokApp.themeNotifier.value == ThemeMode.dark
+        color: context.watch<CommonConfigViewModel>().darkMode
             ? Colors.black
             : Colors.white,
         border: Border.all(
-            color: TikTokApp.themeNotifier.value == ThemeMode.dark
+            color: context.watch<CommonConfigViewModel>().darkMode
                 ? Colors.black26
                 : Colors.grey.shade300),
       ),
       child: TabBar(
         labelPadding: const EdgeInsets.all(Sizes.size12),
-        labelColor: TikTokApp.themeNotifier.value == ThemeMode.dark
+        labelColor: context.watch<CommonConfigViewModel>().darkMode
             ? Colors.white
             : Colors.black,
-        indicatorColor: TikTokApp.themeNotifier.value == ThemeMode.dark
+        indicatorColor: context.watch<CommonConfigViewModel>().darkMode
             ? Colors.white
             : Colors.black,
         indicatorWeight: 3,

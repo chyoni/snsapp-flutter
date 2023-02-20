@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/generated/l10n.dart';
-import 'package:tiktok/main.dart';
 
 class VideoComments extends StatefulWidget {
   const VideoComments({super.key});
@@ -46,14 +47,14 @@ class _VideoCommentsState extends State<VideoComments> {
           borderRadius: BorderRadius.circular(Sizes.size20),
         ),
         child: Scaffold(
-          backgroundColor: TikTokApp.themeNotifier.value == ThemeMode.dark
+          backgroundColor: context.watch<CommonConfigViewModel>().darkMode
               ? Colors.black
               : Colors.grey.shade50,
           appBar: AppBar(
             // ! backbutton 안 보이게
             automaticallyImplyLeading: false,
             title: Text(S.of(context).commentTitle(22154, 22154)),
-            backgroundColor: TikTokApp.themeNotifier.value == ThemeMode.dark
+            backgroundColor: context.watch<CommonConfigViewModel>().darkMode
                 ? Colors.black
                 : Colors.grey.shade50,
             actions: [
@@ -114,7 +115,7 @@ class _VideoCommentsState extends State<VideoComments> {
                             FontAwesomeIcons.heart,
                             size: Sizes.size20,
                             color:
-                                TikTokApp.themeNotifier.value == ThemeMode.dark
+                                context.watch<CommonConfigViewModel>().darkMode
                                     ? Colors.grey.shade300
                                     : Colors.grey.shade500,
                           ),
@@ -122,8 +123,9 @@ class _VideoCommentsState extends State<VideoComments> {
                           Text(
                             "52.2K",
                             style: TextStyle(
-                              color: TikTokApp.themeNotifier.value ==
-                                      ThemeMode.dark
+                              color: context
+                                      .watch<CommonConfigViewModel>()
+                                      .darkMode
                                   ? Colors.grey.shade300
                                   : Colors.grey.shade500,
                             ),
@@ -138,7 +140,7 @@ class _VideoCommentsState extends State<VideoComments> {
                 bottom: 0,
                 width: size.width,
                 child: BottomAppBar(
-                  color: TikTokApp.themeNotifier.value == ThemeMode.dark
+                  color: context.watch<CommonConfigViewModel>().darkMode
                       ? Colors.grey.shade900
                       : Colors.white,
                   child: Padding(
@@ -178,8 +180,9 @@ class _VideoCommentsState extends State<VideoComments> {
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
-                                fillColor: TikTokApp.themeNotifier.value ==
-                                        ThemeMode.dark
+                                fillColor: context
+                                        .watch<CommonConfigViewModel>()
+                                        .darkMode
                                     ? Colors.grey.shade800
                                     : Colors.grey.shade200,
                                 contentPadding: const EdgeInsets.symmetric(
@@ -194,8 +197,9 @@ class _VideoCommentsState extends State<VideoComments> {
                                     children: [
                                       FaIcon(
                                         FontAwesomeIcons.at,
-                                        color: TikTokApp.themeNotifier.value ==
-                                                ThemeMode.dark
+                                        color: context
+                                                .watch<CommonConfigViewModel>()
+                                                .darkMode
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade900,
                                         size: Sizes.size20,
@@ -203,8 +207,9 @@ class _VideoCommentsState extends State<VideoComments> {
                                       Gaps.h8,
                                       FaIcon(
                                         FontAwesomeIcons.gift,
-                                        color: TikTokApp.themeNotifier.value ==
-                                                ThemeMode.dark
+                                        color: context
+                                                .watch<CommonConfigViewModel>()
+                                                .darkMode
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade900,
                                         size: Sizes.size20,
@@ -212,8 +217,9 @@ class _VideoCommentsState extends State<VideoComments> {
                                       Gaps.h8,
                                       FaIcon(
                                         FontAwesomeIcons.faceSmile,
-                                        color: TikTokApp.themeNotifier.value ==
-                                                ThemeMode.dark
+                                        color: context
+                                                .watch<CommonConfigViewModel>()
+                                                .darkMode
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade900,
                                         size: Sizes.size20,

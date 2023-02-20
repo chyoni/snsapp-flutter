@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:tiktok/common/view_models/common_config_vm.dart';
 
 import 'package:tiktok/features/videos/view_models/playback_config_vm.dart';
-import 'package:tiktok/main.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -35,15 +35,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         body: ListView(
           children: [
-            ValueListenableBuilder(
-              valueListenable: TikTokApp.themeNotifier,
-              builder: (context, value, child) => SwitchListTile.adaptive(
-                value: TikTokApp.themeNotifier.value == ThemeMode.dark,
-                onChanged: (_) => TikTokApp.themeNotifier.value =
-                    TikTokApp.themeNotifier.value == ThemeMode.light
-                        ? ThemeMode.dark
-                        : ThemeMode.light,
-                title: const Text("Using dark mode"),
+            AnimatedBuilder(
+              animation: context.watch<CommonConfigViewModel>(),
+              builder: (context, child) => SwitchListTile.adaptive(
+                value: context.watch<CommonConfigViewModel>().darkMode,
+                onChanged: (value) =>
+                    context.read<CommonConfigViewModel>().setDarkMode(value),
+                title: const Text("Dark mode"),
+                subtitle: const Text("Set dark mode"),
               ),
             ),
             AnimatedBuilder(
@@ -54,6 +53,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     context.read<PlaybackConfigViewModel>().setMuted(value),
                 title: const Text("Video sound muted"),
                 subtitle: const Text("Default video sound mute or not"),
+              ),
+            ),
+            AnimatedBuilder(
+              animation: context.watch<PlaybackConfigViewModel>(),
+              builder: (context, child) => SwitchListTile.adaptive(
+                value: context.watch<PlaybackConfigViewModel>().autoplay,
+                onChanged: (value) =>
+                    context.read<PlaybackConfigViewModel>().setAutoplay(value),
+                title: const Text("Video autoplay"),
+                subtitle: const Text("Video was auto playing"),
               ),
             ),
             SwitchListTile.adaptive(

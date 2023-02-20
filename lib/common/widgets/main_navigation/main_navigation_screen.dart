@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/discover/discover_screen.dart';
@@ -10,7 +12,6 @@ import 'package:tiktok/common/widgets/main_navigation/widgets/post_video_button.
 import 'package:tiktok/features/users/user_profile_screen.dart';
 import 'package:tiktok/features/videos/views/video_recording_screen.dart';
 import 'package:tiktok/features/videos/views/video_timeline_screen.dart';
-import 'package:tiktok/main.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   static const String routeName = "mainNavigation";
@@ -78,7 +79,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       bottomNavigationBar: BottomAppBar(
         color: _selectedIndex == 0
             ? Colors.black
-            : TikTokApp.themeNotifier.value == ThemeMode.dark
+            : context.watch<CommonConfigViewModel>().darkMode
                 ? Colors.black
                 : Colors.white,
         child: Padding(

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
-import 'package:tiktok/main.dart';
 
 class NavTab extends StatelessWidget {
   const NavTab({
@@ -23,7 +24,7 @@ class NavTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = TikTokApp.themeNotifier.value == ThemeMode.dark;
+    final isDark = context.watch<CommonConfigViewModel>().darkMode;
     return Expanded(
       child: GestureDetector(
         onTap: () => onTap(),

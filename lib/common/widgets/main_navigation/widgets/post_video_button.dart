@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/main.dart';
 
 class PostVideoButton extends StatelessWidget {
   final bool isNotHome;
@@ -47,7 +48,7 @@ class PostVideoButton extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: isNotHome
-                ? TikTokApp.themeNotifier.value == ThemeMode.dark
+                ? context.watch<CommonConfigViewModel>().darkMode
                     ? Colors.white
                     : Colors.black
                 : Colors.white,
@@ -57,7 +58,7 @@ class PostVideoButton extends StatelessWidget {
             child: FaIcon(
               FontAwesomeIcons.plus,
               color: isNotHome
-                  ? TikTokApp.themeNotifier.value == ThemeMode.dark
+                  ? context.watch<CommonConfigViewModel>().darkMode
                       ? Colors.black
                       : Colors.white
                   : Colors.black,

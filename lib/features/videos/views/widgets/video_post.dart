@@ -33,7 +33,7 @@ class _VideoPostState extends State<VideoPost>
   final VideoPlayerController _videoPlayerController =
       VideoPlayerController.asset("assets/videos/video.mp4");
   late final AnimationController _animationController;
-  bool _isPaused = false;
+  late bool _isPaused;
   bool _isAllDesc = false;
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
@@ -90,6 +90,7 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
+    _isPaused = context.read<PlaybackConfigViewModel>().autoplay ? false : true;
     // videoConfig.addListener(() {
     //   setState(() {
     //     _isMuted = videoConfig.autoMute;
@@ -108,7 +109,8 @@ class _VideoPostState extends State<VideoPost>
     if (!mounted) return;
     if (info.visibleFraction == 1 &&
         !_isPaused &&
-        !_videoPlayerController.value.isPlaying) {
+        !_videoPlayerController.value.isPlaying &&
+        context.read<PlaybackConfigViewModel>().autoplay) {
       _videoPlayerController.play();
     }
     // ! Home에서 다른 탭으로 이동했을 때 재생중인 비디오는 꺼져야하므로

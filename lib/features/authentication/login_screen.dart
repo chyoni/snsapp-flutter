@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/login_form_screen.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
-import 'package:tiktok/main.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = "login";
@@ -65,7 +66,7 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: TikTokApp.themeNotifier.value == ThemeMode.dark
+        color: context.watch<CommonConfigViewModel>().darkMode
             ? Colors.black
             : Colors.grey.shade50,
         elevation: 3,

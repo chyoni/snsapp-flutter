@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/breakpoints.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/main.dart';
 
 final tabs = [
   "Top",
@@ -90,7 +91,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               autocorrect: false,
               decoration: InputDecoration(
                 hintText: "Search",
-                iconColor: TikTokApp.themeNotifier.value == ThemeMode.dark
+                iconColor: context.watch<CommonConfigViewModel>().darkMode
                     ? Colors.white
                     : Colors.grey,
                 border: OutlineInputBorder(
@@ -101,7 +102,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: Sizes.size14,
                 ),
-                fillColor: TikTokApp.themeNotifier.value == ThemeMode.dark
+                fillColor: context.watch<CommonConfigViewModel>().darkMode
                     ? Colors.grey.shade900
                     : Colors.grey.shade200,
                 prefixIcon: Row(
@@ -152,7 +153,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               horizontal: Sizes.size16,
             ),
             unselectedLabelColor: Colors.grey.shade500,
-            indicatorColor: TikTokApp.themeNotifier.value == ThemeMode.dark
+            indicatorColor: context.watch<CommonConfigViewModel>().darkMode
                 ? Colors.white
                 : Colors.black,
             isScrollable: true,
@@ -217,7 +218,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                       DefaultTextStyle(
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: TikTokApp.themeNotifier.value == ThemeMode.dark
+                          color: context.watch<CommonConfigViewModel>().darkMode
                               ? Colors.grey.shade300
                               : Colors.grey.shade600,
                         ),
@@ -236,8 +237,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    color: TikTokApp.themeNotifier.value ==
-                                            ThemeMode.dark
+                                    color: context
+                                            .watch<CommonConfigViewModel>()
+                                            .darkMode
                                         ? Colors.white
                                         : Colors.grey.shade500),
                               ),
@@ -246,8 +248,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                             FaIcon(
                               FontAwesomeIcons.heart,
                               size: Sizes.size14,
-                              color: TikTokApp.themeNotifier.value ==
-                                      ThemeMode.dark
+                              color: context
+                                      .watch<CommonConfigViewModel>()
+                                      .darkMode
                                   ? Colors.grey.shade300
                                   : Colors.grey.shade600,
                             ),
@@ -255,8 +258,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                             Text(
                               "2.5M",
                               style: TextStyle(
-                                  color: TikTokApp.themeNotifier.value ==
-                                          ThemeMode.dark
+                                  color: context
+                                          .watch<CommonConfigViewModel>()
+                                          .darkMode
                                       ? Colors.white
                                       : Colors.grey.shade500),
                             ),

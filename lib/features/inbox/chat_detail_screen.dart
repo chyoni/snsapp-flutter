@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/main.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   static const String routeName = "chatDetail";
@@ -69,7 +70,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     color: Colors.green.shade400,
                     boxShadow: [
                       BoxShadow(
-                        color: TikTokApp.themeNotifier.value == ThemeMode.dark
+                        color: context.watch<CommonConfigViewModel>().darkMode
                             ? Colors.grey.shade900
                             : Colors.white,
                         spreadRadius: 5,
@@ -156,7 +157,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             bottom: 0,
             width: MediaQuery.of(context).size.width,
             child: BottomAppBar(
-              color: TikTokApp.themeNotifier.value == ThemeMode.dark
+              color: context.watch<CommonConfigViewModel>().darkMode
                   ? Colors.grey.shade900
                   : Colors.grey.shade100,
               child: Padding(
@@ -189,8 +190,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: Sizes.size14,
                               ),
-                              fillColor: TikTokApp.themeNotifier.value ==
-                                      ThemeMode.dark
+                              fillColor: context
+                                      .watch<CommonConfigViewModel>()
+                                      .darkMode
                                   ? Colors.grey.shade800
                                   : Colors.white,
                               suffixIcon: GestureDetector(
@@ -208,8 +210,9 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                       FaIcon(
                                         FontAwesomeIcons.faceLaugh,
                                         size: Sizes.size20,
-                                        color: TikTokApp.themeNotifier.value ==
-                                                ThemeMode.dark
+                                        color: context
+                                                .watch<CommonConfigViewModel>()
+                                                .darkMode
                                             ? Colors.grey.shade300
                                             : Colors.black,
                                       ),
