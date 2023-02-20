@@ -2,11 +2,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:tiktok/common/widgets/video_config/video_config.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/videos/widgets/video_button.dart';
-import 'package:tiktok/features/videos/widgets/video_comments.dart';
+import 'package:tiktok/features/videos/view_models/playback_config_vm.dart';
+import 'package:tiktok/features/videos/views/widgets/video_button.dart';
+import 'package:tiktok/features/videos/views/widgets/video_comments.dart';
 import 'package:tiktok/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
@@ -57,25 +57,25 @@ class _VideoPostState extends State<VideoPost>
     }
     if (!mounted) return;
     _videoPlayerController
-        .setVolume(context.read<VideoConfig>().autoMute ? 0 : 1);
+        .setVolume(context.read<PlaybackConfigViewModel>().muted ? 0 : 1);
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
 
   void _onVolumeHighTap(BuildContext context) async {
-    if (!context.read<VideoConfig>().autoMute) return;
+    if (!context.read<PlaybackConfigViewModel>().muted) return;
     await _videoPlayerController.setVolume(1);
 
     if (!mounted) return;
-    context.read<VideoConfig>().toggleAutoMute();
+    context.read<PlaybackConfigViewModel>().setMuted(false);
   }
 
   void _onVolumeMuteTap(BuildContext context) async {
-    if (context.read<VideoConfig>().autoMute) return;
+    if (context.read<PlaybackConfigViewModel>().muted) return;
     await _videoPlayerController.setVolume(0);
 
     if (!mounted) return;
-    context.read<VideoConfig>().toggleAutoMute();
+    context.read<PlaybackConfigViewModel>().setMuted(true);
   }
 
   @override
@@ -124,7 +124,7 @@ class _VideoPostState extends State<VideoPost>
       _animationController.reverse();
     } else {
       _videoPlayerController
-          .setVolume(context.read<VideoConfig>().autoMute ? 0 : 1);
+          .setVolume(context.read<PlaybackConfigViewModel>().muted ? 0 : 1);
       _videoPlayerController.play();
       // ! 스탑 중 플레이를 하면 애니메이션 컨트롤러가 lowerBound -> upperBound로 value를 변경하는 statement
       _animationController.forward();
@@ -276,7 +276,7 @@ class _VideoPostState extends State<VideoPost>
             right: 20,
             child: Column(
               children: [
-                !context.watch<VideoConfig>().autoMute
+                !context.watch<PlaybackConfigViewModel>().muted
                     ? GestureDetector(
                         onTap: () => _onVolumeMuteTap(context),
                         child: const VideoButton(

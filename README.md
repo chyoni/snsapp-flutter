@@ -371,3 +371,13 @@ flutter run
 ### #89 Provider
 
 - ChangeNotifier같은 녀석의 state관리하기 위한 Provider
+
+### #90 MVVM Design Pattern
+
+- `MVVM`은 View - View Model - Model 구조를 의미한다.
+  - View: 유저가 보는 화면 
+  - View Model: 유저가 View에서 어떤 작업을 했을 때 해당 작업에 대한 API를 정의
+  - Model: 데이터를 정의한 부분
+  - (Repository): Repository는 Model의 데이터를 디스크에 저장하고 재사용할 수 있는 저장창고
+
+  
