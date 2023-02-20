@@ -194,9 +194,11 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
 
   @override
   void dispose() {
-    _cameraController.dispose();
+    if (!_noCamera) {
+      _cameraController.dispose();
+    }
     _recordButtonAnimationController.dispose();
-    _recordButtonAnimationController.dispose();
+    _progressAnimationController.dispose();
     super.dispose();
   }
 
@@ -227,6 +229,12 @@ class _VideoRecordingScreenState extends State<VideoRecordingScreen>
               children: [
                 if (!_noCamera && _cameraController.value.isInitialized)
                   CameraPreview(_cameraController),
+                const Positioned(
+                  top: 60,
+                  left: 10,
+                  // ! CloseButton은 pop 기능을 가지고 있음
+                  child: CloseButton(),
+                ),
                 if (!_noCamera)
                   Positioned(
                     top: 60,

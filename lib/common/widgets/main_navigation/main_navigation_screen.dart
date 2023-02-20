@@ -8,6 +8,7 @@ import 'package:tiktok/features/inbox/inbox_screen.dart';
 import 'package:tiktok/common/widgets/main_navigation/widgets/nav_tab.dart';
 import 'package:tiktok/common/widgets/main_navigation/widgets/post_video_button.dart';
 import 'package:tiktok/features/users/user_profile_screen.dart';
+import 'package:tiktok/features/videos/video_recording_screen.dart';
 import 'package:tiktok/features/videos/video_timeline_screen.dart';
 import 'package:tiktok/utils.dart';
 
@@ -41,10 +42,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   }
 
   void _onPostVideoButtonTap() {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-          builder: (context) => Container(), fullscreenDialog: true),
-    );
+    context.pushNamed(VideoRecordingScreen.routeName);
   }
 
   @override
