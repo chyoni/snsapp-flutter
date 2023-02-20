@@ -5,7 +5,7 @@ import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/login_form_screen.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
-import 'package:tiktok/utils.dart';
+import 'package:tiktok/main.dart';
 
 class LoginScreen extends StatelessWidget {
   static const String routeName = "login";
@@ -65,7 +65,9 @@ class LoginScreen extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: isDarkMode(context) ? Colors.black : Colors.grey.shade50,
+        color: TikTokApp.themeNotifier.value == ThemeMode.dark
+            ? Colors.black
+            : Colors.grey.shade50,
         elevation: 3,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: Sizes.size36),

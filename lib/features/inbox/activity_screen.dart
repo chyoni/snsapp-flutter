@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/utils.dart';
+import 'package:tiktok/main.dart';
 
 class ActivityScreen extends StatefulWidget {
   static const String routeName = "activity";
@@ -171,11 +171,11 @@ class _ActivityScreenState extends State<ActivityScreen>
                       width: Sizes.size52,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: isDarkMode(context)
+                        color: TikTokApp.themeNotifier.value == ThemeMode.dark
                             ? Colors.grey.shade600
                             : Colors.white,
                         border: Border.all(
-                          color: isDarkMode(context)
+                          color: TikTokApp.themeNotifier.value == ThemeMode.dark
                               ? Colors.grey.shade600
                               : Colors.grey.shade400,
                           width: Sizes.size1,
@@ -184,8 +184,9 @@ class _ActivityScreenState extends State<ActivityScreen>
                       child: Center(
                         child: FaIcon(
                           FontAwesomeIcons.bell,
-                          color:
-                              isDarkMode(context) ? Colors.white : Colors.black,
+                          color: TikTokApp.themeNotifier.value == ThemeMode.dark
+                              ? Colors.white
+                              : Colors.black,
                         ),
                       ),
                     ),
@@ -194,8 +195,9 @@ class _ActivityScreenState extends State<ActivityScreen>
                         text: "Account updates:",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color:
-                              isDarkMode(context) ? Colors.white : Colors.black,
+                          color: TikTokApp.themeNotifier.value == ThemeMode.dark
+                              ? Colors.white
+                              : Colors.black,
                           fontSize: Sizes.size16,
                         ),
                         children: [
@@ -233,7 +235,9 @@ class _ActivityScreenState extends State<ActivityScreen>
             position: _panelAnimation,
             child: Container(
               decoration: BoxDecoration(
-                color: isDarkMode(context) ? Colors.black : Colors.white,
+                color: TikTokApp.themeNotifier.value == ThemeMode.dark
+                    ? Colors.black
+                    : Colors.white,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(Sizes.size5),
                   bottomRight: Radius.circular(Sizes.size5),
@@ -248,9 +252,10 @@ class _ActivityScreenState extends State<ActivityScreen>
                         children: [
                           Icon(
                             tab["icon"],
-                            color: isDarkMode(context)
-                                ? Colors.white
-                                : Colors.black,
+                            color:
+                                TikTokApp.themeNotifier.value == ThemeMode.dark
+                                    ? Colors.white
+                                    : Colors.black,
                             size: Sizes.size16,
                           ),
                           Gaps.h20,

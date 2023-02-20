@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/utils.dart';
+import 'package:tiktok/main.dart';
 
 class InterestButton extends StatefulWidget {
   const InterestButton({
@@ -36,7 +36,7 @@ class _InterestButtonState extends State<InterestButton> {
         decoration: BoxDecoration(
             color: isSelected
                 ? Theme.of(context).primaryColor
-                : isDarkMode(context)
+                : TikTokApp.themeNotifier.value == ThemeMode.dark
                     ? Colors.grey.shade700
                     : Colors.white,
             border: Border.all(

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/breakpoints.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/utils.dart';
+import 'package:tiktok/main.dart';
 
 final tabs = [
   "Top",
@@ -91,7 +90,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               autocorrect: false,
               decoration: InputDecoration(
                 hintText: "Search",
-                iconColor: isDarkMode(context) ? Colors.white : Colors.grey,
+                iconColor: TikTokApp.themeNotifier.value == ThemeMode.dark
+                    ? Colors.white
+                    : Colors.grey,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(Sizes.size12),
                   borderSide: BorderSide.none,
@@ -100,7 +101,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: Sizes.size14,
                 ),
-                fillColor: isDarkMode(context)
+                fillColor: TikTokApp.themeNotifier.value == ThemeMode.dark
                     ? Colors.grey.shade900
                     : Colors.grey.shade200,
                 prefixIcon: Row(
@@ -151,7 +152,9 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               horizontal: Sizes.size16,
             ),
             unselectedLabelColor: Colors.grey.shade500,
-            indicatorColor: isDarkMode(context) ? Colors.white : Colors.black,
+            indicatorColor: TikTokApp.themeNotifier.value == ThemeMode.dark
+                ? Colors.white
+                : Colors.black,
             isScrollable: true,
             labelStyle: const TextStyle(
               fontWeight: FontWeight.w600,
@@ -214,7 +217,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                       DefaultTextStyle(
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: isDarkMode(context)
+                          color: TikTokApp.themeNotifier.value == ThemeMode.dark
                               ? Colors.grey.shade300
                               : Colors.grey.shade600,
                         ),
@@ -227,24 +230,35 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                                   AssetImage("assets/images/yerin.jpg"),
                             ),
                             Gaps.h4,
-                            const Expanded(
+                            Expanded(
                               child: Text(
                                 "yerin_the_genuine",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    color: TikTokApp.themeNotifier.value ==
+                                            ThemeMode.dark
+                                        ? Colors.white
+                                        : Colors.grey.shade500),
                               ),
                             ),
                             Gaps.h4,
                             FaIcon(
                               FontAwesomeIcons.heart,
                               size: Sizes.size14,
-                              color: isDarkMode(context)
+                              color: TikTokApp.themeNotifier.value ==
+                                      ThemeMode.dark
                                   ? Colors.grey.shade300
                                   : Colors.grey.shade600,
                             ),
                             Gaps.h2,
-                            const Text(
+                            Text(
                               "2.5M",
+                              style: TextStyle(
+                                  color: TikTokApp.themeNotifier.value ==
+                                          ThemeMode.dark
+                                      ? Colors.white
+                                      : Colors.grey.shade500),
                             ),
                           ],
                         ),

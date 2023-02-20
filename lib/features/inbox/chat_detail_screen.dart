@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/utils.dart';
+import 'package:tiktok/main.dart';
 
 class ChatDetailScreen extends StatefulWidget {
   static const String routeName = "chatDetail";
@@ -69,7 +69,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     color: Colors.green.shade400,
                     boxShadow: [
                       BoxShadow(
-                        color: isDarkMode(context)
+                        color: TikTokApp.themeNotifier.value == ThemeMode.dark
                             ? Colors.grey.shade900
                             : Colors.white,
                         spreadRadius: 5,
@@ -156,7 +156,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             bottom: 0,
             width: MediaQuery.of(context).size.width,
             child: BottomAppBar(
-              color: isDarkMode(context)
+              color: TikTokApp.themeNotifier.value == ThemeMode.dark
                   ? Colors.grey.shade900
                   : Colors.grey.shade100,
               child: Padding(
@@ -189,7 +189,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: Sizes.size14,
                               ),
-                              fillColor: isDarkMode(context)
+                              fillColor: TikTokApp.themeNotifier.value ==
+                                      ThemeMode.dark
                                   ? Colors.grey.shade800
                                   : Colors.white,
                               suffixIcon: GestureDetector(
@@ -207,7 +208,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                       FaIcon(
                                         FontAwesomeIcons.faceLaugh,
                                         size: Sizes.size20,
-                                        color: isDarkMode(context)
+                                        color: TikTokApp.themeNotifier.value ==
+                                                ThemeMode.dark
                                             ? Colors.grey.shade300
                                             : Colors.black,
                                       ),

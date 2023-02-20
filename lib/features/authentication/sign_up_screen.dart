@@ -7,7 +7,7 @@ import 'package:tiktok/features/authentication/login_screen.dart';
 import 'package:tiktok/features/authentication/username_screen.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok/generated/l10n.dart';
-import 'package:tiktok/utils.dart';
+import 'package:tiktok/main.dart';
 
 class SignUpScreen extends StatelessWidget {
   static const String routeName = "signUp";
@@ -108,7 +108,9 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
           bottomNavigationBar: BottomAppBar(
-            color: isDarkMode(context) ? Colors.black38 : Colors.grey.shade50,
+            color: TikTokApp.themeNotifier.value == ThemeMode.dark
+                ? Colors.black38
+                : Colors.grey.shade50,
             elevation: 3,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: Sizes.size36),

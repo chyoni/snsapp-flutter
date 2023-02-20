@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/inbox/activity_screen.dart';
 import 'package:tiktok/features/inbox/chats_screen.dart';
-import 'package:tiktok/utils.dart';
+import 'package:tiktok/main.dart';
 
 class InboxScreen extends StatelessWidget {
   const InboxScreen({super.key});
@@ -43,7 +43,9 @@ class InboxScreen extends StatelessWidget {
             ),
             trailing: FaIcon(
               FontAwesomeIcons.chevronRight,
-              color: isDarkMode(context) ? Colors.white : Colors.black,
+              color: TikTokApp.themeNotifier.value == ThemeMode.dark
+                  ? Colors.white
+                  : Colors.black,
               size: Sizes.size14,
             ),
           ),
@@ -80,7 +82,9 @@ class InboxScreen extends StatelessWidget {
             ),
             trailing: FaIcon(
               FontAwesomeIcons.chevronRight,
-              color: isDarkMode(context) ? Colors.white : Colors.black,
+              color: TikTokApp.themeNotifier.value == ThemeMode.dark
+                  ? Colors.white
+                  : Colors.black,
               size: Sizes.size14,
             ),
           ),

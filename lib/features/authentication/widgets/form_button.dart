@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/utils.dart';
+import 'package:tiktok/main.dart';
 
 class FormButton extends StatelessWidget {
   final bool disabled;
@@ -18,7 +18,7 @@ class FormButton extends StatelessWidget {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Sizes.size5),
             color: disabled
-                ? isDarkMode(context)
+                ? TikTokApp.themeNotifier.value == ThemeMode.dark
                     ? Colors.grey.shade800
                     : Colors.grey.shade200
                 : Theme.of(context).primaryColor),
