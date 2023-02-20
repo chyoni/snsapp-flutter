@@ -27,7 +27,8 @@ final router = GoRouter(
       path: InterestsScreen.routeURL,
       builder: (context, state) => const InterestsScreen(),
     ),
-    // ! 이거 같은 경우는, /xxx 중에 허용하는 routes는 /home, /discover, /inbox, /profile이라는 의미
+    // ! 이거 같은 경우는, /xxx 중에 xxx로 들어오는 Parameter는 허용가능한 녀석들이 routes는 /home, /discover, /inbox, /profile이라는 의미
+    // ! 여기서 tab은 path가 아니고 parameter임, 즉 위에서 /login, /signup 같은 거는 바로 매치되는게 있는거고 여기서는 위에서 매치된 게 아닌 것 중 이 parameter중 가능한 4개를 의미하는거
     GoRoute(
       name: MainNavigationScreen.routeName,
       path: "/:tab(home|discover|inbox|profile)",
@@ -60,6 +61,7 @@ final router = GoRouter(
     GoRoute(
       name: VideoRecordingScreen.routeName,
       path: VideoRecordingScreen.routePath,
+      // ! pageBuilder를 이용해서 나만의 애니메이션을 만들 수 있다
       pageBuilder: (context, state) => CustomTransitionPage(
         transitionDuration: const Duration(milliseconds: 300),
         child: const VideoRecordingScreen(),

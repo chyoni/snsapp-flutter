@@ -347,3 +347,8 @@ flutter run
 
 - 내가 원하는건 Signup 화면에서 /Signup 에서 Email, Username, Password, Birthday를 다 작성하길 원함 /Email, /Username, ... 이게 아님
   그래서 최초 라우팅 path만 지정하고 그 안에서 다음 페이지로 넘길 땐 Navigator를 사용. 나머지 화면도 마찬가지.
+
+
+### #85 InheritWidget
+
+- 지난 시간까지 사용했던 of(context)를 우리만의 InheritWidget으로 만들 수 있다. 그에 대한 커밋
