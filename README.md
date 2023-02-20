@@ -352,3 +352,8 @@ flutter run
 ### #85 InheritWidget
 
 - 지난 시간까지 사용했던 of(context)를 우리만의 InheritWidget으로 만들 수 있다. 그에 대한 커밋
+
+### #86 StatefulInheritWidget
+
+- 바로 지난 커밋에서는 우리만의 InheritWidget을 만들었지만 그 Widget이 가지는 상태에 대한 업데이트를 다른 화면이 공유할 수 없었다면 이제는 그 각 상태들을 공유할 수 있게
+  StatefulWidget으로 만든 커밋

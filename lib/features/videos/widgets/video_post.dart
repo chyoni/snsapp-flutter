@@ -33,7 +33,6 @@ class _VideoPostState extends State<VideoPost>
       VideoPlayerController.asset("assets/videos/video.mp4");
   late final AnimationController _animationController;
   bool _isPaused = false;
-  bool _isMuted = false;
   bool _isAllDesc = false;
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
@@ -54,26 +53,28 @@ class _VideoPostState extends State<VideoPost>
     // ! 만약, Web이라면 소리를 0으로 한 상태로 autoplay를 하겠다는 의미
     if (kIsWeb) {
       await _videoPlayerController.setVolume(0);
-      _isMuted = true;
     }
+    if (!mounted) return;
+    _videoPlayerController
+        .setVolume(VideoConfigData.of(context).autoMute ? 0 : 1);
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
 
-  void _onVolumeHighTap() async {
-    if (!_isMuted) return;
+  void _onVolumeHighTap(BuildContext context) async {
+    if (!VideoConfigData.of(context).autoMute) return;
     await _videoPlayerController.setVolume(1);
-    setState(() {
-      _isMuted = !_isMuted;
-    });
+
+    if (!mounted) return;
+    VideoConfigData.of(context).toggleMuted();
   }
 
-  void _onVolumeMuteTap() async {
-    if (_isMuted) return;
+  void _onVolumeMuteTap(BuildContext context) async {
+    if (VideoConfigData.of(context).autoMute) return;
     await _videoPlayerController.setVolume(0);
-    setState(() {
-      _isMuted = !_isMuted;
-    });
+
+    if (!mounted) return;
+    VideoConfigData.of(context).toggleMuted();
   }
 
   @override
@@ -116,6 +117,8 @@ class _VideoPostState extends State<VideoPost>
       // ! 플레이 중 스탑을 하면 애니메이션 컨트롤러가 upperBound -> lowerBound로 value를 변경하는 statement
       _animationController.reverse();
     } else {
+      _videoPlayerController
+          .setVolume(VideoConfigData.of(context).autoMute ? 0 : 1);
       _videoPlayerController.play();
       // ! 스탑 중 플레이를 하면 애니메이션 컨트롤러가 lowerBound -> upperBound로 value를 변경하는 statement
       _animationController.forward();
@@ -150,8 +153,6 @@ class _VideoPostState extends State<VideoPost>
 
   @override
   Widget build(BuildContext context) {
-    // ! 이런식으로 나만의 InheritWidget을 만들 수 있다.
-    VideoConfig.of(context).autoMute;
     return VisibilityDetector(
       key: Key("${widget.index}"),
       onVisibilityChanged: _onVisibilityChanged,
@@ -269,14 +270,14 @@ class _VideoPostState extends State<VideoPost>
             right: 20,
             child: Column(
               children: [
-                !_isMuted
+                !VideoConfigData.of(context).autoMute
                     ? GestureDetector(
-                        onTap: _onVolumeMuteTap,
+                        onTap: () => _onVolumeMuteTap(context),
                         child: const VideoButton(
                             icon: FontAwesomeIcons.volumeHigh, text: ""),
                       )
                     : GestureDetector(
-                        onTap: _onVolumeHighTap,
+                        onTap: () => _onVolumeHighTap(context),
                         child: const VideoButton(
                             icon: FontAwesomeIcons.volumeXmark, text: ""),
                       ),
