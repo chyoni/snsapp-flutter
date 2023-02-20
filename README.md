@@ -367,3 +367,7 @@ flutter run
 ### #88 ValueNotifier
 
 - ChangeNotifier와 비슷한데, 얘는 한가지 value에 대해서 Listen하는 녀석이다. 이 녀석을 이용해서 dark mode인지 아닌지 Listening하는것을 구현한 커밋
+
+### #89 Provider
+
+- ChangeNotifier같은 녀석의 state관리하기 위한 Provider
