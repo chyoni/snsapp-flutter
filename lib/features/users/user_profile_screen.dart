@@ -235,7 +235,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           horizontal: Sizes.size20,
                         ),
                         child: Text(
-                          "안녕하세요 쵸니입니다. 저는 플러터 개발자가 될 것입니다. 그리고 100억 자산가가 될 것입니다.",
+                          "플러터 개꿀잼",
                           textAlign: TextAlign.center,
                         ),
                       ),

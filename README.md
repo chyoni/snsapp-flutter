@@ -357,3 +357,9 @@ flutter run
 
 - 바로 지난 커밋에서는 우리만의 InheritWidget을 만들었지만 그 Widget이 가지는 상태에 대한 업데이트를 다른 화면이 공유할 수 없었다면 이제는 그 각 상태들을 공유할 수 있게
   StatefulWidget으로 만든 커밋
+
+### #87 ChangeNotifier
+
+- 86번 커밋의 InheritStatefulWidget을 정확히 동일하게 구현할 수 있는 녀석이 ChangeNotifier고, 얘가 사용법이 훨씬 간편하다.
+  그리고 얘는 상태에 대한 업데이트를 두 가지 방법으로 구현할 수 있는데 하나는 `AnimatedBuilder`고 하나는 `Listener`다. 
+  AnimatedBuilder랑 연동해서 rebuild도 좋고 `notifyListeners()`라는 함수가 있는데 이 함수를 호출해서 이 ChangeNotifier를 Listen하고 있는 Listener에게 알려주면 그거에 대한 작업을 해주면 된다.

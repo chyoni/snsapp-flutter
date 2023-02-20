@@ -34,6 +34,7 @@ class _VideoPostState extends State<VideoPost>
   late final AnimationController _animationController;
   bool _isPaused = false;
   bool _isAllDesc = false;
+  bool _isMuted = videoConfig.autoMute;
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
   // ! 비디오 컨트롤러의 비디오 전체 길이가 현재 사용자의 비디오 실행기간이 같다 즉, 비디오가 다 끝났다면 props로 받은 onVideoFinished()를 실행
@@ -55,26 +56,23 @@ class _VideoPostState extends State<VideoPost>
       await _videoPlayerController.setVolume(0);
     }
     if (!mounted) return;
-    _videoPlayerController
-        .setVolume(VideoConfigData.of(context).autoMute ? 0 : 1);
+    _videoPlayerController.setVolume(_isMuted ? 0 : 1);
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
 
   void _onVolumeHighTap(BuildContext context) async {
-    if (!VideoConfigData.of(context).autoMute) return;
+    if (!_isMuted) return;
     await _videoPlayerController.setVolume(1);
 
-    if (!mounted) return;
-    VideoConfigData.of(context).toggleMuted();
+    videoConfig.toggleAutoMute();
   }
 
   void _onVolumeMuteTap(BuildContext context) async {
-    if (VideoConfigData.of(context).autoMute) return;
+    if (_isMuted) return;
     await _videoPlayerController.setVolume(0);
 
-    if (!mounted) return;
-    VideoConfigData.of(context).toggleMuted();
+    videoConfig.toggleAutoMute();
   }
 
   @override
@@ -89,6 +87,11 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
+    videoConfig.addListener(() {
+      setState(() {
+        _isMuted = videoConfig.autoMute;
+      });
+    });
   }
 
   @override
@@ -117,8 +120,7 @@ class _VideoPostState extends State<VideoPost>
       // ! 플레이 중 스탑을 하면 애니메이션 컨트롤러가 upperBound -> lowerBound로 value를 변경하는 statement
       _animationController.reverse();
     } else {
-      _videoPlayerController
-          .setVolume(VideoConfigData.of(context).autoMute ? 0 : 1);
+      _videoPlayerController.setVolume(_isMuted ? 0 : 1);
       _videoPlayerController.play();
       // ! 스탑 중 플레이를 하면 애니메이션 컨트롤러가 lowerBound -> upperBound로 value를 변경하는 statement
       _animationController.forward();
@@ -270,7 +272,7 @@ class _VideoPostState extends State<VideoPost>
             right: 20,
             child: Column(
               children: [
-                !VideoConfigData.of(context).autoMute
+                !_isMuted
                     ? GestureDetector(
                         onTap: () => _onVolumeMuteTap(context),
                         child: const VideoButton(

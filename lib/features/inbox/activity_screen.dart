@@ -46,7 +46,7 @@ class _ActivityScreenState extends State<ActivityScreen>
 
   late final AnimationController _animationController;
   // ! begin 0.0 과 end 0.5 가 의미하는건 180도만 회전할 것을 의미 만약, end가 1.0이면 360도 회전
-  late final Animation<double> _arrowanimation =
+  late final Animation<double> _arrowAnimation =
       Tween(begin: 0.0, end: 0.5).animate(_animationController);
 
   // ! Offset(0, -1)에서 -1이 의미하는건 100%위로 올리겠다는 의미다. 만약 -0.5면 위로 50%만 올려서 절반만 보이겠지
@@ -102,7 +102,7 @@ class _ActivityScreenState extends State<ActivityScreen>
               const Text("All activity"),
               Gaps.h2,
               RotationTransition(
-                turns: _arrowanimation,
+                turns: _arrowAnimation,
                 child: const FaIcon(
                   FontAwesomeIcons.chevronDown,
                   size: Sizes.size14,
