@@ -363,3 +363,7 @@ flutter run
 - 86번 커밋의 InheritStatefulWidget을 정확히 동일하게 구현할 수 있는 녀석이 ChangeNotifier고, 얘가 사용법이 훨씬 간편하다.
   그리고 얘는 상태에 대한 업데이트를 두 가지 방법으로 구현할 수 있는데 하나는 `AnimatedBuilder`고 하나는 `Listener`다. 
   AnimatedBuilder랑 연동해서 rebuild도 좋고 `notifyListeners()`라는 함수가 있는데 이 함수를 호출해서 이 ChangeNotifier를 Listen하고 있는 Listener에게 알려주면 그거에 대한 작업을 해주면 된다.
+
+### #88 ValueNotifier
+
+- ChangeNotifier와 비슷한데, 얘는 한가지 value에 대해서 Listen하는 녀석이다. 이 녀석을 이용해서 dark mode인지 아닌지 Listening하는것을 구현한 커밋
