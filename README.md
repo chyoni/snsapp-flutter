@@ -390,3 +390,8 @@ flutter run
 
 - https://docs-v2.riverpod.dev/
 - Flutter Riverpod Snippets (익스텐션)
+
+### #92 AsyncNotifier
+
+- AsyncNotifier는 비동기 Notifier로 데이터를 주고받고 패치할때 유용하게 쓰일듯하다.
+- Timeline을 이 AsyncNotifier로 변경한 커밋 (추후에 실 데이터를 이용할 것)
