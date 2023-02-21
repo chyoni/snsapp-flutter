@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 
-class ChatDetailScreen extends StatefulWidget {
+class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = "chatDetail";
   static const String routeURL = ":chatId";
   final String chatId;
@@ -15,10 +15,10 @@ class ChatDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<ChatDetailScreen> createState() => _ChatDetailScreenState();
+  ChatDetailScreenState createState() => ChatDetailScreenState();
 }
 
-class _ChatDetailScreenState extends State<ChatDetailScreen> {
+class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
   bool isEnableSending = false;
 
   void _onKeyboardDismiss() {
@@ -70,7 +70,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                     color: Colors.green.shade400,
                     boxShadow: [
                       BoxShadow(
-                        color: context.watch<CommonConfigViewModel>().darkMode
+                        color: ref.watch(commonConfigProvider).darkMode
                             ? Colors.grey.shade900
                             : Colors.white,
                         spreadRadius: 5,
@@ -157,7 +157,7 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
             bottom: 0,
             width: MediaQuery.of(context).size.width,
             child: BottomAppBar(
-              color: context.watch<CommonConfigViewModel>().darkMode
+              color: ref.watch(commonConfigProvider).darkMode
                   ? Colors.grey.shade900
                   : Colors.grey.shade100,
               child: Padding(
@@ -190,11 +190,10 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                               contentPadding: const EdgeInsets.symmetric(
                                 horizontal: Sizes.size14,
                               ),
-                              fillColor: context
-                                      .watch<CommonConfigViewModel>()
-                                      .darkMode
-                                  ? Colors.grey.shade800
-                                  : Colors.white,
+                              fillColor:
+                                  ref.watch(commonConfigProvider).darkMode
+                                      ? Colors.grey.shade800
+                                      : Colors.white,
                               suffixIcon: GestureDetector(
                                 onTap: _showEmojiTap,
                                 child: Container(
@@ -210,8 +209,8 @@ class _ChatDetailScreenState extends State<ChatDetailScreen> {
                                       FaIcon(
                                         FontAwesomeIcons.faceLaugh,
                                         size: Sizes.size20,
-                                        color: context
-                                                .watch<CommonConfigViewModel>()
+                                        color: ref
+                                                .watch(commonConfigProvider)
                                                 .darkMode
                                             ? Colors.grey.shade300
                                             : Colors.black,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
@@ -13,7 +13,7 @@ import 'package:tiktok/features/users/user_profile_screen.dart';
 import 'package:tiktok/features/videos/views/video_recording_screen.dart';
 import 'package:tiktok/features/videos/views/video_timeline_screen.dart';
 
-class MainNavigationScreen extends StatefulWidget {
+class MainNavigationScreen extends ConsumerStatefulWidget {
   static const String routeName = "mainNavigation";
   final String tab;
   const MainNavigationScreen({
@@ -22,10 +22,10 @@ class MainNavigationScreen extends StatefulWidget {
   });
 
   @override
-  State<MainNavigationScreen> createState() => _MainNavigationScreenState();
+  MainNavigationScreenState createState() => MainNavigationScreenState();
 }
 
-class _MainNavigationScreenState extends State<MainNavigationScreen> {
+class MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
   final List<String> _tabs = [
     "home",
     "discover",
@@ -79,7 +79,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       bottomNavigationBar: BottomAppBar(
         color: _selectedIndex == 0
             ? Colors.black
-            : context.watch<CommonConfigViewModel>().darkMode
+            : ref.watch(commonConfigProvider).darkMode
                 ? Colors.black
                 : Colors.white,
         child: Padding(

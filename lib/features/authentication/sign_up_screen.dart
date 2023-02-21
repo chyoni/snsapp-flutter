@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
@@ -10,7 +10,7 @@ import 'package:tiktok/features/authentication/username_screen.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok/generated/l10n.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends ConsumerWidget {
   static const String routeName = "signUp";
   static const String routeURL = "/";
   const SignUpScreen({super.key});
@@ -45,7 +45,7 @@ class SignUpScreen extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     // ! 이거는 l10n 파일 있으면 어떤 파일로 로드할지 그냥 픽스해버리는거
     S.load(const Locale("en"));
     return OrientationBuilder(
@@ -109,7 +109,7 @@ class SignUpScreen extends StatelessWidget {
             ),
           ),
           bottomNavigationBar: BottomAppBar(
-            color: context.watch<CommonConfigViewModel>().darkMode
+            color: ref.watch(commonConfigProvider).darkMode
                 ? Colors.black38
                 : Colors.grey.shade50,
             elevation: 3,

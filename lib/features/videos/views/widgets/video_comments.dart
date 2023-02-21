@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/generated/l10n.dart';
 
-class VideoComments extends StatefulWidget {
+class VideoComments extends ConsumerStatefulWidget {
   const VideoComments({super.key});
 
   @override
-  State<VideoComments> createState() => _VideoCommentsState();
+  VideoCommentsState createState() => VideoCommentsState();
 }
 
-class _VideoCommentsState extends State<VideoComments> {
+class VideoCommentsState extends ConsumerState<VideoComments> {
   bool _isWriting = false;
 
   final ScrollController _scrollController = ScrollController();
@@ -47,14 +47,14 @@ class _VideoCommentsState extends State<VideoComments> {
           borderRadius: BorderRadius.circular(Sizes.size20),
         ),
         child: Scaffold(
-          backgroundColor: context.watch<CommonConfigViewModel>().darkMode
+          backgroundColor: ref.watch(commonConfigProvider).darkMode
               ? Colors.black
               : Colors.grey.shade50,
           appBar: AppBar(
             // ! backbutton 안 보이게
             automaticallyImplyLeading: false,
             title: Text(S.of(context).commentTitle(22154, 22154)),
-            backgroundColor: context.watch<CommonConfigViewModel>().darkMode
+            backgroundColor: ref.watch(commonConfigProvider).darkMode
                 ? Colors.black
                 : Colors.grey.shade50,
             actions: [
@@ -114,18 +114,15 @@ class _VideoCommentsState extends State<VideoComments> {
                           FaIcon(
                             FontAwesomeIcons.heart,
                             size: Sizes.size20,
-                            color:
-                                context.watch<CommonConfigViewModel>().darkMode
-                                    ? Colors.grey.shade300
-                                    : Colors.grey.shade500,
+                            color: ref.watch(commonConfigProvider).darkMode
+                                ? Colors.grey.shade300
+                                : Colors.grey.shade500,
                           ),
                           Gaps.v3,
                           Text(
                             "52.2K",
                             style: TextStyle(
-                              color: context
-                                      .watch<CommonConfigViewModel>()
-                                      .darkMode
+                              color: ref.watch(commonConfigProvider).darkMode
                                   ? Colors.grey.shade300
                                   : Colors.grey.shade500,
                             ),
@@ -140,7 +137,7 @@ class _VideoCommentsState extends State<VideoComments> {
                 bottom: 0,
                 width: size.width,
                 child: BottomAppBar(
-                  color: context.watch<CommonConfigViewModel>().darkMode
+                  color: ref.watch(commonConfigProvider).darkMode
                       ? Colors.grey.shade900
                       : Colors.white,
                   child: Padding(
@@ -180,11 +177,10 @@ class _VideoCommentsState extends State<VideoComments> {
                                   borderSide: BorderSide.none,
                                 ),
                                 filled: true,
-                                fillColor: context
-                                        .watch<CommonConfigViewModel>()
-                                        .darkMode
-                                    ? Colors.grey.shade800
-                                    : Colors.grey.shade200,
+                                fillColor:
+                                    ref.watch(commonConfigProvider).darkMode
+                                        ? Colors.grey.shade800
+                                        : Colors.grey.shade200,
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: Sizes.size12,
                                   vertical: Sizes.size10,
@@ -197,8 +193,8 @@ class _VideoCommentsState extends State<VideoComments> {
                                     children: [
                                       FaIcon(
                                         FontAwesomeIcons.at,
-                                        color: context
-                                                .watch<CommonConfigViewModel>()
+                                        color: ref
+                                                .watch(commonConfigProvider)
                                                 .darkMode
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade900,
@@ -207,8 +203,8 @@ class _VideoCommentsState extends State<VideoComments> {
                                       Gaps.h8,
                                       FaIcon(
                                         FontAwesomeIcons.gift,
-                                        color: context
-                                                .watch<CommonConfigViewModel>()
+                                        color: ref
+                                                .watch(commonConfigProvider)
                                                 .darkMode
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade900,
@@ -217,8 +213,8 @@ class _VideoCommentsState extends State<VideoComments> {
                                       Gaps.h8,
                                       FaIcon(
                                         FontAwesomeIcons.faceSmile,
-                                        color: context
-                                                .watch<CommonConfigViewModel>()
+                                        color: ref
+                                                .watch(commonConfigProvider)
                                                 .darkMode
                                             ? Colors.grey.shade300
                                             : Colors.grey.shade900,

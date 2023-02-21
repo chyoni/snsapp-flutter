@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/breakpoints.dart';
 import 'package:tiktok/constants/gaps.dart';
@@ -16,14 +16,14 @@ final tabs = [
   "Brands",
 ];
 
-class DiscoverScreen extends StatefulWidget {
+class DiscoverScreen extends ConsumerStatefulWidget {
   const DiscoverScreen({super.key});
 
   @override
-  State<DiscoverScreen> createState() => _DiscoverScreenState();
+  DiscoverScreenState createState() => DiscoverScreenState();
 }
 
-class _DiscoverScreenState extends State<DiscoverScreen>
+class DiscoverScreenState extends ConsumerState<DiscoverScreen>
     with TickerProviderStateMixin {
   late final TabController _tabController;
   final TextEditingController _textEditingController = TextEditingController();
@@ -91,7 +91,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               autocorrect: false,
               decoration: InputDecoration(
                 hintText: "Search",
-                iconColor: context.watch<CommonConfigViewModel>().darkMode
+                iconColor: ref.watch(commonConfigProvider).darkMode
                     ? Colors.white
                     : Colors.grey,
                 border: OutlineInputBorder(
@@ -102,7 +102,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: Sizes.size14,
                 ),
-                fillColor: context.watch<CommonConfigViewModel>().darkMode
+                fillColor: ref.watch(commonConfigProvider).darkMode
                     ? Colors.grey.shade900
                     : Colors.grey.shade200,
                 prefixIcon: Row(
@@ -153,7 +153,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
               horizontal: Sizes.size16,
             ),
             unselectedLabelColor: Colors.grey.shade500,
-            indicatorColor: context.watch<CommonConfigViewModel>().darkMode
+            indicatorColor: ref.watch(commonConfigProvider).darkMode
                 ? Colors.white
                 : Colors.black,
             isScrollable: true,
@@ -218,7 +218,7 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                       DefaultTextStyle(
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: context.watch<CommonConfigViewModel>().darkMode
+                          color: ref.watch(commonConfigProvider).darkMode
                               ? Colors.grey.shade300
                               : Colors.grey.shade600,
                         ),
@@ -237,20 +237,17 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
-                                    color: context
-                                            .watch<CommonConfigViewModel>()
-                                            .darkMode
-                                        ? Colors.white
-                                        : Colors.grey.shade500),
+                                    color:
+                                        ref.watch(commonConfigProvider).darkMode
+                                            ? Colors.white
+                                            : Colors.grey.shade500),
                               ),
                             ),
                             Gaps.h4,
                             FaIcon(
                               FontAwesomeIcons.heart,
                               size: Sizes.size14,
-                              color: context
-                                      .watch<CommonConfigViewModel>()
-                                      .darkMode
+                              color: ref.watch(commonConfigProvider).darkMode
                                   ? Colors.grey.shade300
                                   : Colors.grey.shade600,
                             ),
@@ -258,11 +255,10 @@ class _DiscoverScreenState extends State<DiscoverScreen>
                             Text(
                               "2.5M",
                               style: TextStyle(
-                                  color: context
-                                          .watch<CommonConfigViewModel>()
-                                          .darkMode
-                                      ? Colors.white
-                                      : Colors.grey.shade500),
+                                  color:
+                                      ref.watch(commonConfigProvider).darkMode
+                                          ? Colors.white
+                                          : Colors.grey.shade500),
                             ),
                           ],
                         ),

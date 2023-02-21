@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 
 import 'package:tiktok/features/videos/view_models/playback_config_vm.dart';
@@ -24,15 +23,14 @@ class SettingsScreen extends ConsumerWidget {
         ),
         body: ListView(
           children: [
-            AnimatedBuilder(
-              animation: context.watch<CommonConfigViewModel>(),
-              builder: (context, child) => SwitchListTile.adaptive(
-                value: context.watch<CommonConfigViewModel>().darkMode,
-                onChanged: (value) =>
-                    context.read<CommonConfigViewModel>().setDarkMode(value),
-                title: const Text("Dark mode"),
-                subtitle: const Text("Set dark mode"),
-              ),
+            SwitchListTile.adaptive(
+              // ! playbackConfigProvider를 watch또는 read하면, 이 녀석이 Listen하고 있는 데이터에만 접근이 가능하다.
+              value: ref.watch(commonConfigProvider).darkMode,
+              onChanged: (value) =>
+                  // ! playbackConfigProvider.notifier를 watch, read하면 얘가 가지고 있는 클래스의 method에 접근이 가능하다.
+                  ref.read(commonConfigProvider.notifier).setDarkMode(value),
+              title: const Text("Dark mode"),
+              subtitle: const Text("Set dark mode"),
             ),
             SwitchListTile.adaptive(
               // ! playbackConfigProvider를 watch또는 read하면, 이 녀석이 Listen하고 있는 데이터에만 접근이 가능하다.

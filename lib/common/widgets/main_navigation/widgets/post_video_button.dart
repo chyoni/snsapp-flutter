@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/sizes.dart';
 
-class PostVideoButton extends StatelessWidget {
+class PostVideoButton extends ConsumerWidget {
   final bool isNotHome;
 
   const PostVideoButton({
@@ -13,7 +13,7 @@ class PostVideoButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -48,7 +48,7 @@ class PostVideoButton extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             color: isNotHome
-                ? context.watch<CommonConfigViewModel>().darkMode
+                ? ref.watch(commonConfigProvider).darkMode
                     ? Colors.white
                     : Colors.black
                 : Colors.white,
@@ -58,7 +58,7 @@ class PostVideoButton extends StatelessWidget {
             child: FaIcon(
               FontAwesomeIcons.plus,
               color: isNotHome
-                  ? context.watch<CommonConfigViewModel>().darkMode
+                  ? ref.watch(commonConfigProvider).darkMode
                       ? Colors.black
                       : Colors.white
                   : Colors.black,

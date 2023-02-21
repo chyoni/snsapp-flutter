@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 
-class ActivityScreen extends StatefulWidget {
+class ActivityScreen extends ConsumerStatefulWidget {
   static const String routeName = "activity";
   static const String routePath = "/activity";
   const ActivityScreen({super.key});
 
   @override
-  State<ActivityScreen> createState() => _ActivityScreenState();
+  ActivityScreenState createState() => ActivityScreenState();
 }
 
-class _ActivityScreenState extends State<ActivityScreen>
+class ActivityScreenState extends ConsumerState<ActivityScreen>
     with SingleTickerProviderStateMixin {
   final List<String> _notifications = List.generate(20, (index) => "${index}h");
   final List<Map<String, dynamic>> _tabs = [
@@ -172,11 +172,11 @@ class _ActivityScreenState extends State<ActivityScreen>
                       width: Sizes.size52,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: context.watch<CommonConfigViewModel>().darkMode
+                        color: ref.watch(commonConfigProvider).darkMode
                             ? Colors.grey.shade600
                             : Colors.white,
                         border: Border.all(
-                          color: context.watch<CommonConfigViewModel>().darkMode
+                          color: ref.watch(commonConfigProvider).darkMode
                               ? Colors.grey.shade600
                               : Colors.grey.shade400,
                           width: Sizes.size1,
@@ -185,7 +185,7 @@ class _ActivityScreenState extends State<ActivityScreen>
                       child: Center(
                         child: FaIcon(
                           FontAwesomeIcons.bell,
-                          color: context.watch<CommonConfigViewModel>().darkMode
+                          color: ref.watch(commonConfigProvider).darkMode
                               ? Colors.white
                               : Colors.black,
                         ),
@@ -196,7 +196,7 @@ class _ActivityScreenState extends State<ActivityScreen>
                         text: "Account updates:",
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
-                          color: context.watch<CommonConfigViewModel>().darkMode
+                          color: ref.watch(commonConfigProvider).darkMode
                               ? Colors.white
                               : Colors.black,
                           fontSize: Sizes.size16,
@@ -236,7 +236,7 @@ class _ActivityScreenState extends State<ActivityScreen>
             position: _panelAnimation,
             child: Container(
               decoration: BoxDecoration(
-                color: context.watch<CommonConfigViewModel>().darkMode
+                color: ref.watch(commonConfigProvider).darkMode
                     ? Colors.black
                     : Colors.white,
                 borderRadius: const BorderRadius.only(
@@ -253,10 +253,9 @@ class _ActivityScreenState extends State<ActivityScreen>
                         children: [
                           Icon(
                             tab["icon"],
-                            color:
-                                context.watch<CommonConfigViewModel>().darkMode
-                                    ? Colors.white
-                                    : Colors.black,
+                            color: ref.watch(commonConfigProvider).darkMode
+                                ? Colors.white
+                                : Colors.black,
                             size: Sizes.size16,
                           ),
                           Gaps.h20,
