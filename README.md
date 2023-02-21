@@ -395,3 +395,23 @@ flutter run
 
 - AsyncNotifier는 비동기 Notifier로 데이터를 주고받고 패치할때 유용하게 쓰일듯하다.
 - Timeline을 이 AsyncNotifier로 변경한 커밋 (추후에 실 데이터를 이용할 것)
+
+### #93 Firebase setup
+
+아래 문서 참조하여 Setup 하기
+- https://firebase.google.com/docs/flutter/setup?platform=ios
+
+- 잘 따라가다보면 flutterfire configure 이라는 명령어를 실행하는 순서가 나오는데, 이때 이제 프로젝트를 만든다. 근데 만약에 path 설정이 안되어있으면 zshrc에 (혹은 bash_profile, ...) 아래 한 줄 추가해주자.
+```bash
+export PATH="$PATH":"$HOME/.pub-cache/bin"
+```
+
+- 이제 위 명령어를 실행해서 프로젝트를 만들면 되는데 프로젝트명이 굉장히 중요한게 이게 내 계정에 유니크가 아니고 firebase 전체 프로젝트중에 유니크한 프로젝트명으로 작성해야한다. 
+- 나 firebase 계정이 chiwon99881이건가봐..
+
+- Step 4까지 다 해야해 !
+
+- 우리가 사용할 plugin은 firebase_auth, cloud_firestore, firebase_storage이고 이거를 설치하려면 `flutter pub add <plugin name>`를 실행
+- 그리고 firebase plugin을 설치하거나 제거했으면 무조건 flutterfire configure 실행 다시해줘야하네
+- 그 flutterfire configure할 때 macos는 체크해제할건데 체크해제하려면 스페이스바 누르면 됨
+

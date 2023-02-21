@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,12 +10,18 @@ import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/videos/repo/playback_config_repo.dart';
 import 'package:tiktok/features/videos/view_models/playback_config_vm.dart';
+import 'package:tiktok/firebase_options.dart';
 import 'package:tiktok/generated/l10n.dart';
 import 'package:tiktok/router.dart';
 
 void main() async {
   // ! 얘는 runApp()을 호출하기전 설정해야할 무언가가 있을 때 runApp() 이전에 호출시키는 녀석
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   // ! 이거는 이제 디바이스가 세로로 놓여져 있을 때 보여지는 화면으로만 보여지게 하는 녀석,
   // ! 즉, 가로로 바꿔도 화면이 전환되지 않게끔 설정해줌
   await SystemChrome.setPreferredOrientations(
@@ -28,20 +35,6 @@ void main() async {
   // ! 그 인스턴스를 각 MVVM 패턴에 사용되는 repository에 적용한 인스턴스를 생성
   final playbackRepository = PlaybackConfigRepository(preferences);
   final commonRepository = CommonConfigRepository(preferences);
-
-  // runApp(
-  //   MultiProvider(
-  //     providers: [
-  //       ChangeNotifierProvider(
-  //         create: (context) => PlaybackConfigViewModel(playbackRepository),
-  //       ),
-  //       ChangeNotifierProvider(
-  //         create: (context) => CommonConfigViewModel(commonRepository),
-  //       ),
-  //     ],
-  //     child: const TikTokApp(),
-  //   ),
-  // );
 
   runApp(
     ProviderScope(

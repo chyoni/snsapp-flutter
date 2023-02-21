@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "70460671611",
+    "project_id": "chiwon99881tiktok",
+    "storage_bucket": "chiwon99881tiktok.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70460671611:android:02581e5fb1cbfe7e37c4de",
+        "android_client_info": {
+          "package_name": "com.example.tiktok"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70460671611-fs5ep3od48dp3bm00lp104u0odp5b9kq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANhZl0D81PmPNTOOcak9xBu7Ix4ZO9PMQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70460671611-fs5ep3od48dp3bm00lp104u0odp5b9kq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "70460671611-br42tiidv17nmip2vdgg533o93fiajip.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "chyonee.clone.tiktok"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
