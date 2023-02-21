@@ -421,3 +421,9 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 - firebase를 이용해서 authenticated를 한다. 그리고 그를 구현하기 위해 Riverpod을 이용하여 Provider를 사용한 커밋
 
+### #95 Firebase project setting
+
+- 우선, firebase console로 가서 내 프로젝트로 들어오면 화면 앞 대문짝만하게 Authentication이 있다. 이거를 누르고 Get started를 하면
+  어떤 유형의 Auth를 할지 여러개가 있다. 여기서 Email/Password를 선택한다. 선택하고 Enable
+
+### #96 Signup with Firebase
