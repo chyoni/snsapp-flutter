@@ -48,6 +48,7 @@ class VideoTimelineScreenState extends ConsumerState<VideoTimelineScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // ! timelineProvider의 initialState를 가져오는 방식
     return ref.watch(timelineProvider).when(
           loading: () => const Center(
             child: CircularProgressIndicator.adaptive(),
