@@ -401,7 +401,8 @@ flutter run
 아래 문서 참조하여 Setup 하기
 - https://firebase.google.com/docs/flutter/setup?platform=ios
 
-- 잘 따라가다보면 flutterfire configure 이라는 명령어를 실행하는 순서가 나오는데, 이때 이제 프로젝트를 만든다. 근데 만약에 path 설정이 안되어있으면 zshrc에 (혹은 bash_profile, ...) 아래 한 줄 추가해주자.
+- 잘 따라가다보면 flutterfire configure 이라는 명령어를 실행하는 순서가 나오는데, 이때 이제 프로젝트가 없으면 
+  프로젝트를 만든다. 근데 만약에 path 설정이 안되어있으면 zshrc에 (혹은 bash_profile, ...) 아래 한 줄 추가해주자.
 ```bash
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
@@ -414,4 +415,9 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 - 우리가 사용할 plugin은 firebase_auth, cloud_firestore, firebase_storage이고 이거를 설치하려면 `flutter pub add <plugin name>`를 실행
 - 그리고 firebase plugin을 설치하거나 제거했으면 무조건 flutterfire configure 실행 다시해줘야하네
 - 그 flutterfire configure할 때 macos는 체크해제할건데 체크해제하려면 스페이스바 누르면 됨
+
+
+### #94 Firebase authentication
+
+- firebase를 이용해서 authenticated를 한다. 그리고 그를 구현하기 위해 Riverpod을 이용하여 Provider를 사용한 커밋
 

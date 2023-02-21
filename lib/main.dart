@@ -58,7 +58,7 @@ class TikTokApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      routerConfig: router,
+      routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,
       title: 'TikTok',
       // ! AppLocalizations 이 녀석은 flutter gen-l10n 실행 시 만들어지는 파일안에 있는 클래스
