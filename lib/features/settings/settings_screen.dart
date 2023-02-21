@@ -1,31 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 
 import 'package:tiktok/features/videos/view_models/playback_config_vm.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
+  // ! Riverpod을 사용하기 위해 ConsumerWidget으로 변경했고, 그렇게 변경하면 build method는 하나를 더 파라미터로 받는데 그게 WidgetRef다.
+  // ! 이 WidgetRef를 통해 Provider로 던져준 ViewModel(Notifier)의 원하는 state, 원하는 method에 접근할 수 있다.
   @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  bool _notifications = false;
-
-  void _onNotificationsChanged(bool? newValue) {
-    if (newValue == null) return;
-    setState(() {
-      _notifications = newValue;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Localizations.override(
       context: context,
       locale: const Locale("es"),
@@ -45,35 +34,31 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 subtitle: const Text("Set dark mode"),
               ),
             ),
-            AnimatedBuilder(
-              animation: context.watch<PlaybackConfigViewModel>(),
-              builder: (context, child) => SwitchListTile.adaptive(
-                value: context.watch<PlaybackConfigViewModel>().muted,
-                onChanged: (value) =>
-                    context.read<PlaybackConfigViewModel>().setMuted(value),
-                title: const Text("Video mute"),
-                subtitle: const Text("Set video mute or not"),
-              ),
-            ),
-            AnimatedBuilder(
-              animation: context.watch<PlaybackConfigViewModel>(),
-              builder: (context, child) => SwitchListTile.adaptive(
-                value: context.watch<PlaybackConfigViewModel>().autoplay,
-                onChanged: (value) =>
-                    context.read<PlaybackConfigViewModel>().setAutoplay(value),
-                title: const Text("Video autoplay"),
-                subtitle: const Text("Set video auto play"),
-              ),
+            SwitchListTile.adaptive(
+              // ! playbackConfigProvider를 watch또는 read하면, 이 녀석이 Listen하고 있는 데이터에만 접근이 가능하다.
+              value: ref.watch(playbackConfigProvider).muted,
+              onChanged: (value) =>
+                  // ! playbackConfigProvider.notifier를 watch, read하면 얘가 가지고 있는 클래스의 method에 접근이 가능하다.
+                  ref.read(playbackConfigProvider.notifier).setMuted(value),
+              title: const Text("Video mute"),
+              subtitle: const Text("Set video mute or not"),
             ),
             SwitchListTile.adaptive(
-              value: _notifications,
-              onChanged: _onNotificationsChanged,
+              value: ref.watch(playbackConfigProvider).autoplay,
+              onChanged: (value) =>
+                  ref.read(playbackConfigProvider.notifier).setAutoplay(value),
+              title: const Text("Video autoplay"),
+              subtitle: const Text("Set video auto play"),
+            ),
+            SwitchListTile.adaptive(
+              value: false,
+              onChanged: (value) {},
               title: const Text("Enable notifications with switch"),
             ),
             CheckboxListTile(
               activeColor: Colors.black,
-              value: _notifications,
-              onChanged: _onNotificationsChanged,
+              value: false,
+              onChanged: (value) {},
               title: const Text("Enable notifications"),
             ),
             ListTile(

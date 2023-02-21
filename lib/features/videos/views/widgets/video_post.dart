@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/videos/view_models/playback_config_vm.dart';
@@ -11,7 +11,9 @@ import 'package:tiktok/generated/l10n.dart';
 import 'package:video_player/video_player.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-class VideoPost extends StatefulWidget {
+// ! Riverpod의 Provider로 제공하는 state뿐 아니라 그냥 이 클래스에서 State가 필요할 땐 ConsumerStatefulWidget으로 상속받으면 된다.
+// ! 그럼 이 ConsumerStatefulWidget은 build method에서 WidgetRef를 받지 않는데 얘는 어디서나 ref를 사용할 수 있다.
+class VideoPost extends ConsumerStatefulWidget {
   final void Function() onVideoFinished;
   final int index;
   final String description =
@@ -24,10 +26,10 @@ class VideoPost extends StatefulWidget {
   });
 
   @override
-  State<VideoPost> createState() => _VideoPostState();
+  VideoPostState createState() => VideoPostState();
 }
 
-class _VideoPostState extends State<VideoPost>
+class VideoPostState extends ConsumerState<VideoPost>
     with SingleTickerProviderStateMixin {
   // ! VideoPlayer의 실행 비디오를 설정
   final VideoPlayerController _videoPlayerController =
@@ -57,25 +59,25 @@ class _VideoPostState extends State<VideoPost>
     }
     if (!mounted) return;
     _videoPlayerController
-        .setVolume(context.read<PlaybackConfigViewModel>().muted ? 0 : 1);
+        .setVolume(ref.read(playbackConfigProvider).muted ? 0 : 1);
     _videoPlayerController.addListener(_onVideoChange);
     setState(() {});
   }
 
   void _onVolumeHighTap(BuildContext context) async {
-    if (!context.read<PlaybackConfigViewModel>().muted) return;
+    if (!ref.read(playbackConfigProvider).muted) return;
     await _videoPlayerController.setVolume(1);
 
     if (!mounted) return;
-    context.read<PlaybackConfigViewModel>().setMuted(false);
+    ref.read(playbackConfigProvider.notifier).setMuted(false);
   }
 
   void _onVolumeMuteTap(BuildContext context) async {
-    if (context.read<PlaybackConfigViewModel>().muted) return;
+    if (ref.read(playbackConfigProvider).muted) return;
     await _videoPlayerController.setVolume(0);
 
     if (!mounted) return;
-    context.read<PlaybackConfigViewModel>().setMuted(true);
+    ref.read(playbackConfigProvider.notifier).setMuted(true);
   }
 
   @override
@@ -90,7 +92,7 @@ class _VideoPostState extends State<VideoPost>
       value: 1.5,
       duration: _animationDuration,
     );
-    _isPaused = context.read<PlaybackConfigViewModel>().autoplay ? false : true;
+    _isPaused = ref.read(playbackConfigProvider).autoplay ? false : true;
     // videoConfig.addListener(() {
     //   setState(() {
     //     _isMuted = videoConfig.autoMute;
@@ -110,7 +112,7 @@ class _VideoPostState extends State<VideoPost>
     if (info.visibleFraction == 1 &&
         !_isPaused &&
         !_videoPlayerController.value.isPlaying &&
-        context.read<PlaybackConfigViewModel>().autoplay) {
+        ref.read(playbackConfigProvider).autoplay) {
       _videoPlayerController.play();
     }
     // ! Home에서 다른 탭으로 이동했을 때 재생중인 비디오는 꺼져야하므로
@@ -126,7 +128,7 @@ class _VideoPostState extends State<VideoPost>
       _animationController.reverse();
     } else {
       _videoPlayerController
-          .setVolume(context.read<PlaybackConfigViewModel>().muted ? 0 : 1);
+          .setVolume(ref.read(playbackConfigProvider).muted ? 0 : 1);
       _videoPlayerController.play();
       // ! 스탑 중 플레이를 하면 애니메이션 컨트롤러가 lowerBound -> upperBound로 value를 변경하는 statement
       _animationController.forward();
@@ -278,7 +280,7 @@ class _VideoPostState extends State<VideoPost>
             right: 20,
             child: Column(
               children: [
-                !context.watch<PlaybackConfigViewModel>().muted
+                !ref.watch(playbackConfigProvider).muted
                     ? GestureDetector(
                         onTap: () => _onVolumeMuteTap(context),
                         child: const VideoButton(

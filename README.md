@@ -386,4 +386,7 @@ flutter run
 - `Riverpod`은 reactive하게 caching을 해주는 프레임워크인데, 알아서 데이터 패치, 캐싱, 데이터 조합, 데이터 정제 등 약간 Redux라고 생각하면 된다. 근데 이게 웃긴게
   Riverpod이 Provider의 철자를 바꿔서 만든거래
 
+- `이 커밋은 ChangeNotifier에서 Riverpod으로 변경하는 커밋`
+
 - https://docs-v2.riverpod.dev/
+- Flutter Riverpod Snippets (익스텐션)

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok/common/repo/common_config_repo.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
@@ -29,14 +29,28 @@ void main() async {
   final playbackRepository = PlaybackConfigRepository(preferences);
   final commonRepository = CommonConfigRepository(preferences);
 
+  // runApp(
+  //   MultiProvider(
+  //     providers: [
+  //       ChangeNotifierProvider(
+  //         create: (context) => PlaybackConfigViewModel(playbackRepository),
+  //       ),
+  //       ChangeNotifierProvider(
+  //         create: (context) => CommonConfigViewModel(commonRepository),
+  //       ),
+  //     ],
+  //     child: const TikTokApp(),
+  //   ),
+  // );
+
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => PlaybackConfigViewModel(playbackRepository),
+    ProviderScope(
+      overrides: [
+        playbackConfigProvider.overrideWith(
+          () => PlaybackConfigViewModel(playbackRepository),
         ),
-        ChangeNotifierProvider(
-          create: (context) => CommonConfigViewModel(commonRepository),
+        commonConfigProvider.overrideWith(
+          () => CommonConfigViewModel(commonRepository),
         ),
       ],
       child: const TikTokApp(),
@@ -44,12 +58,12 @@ void main() async {
   );
 }
 
-class TikTokApp extends StatelessWidget {
+class TikTokApp extends ConsumerWidget {
   const TikTokApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       routerConfig: router,
       debugShowCheckedModeBanner: false,
@@ -65,7 +79,7 @@ class TikTokApp extends StatelessWidget {
         Locale("en"),
         Locale("ko"),
       ],
-      themeMode: context.watch<CommonConfigViewModel>().darkMode
+      themeMode: ref.watch(commonConfigProvider).darkMode
           ? ThemeMode.dark
           : ThemeMode.light,
       darkTheme: ThemeData(

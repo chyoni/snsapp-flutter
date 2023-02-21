@@ -1,21 +1,27 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok/common/models/common_config_model.dart';
 import 'package:tiktok/common/repo/common_config_repo.dart';
 
-class CommonConfigViewModel extends ChangeNotifier {
+class CommonConfigViewModel extends Notifier<CommonConfigModel> {
   final CommonConfigRepository _repository;
-
-  late final CommonConfigModel _model = CommonConfigModel(
-    darkMode: _repository.getDarkMode(),
-  );
 
   CommonConfigViewModel(this._repository);
 
-  bool get darkMode => _model.darkMode;
-
   void setDarkMode(bool value) {
     _repository.setDarkMode(value);
-    _model.darkMode = value;
-    notifyListeners();
+    state = CommonConfigModel(darkMode: value);
+  }
+
+  @override
+  CommonConfigModel build() {
+    return CommonConfigModel(
+      darkMode: _repository.getDarkMode(),
+    );
   }
 }
+
+final commonConfigProvider =
+    NotifierProvider<CommonConfigViewModel, CommonConfigModel>(
+  // ! 잠깐만 이렇게 해놓을거야
+  () => throw UnimplementedError(),
+);
