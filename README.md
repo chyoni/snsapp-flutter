@@ -381,3 +381,9 @@ flutter run
   - (Repository): Repository는 Model의 데이터를 디스크에 저장하고 재사용할 수 있는 저장창고
 
   
+### #91 Riverpod
+
+- `Riverpod`은 reactive하게 caching을 해주는 프레임워크인데, 알아서 데이터 패치, 캐싱, 데이터 조합, 데이터 정제 등 약간 Redux라고 생각하면 된다. 근데 이게 웃긴게
+  Riverpod이 Provider의 철자를 바꿔서 만든거래
+
+- https://docs-v2.riverpod.dev/

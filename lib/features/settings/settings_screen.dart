@@ -51,8 +51,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 value: context.watch<PlaybackConfigViewModel>().muted,
                 onChanged: (value) =>
                     context.read<PlaybackConfigViewModel>().setMuted(value),
-                title: const Text("Video sound muted"),
-                subtitle: const Text("Default video sound mute or not"),
+                title: const Text("Video mute"),
+                subtitle: const Text("Set video mute or not"),
               ),
             ),
             AnimatedBuilder(
@@ -62,7 +62,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (value) =>
                     context.read<PlaybackConfigViewModel>().setAutoplay(value),
                 title: const Text("Video autoplay"),
-                subtitle: const Text("Video was auto playing"),
+                subtitle: const Text("Set video auto play"),
               ),
             ),
             SwitchListTile.adaptive(
