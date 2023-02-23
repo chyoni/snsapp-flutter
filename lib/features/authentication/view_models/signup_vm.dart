@@ -24,6 +24,7 @@ class SignupViewModel extends AsyncNotifier<void> {
   }
 }
 
+// ! 외부에서 값을 변경하여 조작할 수 있게끔 state를 다룰 수 있다.
 final signUpForm = StateProvider(
   (ref) => {},
 );
