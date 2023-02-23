@@ -44,7 +44,7 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
     //     return false;
     //   },
     // );
-    ref.read(signUpProvider.notifier).signUp();
+    ref.read(signUpProvider.notifier).signUpWithEmail();
     // ! pushReplacementNamed랑 goNamed랑 똑같다
     context.goNamed(InterestsScreen.routeName);
   }

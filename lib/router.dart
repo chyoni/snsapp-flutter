@@ -13,6 +13,8 @@ import 'package:tiktok/features/videos/views/video_recording_screen.dart';
 
 final routerProvider = Provider(
   (ref) {
+    // ! auth 상태를 watch하는 statement (logout, login시 호출될거고 그에 따라 router도 rebuild)
+    ref.watch(authState);
     return GoRouter(
       initialLocation: "/home",
       redirect: (context, state) {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
+import 'package:tiktok/features/authentication/repo/authentication_repo.dart';
 
 import 'package:tiktok/features/videos/view_models/playback_config_vm.dart';
 
@@ -113,7 +114,7 @@ class SettingsScreen extends ConsumerWidget {
                         child: const Text("No"),
                       ),
                       CupertinoDialogAction(
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => ref.read(authRepo).signOut(),
                         isDestructiveAction: true,
                         child: const Text("Yes"),
                       ),

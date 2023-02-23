@@ -348,7 +348,6 @@ flutter run
 - 내가 원하는건 Signup 화면에서 /Signup 에서 Email, Username, Password, Birthday를 다 작성하길 원함 /Email, /Username, ... 이게 아님
   그래서 최초 라우팅 path만 지정하고 그 안에서 다음 페이지로 넘길 땐 Navigator를 사용. 나머지 화면도 마찬가지.
 
-
 ### #85 InheritWidget
 
 - 지난 시간까지 사용했던 of(context)를 우리만의 InheritWidget으로 만들 수 있다. 그에 대한 커밋
@@ -361,7 +360,7 @@ flutter run
 ### #87 ChangeNotifier
 
 - 86번 커밋의 InheritStatefulWidget을 정확히 동일하게 구현할 수 있는 녀석이 ChangeNotifier고, 얘가 사용법이 훨씬 간편하다.
-  그리고 얘는 상태에 대한 업데이트를 두 가지 방법으로 구현할 수 있는데 하나는 `AnimatedBuilder`고 하나는 `Listener`다. 
+  그리고 얘는 상태에 대한 업데이트를 두 가지 방법으로 구현할 수 있는데 하나는 `AnimatedBuilder`고 하나는 `Listener`다.
   AnimatedBuilder랑 연동해서 rebuild도 좋고 `notifyListeners()`라는 함수가 있는데 이 함수를 호출해서 이 ChangeNotifier를 Listen하고 있는 Listener에게 알려주면 그거에 대한 작업을 해주면 된다.
 
 ### #88 ValueNotifier
@@ -375,12 +374,11 @@ flutter run
 ### #90 MVVM Design Pattern
 
 - `MVVM`은 View - View Model - Model 구조를 의미한다.
-  - View: 유저가 보는 화면 
+  - View: 유저가 보는 화면
   - View Model: 유저가 View에서 어떤 작업을 했을 때 해당 작업에 대한 API를 정의
   - Model: 데이터를 정의한 부분
   - (Repository): Repository는 Model의 데이터를 디스크에 저장하고 재사용할 수 있는 저장창고
 
-  
 ### #91 Riverpod
 
 - `Riverpod`은 reactive하게 caching을 해주는 프레임워크인데, 알아서 데이터 패치, 캐싱, 데이터 조합, 데이터 정제 등 약간 Redux라고 생각하면 된다. 근데 이게 웃긴게
@@ -399,15 +397,17 @@ flutter run
 ### #93 Firebase setup
 
 아래 문서 참조하여 Setup 하기
+
 - https://firebase.google.com/docs/flutter/setup?platform=ios
 
-- 잘 따라가다보면 flutterfire configure 이라는 명령어를 실행하는 순서가 나오는데, 이때 이제 프로젝트가 없으면 
+- 잘 따라가다보면 flutterfire configure 이라는 명령어를 실행하는 순서가 나오는데, 이때 이제 프로젝트가 없으면
   프로젝트를 만든다. 근데 만약에 path 설정이 안되어있으면 zshrc에 (혹은 bash_profile, ...) 아래 한 줄 추가해주자.
+
 ```bash
 export PATH="$PATH":"$HOME/.pub-cache/bin"
 ```
 
-- 이제 위 명령어를 실행해서 프로젝트를 만들면 되는데 프로젝트명이 굉장히 중요한게 이게 내 계정에 유니크가 아니고 firebase 전체 프로젝트중에 유니크한 프로젝트명으로 작성해야한다. 
+- 이제 위 명령어를 실행해서 프로젝트를 만들면 되는데 프로젝트명이 굉장히 중요한게 이게 내 계정에 유니크가 아니고 firebase 전체 프로젝트중에 유니크한 프로젝트명으로 작성해야한다.
 - 나 firebase 계정이 chiwon99881이건가봐..
 
 - Step 4까지 다 해야해 !
@@ -415,7 +415,6 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 - 우리가 사용할 plugin은 firebase_auth, cloud_firestore, firebase_storage이고 이거를 설치하려면 `flutter pub add <plugin name>`를 실행
 - 그리고 firebase plugin을 설치하거나 제거했으면 무조건 flutterfire configure 실행 다시해줘야하네
 - 그 flutterfire configure할 때 macos는 체크해제할건데 체크해제하려면 스페이스바 누르면 됨
-
 
 ### #94 Firebase authentication
 
@@ -427,3 +426,5 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
   어떤 유형의 Auth를 할지 여러개가 있다. 여기서 Email/Password를 선택한다. 선택하고 Enable
 
 ### #96 Signup with Firebase
+
+### #97 SignOut
