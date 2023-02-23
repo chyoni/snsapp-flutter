@@ -428,3 +428,5 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 ### #96 Signup with Firebase
 
 ### #97 SignOut
+
+### #98 Login / SnackBar (When Firebase error)

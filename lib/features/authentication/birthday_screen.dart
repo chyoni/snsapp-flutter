@@ -1,12 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/view_models/signup_vm.dart';
 import 'package:tiktok/features/authentication/widgets/form_button.dart';
-import 'package:tiktok/features/onboarding/interests_screen.dart';
 
 class BirthdayScreen extends ConsumerStatefulWidget {
   const BirthdayScreen({super.key});
@@ -44,9 +42,9 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
     //     return false;
     //   },
     // );
-    ref.read(signUpProvider.notifier).signUpWithEmail();
+    ref.read(signUpProvider.notifier).signUpWithEmail(context);
     // ! pushReplacementNamed랑 goNamed랑 똑같다
-    context.goNamed(InterestsScreen.routeName);
+    //context.goNamed(InterestsScreen.routeName);
   }
 
   void setTextFieldDate(DateTime date) {
