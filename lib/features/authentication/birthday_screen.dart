@@ -34,6 +34,12 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
 
   // ! StatefulWidget에서는 context를 안 던져줘도 알아서 context를 사용할 수 있다.
   void onNextTap() {
+    if (_birthdayController.value.text == "") return;
+    final state = ref.read(signUpForm.notifier).state;
+    ref.read(signUpForm.notifier).state = {
+      ...state,
+      "birthday": _birthdayController.value.text
+    };
     // Navigator.of(context).pushAndRemoveUntil(
     //   MaterialPageRoute(
     //     builder: (context) => const InterestsScreen(),
