@@ -20,6 +20,7 @@ class UserViewModel extends AsyncNotifier<UserProfileModel> {
 
     state = const AsyncValue.loading();
     final form = ref.read(signUpForm);
+
     final profile = UserProfileModel(
       bio: "undefined",
       link: "undefined",
