@@ -436,3 +436,10 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 - Github -> 일단 firebase console로 가서 Auth provider 추가를 Github로 하나 해주면, 거기서 Enable 시키면 아래 뭐 주소같은게 있는데 그게 Github의 callback URL에 넣으면 된다. 이거는 Github 페이지에서 Settings에 OAuth 새로 만들 때 하단에 callback URL에 넣어주면 되고 그렇게해서 Github OAuth를 만들면, Github에서 Client ID랑 Secret을 준다 그거를 firebase에 넣어주면 됨
 
 ### #100 Github Login
+
+### #101 FireStore, Storage
+
+- Firebase에서 data를 관리하기 위해, Firebase에 들어가서 대문짝만하게 Cloud Firestore라는 녀석을 클릭하면 Create database 버튼을 누른다. 거기서 test mode 선택해서 Next를 누르면
+  지역을 선택하면 되고 (Seoul) 그러고 Enable누르면 된다. 그 다음에 Storage를 Get started하면 되는데 얘는 좌측 사이드바에 Build 아래에 있다. 얘도 역시나 test mode로 선택해서 진행
+
+### #102 Create User to Firebase DB
