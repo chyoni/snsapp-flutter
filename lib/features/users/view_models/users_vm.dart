@@ -21,12 +21,13 @@ class UserViewModel extends AsyncNotifier<UserProfileModel> {
     state = const AsyncValue.loading();
     final form = ref.read(signUpForm);
     final profile = UserProfileModel(
-        bio: "undefined",
-        link: "undefined",
-        email: credential.user!.email ?? "anonymous@noreply.com",
-        name: form["username"],
-        uid: credential.user!.uid,
-        birthday: form["birthday"]);
+      bio: "undefined",
+      link: "undefined",
+      email: credential.user!.email ?? "anonymous@noreply.com",
+      name: form["username"],
+      uid: credential.user!.uid,
+      birthday: form["birthday"],
+    );
     await _repository.createProfile(profile);
     state = AsyncValue.data(profile);
   }
