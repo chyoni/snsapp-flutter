@@ -23,6 +23,10 @@ class AuthenticationRepository {
     );
   }
 
+  Future<void> githubSignIn() async {
+    await _firebaseAuth.signInWithProvider(GithubAuthProvider());
+  }
+
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }

@@ -7,6 +7,7 @@ import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/login_screen.dart';
 import 'package:tiktok/features/authentication/username_screen.dart';
+import 'package:tiktok/features/authentication/view_models/social_auth_vm.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
 import 'package:tiktok/generated/l10n.dart';
 
@@ -82,9 +83,11 @@ class SignUpScreen extends ConsumerWidget {
                         text: "Use email & password"),
                     Gaps.v16,
                     AuthButton(
-                        onTap: onUsernamePasswordTap,
-                        icon: const FaIcon(FontAwesomeIcons.apple),
-                        text: "Continue with Apple"),
+                        onTap: (context) => ref
+                            .read(socialAuthProvider.notifier)
+                            .githubSignIn(context),
+                        icon: const FaIcon(FontAwesomeIcons.github),
+                        text: "Continue with Github"),
                   ],
                   if (orientation == Orientation.landscape)
                     Row(

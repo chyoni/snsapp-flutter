@@ -430,3 +430,9 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 ### #97 SignOut
 
 ### #98 Login / SnackBar (When Firebase error)
+
+### #99 Firebase with Social Auth
+
+- Github -> 일단 firebase console로 가서 Auth provider 추가를 Github로 하나 해주면, 거기서 Enable 시키면 아래 뭐 주소같은게 있는데 그게 Github의 callback URL에 넣으면 된다. 이거는 Github 페이지에서 Settings에 OAuth 새로 만들 때 하단에 callback URL에 넣어주면 되고 그렇게해서 Github OAuth를 만들면, Github에서 Client ID랑 Secret을 준다 그거를 firebase에 넣어주면 됨
+
+### #100 Github Login
