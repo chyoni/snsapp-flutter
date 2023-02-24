@@ -443,3 +443,5 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
   지역을 선택하면 되고 (Seoul) 그러고 Enable누르면 된다. 그 다음에 Storage를 Get started하면 되는데 얘는 좌측 사이드바에 Build 아래에 있다. 얘도 역시나 test mode로 선택해서 진행
 
 ### #102 Create User to Firebase DB
+
+### #103 Create User to Firebase DB (Done)
