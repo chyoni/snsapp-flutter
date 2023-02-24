@@ -19,9 +19,13 @@ class UserRepository {
   }
 
   Future<void> uploadAvatar(File file, String filename) async {
-    // ! firebase에서 storage가 저장하는 방식이 uid를 이용해서 저장하는 방식
+    // ! firebase에서 storage가 저장하는 방식을 avatars의 filename으로 하겠다는 의미
     final fileRef = _storage.ref().child("avatars/$filename");
     await fileRef.putFile(file);
+  }
+
+  Future<void> updateUser(String uid, Map<String, dynamic> data) async {
+    await _db.collection("users").doc(uid).update(data);
   }
 }
 

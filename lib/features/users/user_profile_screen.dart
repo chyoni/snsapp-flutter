@@ -32,7 +32,7 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ref.read(usersProvider).when(
+    return ref.watch(usersProvider).when(
           error: (error, stackTrace) => Center(
             child: Text(error.toString()),
           ),
@@ -62,7 +62,11 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                       SliverToBoxAdapter(
                         child: Column(
                           children: [
-                            Avatar(name: data.name),
+                            Avatar(
+                              uid: data.uid,
+                              name: data.name,
+                              hasAvatar: data.hasAvatar,
+                            ),
                             Gaps.v20,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
