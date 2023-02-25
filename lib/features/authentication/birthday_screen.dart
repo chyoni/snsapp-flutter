@@ -47,10 +47,10 @@ class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
     //   (route) {
     //     return false;
     //   },
-    // );
+    // );e
     ref.read(signUpProvider.notifier).signUpWithEmail(context);
     // ! pushReplacementNamed랑 goNamed랑 똑같다
-    //context.goNamed(InterestsScreen.routeName);
+    //context.goNamed(InterestsScreen.routName);
   }
 
   void setTextFieldDate(DateTime date) {

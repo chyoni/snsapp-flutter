@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok/features/authentication/repo/authentication_repo.dart';
 import 'package:tiktok/features/authentication/view_models/signup_vm.dart';
 import 'package:tiktok/features/users/models/user_profile_model.dart';
 import 'package:tiktok/features/users/repo/user_repo.dart';
+import 'package:tiktok/utils.dart';
 
 class UserViewModel extends AsyncNotifier<UserProfileModel> {
   late final UserRepository _userRepository;
@@ -46,6 +48,30 @@ class UserViewModel extends AsyncNotifier<UserProfileModel> {
     );
     await _userRepository.createProfile(profile);
     state = AsyncValue.data(profile);
+  }
+
+  Future<void> updateProfile(
+      String username, String bio, String link, BuildContext context) async {
+    state = const AsyncValue.loading();
+    state = AsyncValue.data(
+      state.value!.copyWith(name: username, bio: bio, link: link),
+    );
+    await _userRepository.updateUser(
+      state.value!.uid,
+      {"name": username, "bio": bio, "link": link},
+    );
+
+    if (state.hasError) {
+      // ignore: use_build_context_synchronously
+      showFirebaseErrorSnack(context, state.error);
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Update successfully !"),
+        ),
+      );
+    }
   }
 
   Future<void> onAvatarUpload() async {

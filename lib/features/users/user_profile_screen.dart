@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/settings/settings_screen.dart';
+import 'package:tiktok/features/users/user_edit_screen.dart';
 import 'package:tiktok/features/users/view_models/users_vm.dart';
 import 'package:tiktok/features/users/widgets/avatar.dart';
 import 'package:tiktok/features/users/widgets/persist_header_tab_bar.dart';
@@ -30,6 +31,14 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
     );
   }
 
+  void _onEditPressed() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const UserEditScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return ref.watch(usersProvider).when(
@@ -48,8 +57,16 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                   headerSliverBuilder: (context, innerBoxIsScrolled) {
                     return [
                       SliverAppBar(
+                        centerTitle: true,
                         title: Text(data.name),
                         actions: [
+                          IconButton(
+                            onPressed: _onEditPressed,
+                            icon: const FaIcon(
+                              FontAwesomeIcons.penToSquare,
+                              size: Sizes.size20,
+                            ),
+                          ),
                           IconButton(
                             onPressed: _onGearPressed,
                             icon: const FaIcon(

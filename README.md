@@ -449,3 +449,5 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 ### #104 Find user profile on Firestore / Storage on Firebase
 
 ### #105 User avatar
+
+### #106 Update user profile
