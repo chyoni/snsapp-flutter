@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok/features/videos/models/video_model.dart';
 
 class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
-  List<VideoModel> _list = [VideoModel(title: "First video")];
+  List<VideoModel> _list = [];
 
   Future<void> uploadVideo() async {
     // ! 이 provider에게 현재 로딩중이다를 알려주는 statement
@@ -12,8 +12,8 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
     state = const AsyncValue.loading();
 
     await Future.delayed(const Duration(seconds: 2));
-    final newVideo = VideoModel(title: "${DateTime.now()}");
-    _list = [..._list, newVideo];
+
+    _list = [..._list];
     state = AsyncValue.data(_list);
   }
 
