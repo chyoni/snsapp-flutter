@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok/features/authentication/repo/authentication_repo.dart';
+import 'package:tiktok/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok/features/onboarding/interests_screen.dart';
-import 'package:tiktok/features/users/view_models/users_vm.dart';
+import 'package:tiktok/features/users/view_models/users_view_model.dart';
 import 'package:tiktok/utils.dart';
 
 class SignupViewModel extends AsyncNotifier<void> {

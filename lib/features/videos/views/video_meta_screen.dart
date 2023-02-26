@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/videos/view_models/upload_video_vm.dart';
+import 'package:tiktok/features/videos/view_models/upload_video_view_model.dart';
 
 class VideoMetaScreen extends ConsumerStatefulWidget {
   final XFile video;

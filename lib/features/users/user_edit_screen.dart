@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/users/view_models/users_vm.dart';
+import 'package:tiktok/features/users/view_models/users_view_model.dart';
 
 class UserEditScreen extends ConsumerStatefulWidget {
   const UserEditScreen({super.key});

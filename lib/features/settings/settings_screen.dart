@@ -5,9 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
-import 'package:tiktok/features/authentication/repo/authentication_repo.dart';
+import 'package:tiktok/features/authentication/repositories/authentication_repository.dart';
 
-import 'package:tiktok/features/videos/view_models/playback_config_vm.dart';
+import 'package:tiktok/features/videos/view_models/playback_config_view_model.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});

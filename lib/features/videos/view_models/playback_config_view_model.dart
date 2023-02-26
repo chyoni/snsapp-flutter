@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok/features/videos/models/playback_config_model.dart';
-import 'package:tiktok/features/videos/repo/playback_config_repo.dart';
+import 'package:tiktok/features/videos/repositories/playback_config_repository.dart';
 
 // ! MVVM 구조의 유저와 모델 간 인터페이스 역할을 하는 중간 다리
 class PlaybackConfigViewModel extends Notifier<PlaybackConfigModel> {

@@ -6,7 +6,7 @@ import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/login_form_screen.dart';
-import 'package:tiktok/features/authentication/view_models/social_auth_vm.dart';
+import 'package:tiktok/features/authentication/view_models/social_auth_view_model.dart';
 import 'package:tiktok/features/authentication/widgets/auth_button.dart';
 
 class LoginScreen extends ConsumerWidget {

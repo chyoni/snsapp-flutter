@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tiktok/features/authentication/repo/authentication_repo.dart';
-import 'package:tiktok/features/users/view_models/users_vm.dart';
+import 'package:tiktok/features/authentication/repositories/authentication_repository.dart';
+import 'package:tiktok/features/users/view_models/users_view_model.dart';
 import 'package:tiktok/features/videos/models/video_model.dart';
-import 'package:tiktok/features/videos/repo/videos_repo.dart';
+import 'package:tiktok/features/videos/repositories/videos_repository.dart';
 import 'package:tiktok/utils.dart';
 
 class UploadVideoViewModel extends AsyncNotifier<void> {

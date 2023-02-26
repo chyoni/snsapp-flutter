@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:tiktok/features/videos/view_models/timeline_vm.dart';
+import 'package:tiktok/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok/features/videos/views/widgets/video_post.dart';
 
 class VideoTimelineScreen extends ConsumerStatefulWidget {

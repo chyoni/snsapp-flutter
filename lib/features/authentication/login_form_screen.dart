@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/authentication/view_models/login_vm.dart';
+import 'package:tiktok/features/authentication/view_models/login_view_model.dart';
 import 'package:tiktok/features/authentication/widgets/form_button.dart';
 
 class LoginFormScreen extends ConsumerStatefulWidget {
