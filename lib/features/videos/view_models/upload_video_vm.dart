@@ -18,7 +18,8 @@ class UploadVideoViewModel extends AsyncNotifier<void> {
     _repository = ref.read(videosRepo);
   }
 
-  Future<void> uploadVideo(File video, BuildContext context) async {
+  Future<void> uploadVideo(File video, String title, String description,
+      BuildContext context) async {
     final user = ref.read(authRepo).user;
     final userProfile = ref.read(usersProvider).value;
     if (user == null) return;
@@ -30,8 +31,8 @@ class UploadVideoViewModel extends AsyncNotifier<void> {
       if (task.metadata != null) {
         await _repository.saveVideo(
           VideoModel(
-            title: "Code Challenge",
-            description: "Code Challenge",
+            title: title,
+            description: description,
             fileUrl: await task.ref.getDownloadURL(),
             thumbnailUrl: "",
             creatorUid: user.uid,

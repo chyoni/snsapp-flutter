@@ -453,3 +453,5 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 ### #106 Update user profile
 
 ### #107 Upload video to Firebase
+
+### #108 Upload video to Firebase 2
