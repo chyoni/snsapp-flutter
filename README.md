@@ -461,8 +461,6 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 - Functions은 firebase를 사용할 때 미들웨어 같은 녀석인데 예를 들어, 내 firestore에 데이터에 대해 functions의 조건에 따라 trigger가 되는 경우 
   조건은 (onCreate, onDelete, onUpdate, onWrite) 뭐 이렇게 있고 여튼 이 조건에 부합할 때 해당 데이터를 가져와서 추가적인 작업을 할 수 있다.
 
-
-
 ```bash
 flutter pub add cloud_functions
 
@@ -502,3 +500,5 @@ npm i child-process-promise
 ```
 
 ### #111 Video thumbnail done
+
+### #112 Real data on timeline screen

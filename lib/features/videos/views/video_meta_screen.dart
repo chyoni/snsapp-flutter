@@ -81,11 +81,17 @@ class VideoMetaScreenState extends ConsumerState<VideoMetaScreen> {
         actions: [
           ref.watch(uploadVideoProvider).isLoading
               ? const CircularProgressIndicator.adaptive()
-              : IconButton(
+              : TextButton(
                   onPressed: ref.watch(uploadVideoProvider).isLoading
                       ? null
                       : _onUploadPressed,
-                  icon: const FaIcon(FontAwesomeIcons.upload),
+                  child: const Text(
+                    "Upload",
+                    style: TextStyle(
+                      fontSize: Sizes.size16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
         ],
       ),

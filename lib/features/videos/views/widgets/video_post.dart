@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/videos/models/video_model.dart';
 import 'package:tiktok/features/videos/view_models/playback_config_view_model.dart';
 import 'package:tiktok/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok/features/videos/views/widgets/video_comments.dart';
@@ -14,13 +15,12 @@ import 'package:visibility_detector/visibility_detector.dart';
 // ! Riverpod의 Provider로 제공하는 state뿐 아니라 그냥 이 클래스에서 State가 필요할 땐 ConsumerStatefulWidget으로 상속받으면 된다.
 // ! 그럼 이 ConsumerStatefulWidget은 build method에서 WidgetRef를 받지 않는데 얘는 어디서나 ref를 사용할 수 있다.
 class VideoPost extends ConsumerStatefulWidget {
+  final VideoModel video;
   final void Function() onVideoFinished;
   final int index;
-  final String description =
-      "#chyonee #tiktok #clonecoding #flutter #flutterisawesome #iwanttobecomeflutterdeveloper";
-
   const VideoPost({
     super.key,
+    required this.video,
     required this.onVideoFinished,
     required this.index,
   });
@@ -32,8 +32,7 @@ class VideoPost extends ConsumerStatefulWidget {
 class VideoPostState extends ConsumerState<VideoPost>
     with SingleTickerProviderStateMixin {
   // ! VideoPlayer의 실행 비디오를 설정
-  final VideoPlayerController _videoPlayerController =
-      VideoPlayerController.asset("assets/videos/video.mp4");
+  late final VideoPlayerController _videoPlayerController;
   late final AnimationController _animationController;
   late bool _isPaused;
   bool _isAllDesc = false;
@@ -51,6 +50,8 @@ class VideoPostState extends ConsumerState<VideoPost>
 
   // ! 비디오 컨트롤러를 초기화하고, 초기화가 끝나면 바로 자동재생을 실행하는 코드, 그리고 이벤트 리스너를 초기화
   void _initVideoPlayer() async {
+    _videoPlayerController =
+        VideoPlayerController.network(widget.video.fileUrl);
     await _videoPlayerController.initialize();
     await _videoPlayerController.setLooping(true);
     // ! 만약, Web이라면 소리를 0으로 한 상태로 autoplay를 하겠다는 의미
@@ -172,8 +173,9 @@ class VideoPostState extends ConsumerState<VideoPost>
           Positioned.fill(
             child: _videoPlayerController.value.isInitialized
                 ? VideoPlayer(_videoPlayerController)
-                : Container(
-                    color: Colors.black,
+                : Image.network(
+                    widget.video.thumbnailUrl,
+                    fit: BoxFit.cover,
                   ),
           ),
           Positioned.fill(
@@ -213,9 +215,9 @@ class VideoPostState extends ConsumerState<VideoPost>
               children: [
                 Row(
                   children: [
-                    const Text(
-                      "@chyonee",
-                      style: TextStyle(
+                    Text(
+                      "@${widget.video.creator}",
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: Sizes.size16,
                         fontWeight: FontWeight.w800,
@@ -233,11 +235,11 @@ class VideoPostState extends ConsumerState<VideoPost>
                 Container(
                   width: MediaQuery.of(context).size.width - 160,
                   decoration: const BoxDecoration(),
-                  child: widget.description.length > 25 && !_isAllDesc
+                  child: widget.video.description.length > 25 && !_isAllDesc
                       ? Row(
                           children: [
                             Text(
-                              widget.description.substring(0, 10),
+                              widget.video.description.substring(0, 10),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: Sizes.size14,
@@ -265,7 +267,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                           ],
                         )
                       : Text(
-                          widget.description,
+                          widget.video.description,
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: Sizes.size14,
@@ -293,24 +295,25 @@ class VideoPostState extends ConsumerState<VideoPost>
                             icon: FontAwesomeIcons.volumeXmark, text: ""),
                       ),
                 Gaps.v10,
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 25,
                   backgroundColor: Colors.black,
                   foregroundColor: Colors.white,
                   foregroundImage: NetworkImage(
-                      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fichef.bbci.co.uk%2Fnews%2F640%2Fcpsprodpb%2F7036%2Fproduction%2F_111162782__313.jpg&f=1&nofb=1&ipt=19a400e48009148eee6558a4fa3c6b795dd962030b00bd5be0f646d4d5465fa1&ipo=images"),
-                  child: Text("백예린"),
+                    "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${widget.video.creatorUid}?alt=media",
+                  ),
+                  child: Text(widget.video.creator),
                 ),
                 Gaps.v20,
                 VideoButton(
                     icon: FontAwesomeIcons.solidHeart,
-                    text: S.of(context).likeCount(222141)),
+                    text: S.of(context).likeCount(widget.video.likes)),
                 Gaps.v20,
                 GestureDetector(
                   onTap: () => _onCommentsTap(context),
                   child: VideoButton(
                       icon: FontAwesomeIcons.solidComment,
-                      text: S.of(context).commentCount(12567)),
+                      text: S.of(context).commentCount(widget.video.comments)),
                 ),
                 Gaps.v20,
                 const VideoButton(icon: FontAwesomeIcons.share, text: "Share"),

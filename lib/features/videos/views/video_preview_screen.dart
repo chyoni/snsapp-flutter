@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gallery_saver/gallery_saver.dart';
+import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/videos/views/video_meta_screen.dart';
 import 'package:video_player/video_player.dart';
 
@@ -83,9 +84,15 @@ class VideoPreviewScreenState extends ConsumerState<VideoPreviewScreen> {
                   ? const FaIcon(FontAwesomeIcons.check)
                   : const FaIcon(FontAwesomeIcons.download),
             ),
-          IconButton(
+          TextButton(
             onPressed: _onNextPressed,
-            icon: const FaIcon(FontAwesomeIcons.arrowRight),
+            child: const Text(
+              "Next",
+              style: TextStyle(
+                fontSize: Sizes.size16,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
       ),

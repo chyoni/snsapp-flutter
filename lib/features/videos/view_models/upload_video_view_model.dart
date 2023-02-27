@@ -50,7 +50,7 @@ class UploadVideoViewModel extends AsyncNotifier<void> {
       showFirebaseErrorSnack(context, state.error);
     } else {
       // ignore: use_build_context_synchronously
-      context.pushReplacement("/home");
+      context.go("/home");
     }
   }
 }

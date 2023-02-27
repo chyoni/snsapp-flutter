@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/users/view_models/users_view_model.dart';
@@ -65,15 +64,18 @@ class UserEditScreenState extends ConsumerState<UserEditScreen> {
             appBar: AppBar(
               title: const Text("Edit Profile"),
               actions: [
-                ref.read(usersProvider).isLoading
+                ref.watch(usersProvider).isLoading
                     ? const CircularProgressIndicator.adaptive()
-                    : IconButton(
-                        onPressed: ref.read(usersProvider).isLoading
+                    : TextButton(
+                        onPressed: ref.watch(usersProvider).isLoading
                             ? null
                             : _onEditActionPressed,
-                        icon: Icon(
-                          FontAwesomeIcons.checkDouble,
-                          color: Colors.blue.shade500,
+                        child: const Text(
+                          "Update",
+                          style: TextStyle(
+                            fontSize: Sizes.size16,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
               ],

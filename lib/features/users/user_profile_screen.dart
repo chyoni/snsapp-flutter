@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok/features/settings/settings_screen.dart';
 import 'package:tiktok/features/users/user_edit_screen.dart';
 import 'package:tiktok/features/users/view_models/users_view_model.dart';
@@ -60,13 +61,15 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                         centerTitle: true,
                         title: Text(data.name),
                         actions: [
-                          IconButton(
-                            onPressed: _onEditPressed,
-                            icon: const FaIcon(
-                              FontAwesomeIcons.penToSquare,
-                              size: Sizes.size20,
+                          if (ref.read(authRepo).user != null &&
+                              data.uid == ref.read(authRepo).user!.uid)
+                            IconButton(
+                              onPressed: _onEditPressed,
+                              icon: const FaIcon(
+                                FontAwesomeIcons.penToSquare,
+                                size: Sizes.size20,
+                              ),
                             ),
-                          ),
                           IconButton(
                             onPressed: _onGearPressed,
                             icon: const FaIcon(
