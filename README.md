@@ -506,3 +506,7 @@ npm i child-process-promise
 ### #113 Infinite Scroll with Firebase
 
 - firebase에서 firestore의 데이터를 가져올 때 orderBy의 어떤 기준으로 어디서부터 어디까지를 가져올 수 있다.
+
+### #114 FamilyAsyncNotifier
+
+- `FamilyAsyncNotifier`는 이 NotifierProvider에게 extra data를 던져줄 수 있게 해주는 Notifier다.

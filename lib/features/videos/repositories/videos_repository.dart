@@ -17,6 +17,7 @@ class VideosRepository {
   }
 
   Future<void> saveVideo(VideoModel video) async {
+    // ! firebase의 firestore에 id는 만들어질 때 해시값 같이 생긴 unique ID가 알아서 생김
     await _db.collection("videos").add(video.toJson());
   }
 
@@ -34,6 +35,13 @@ class VideosRepository {
       // ! startAfter는 orderBy에 따라 그 orderBy에 대해서 주어진 조건에 의해 query를 가져온다.
       return query.startAfter([lastItemCreatedAt]).get();
     }
+  }
+
+  Future<void> likeVideo(String videoId, String userId) async {
+    await _db.collection("likes").add({
+      "videoId": videoId,
+      "userId": userId,
+    });
   }
 }
 

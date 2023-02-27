@@ -6,6 +6,7 @@ import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/videos/models/video_model.dart';
 import 'package:tiktok/features/videos/view_models/playback_config_view_model.dart';
+import 'package:tiktok/features/videos/view_models/video_post_view_model.dart';
 import 'package:tiktok/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok/features/videos/views/widgets/video_comments.dart';
 import 'package:tiktok/generated/l10n.dart';
@@ -161,6 +162,10 @@ class VideoPostState extends ConsumerState<VideoPost>
       builder: (context) => const VideoComments(),
     );
     _onTogglePause();
+  }
+
+  void _onLikeTap() {
+    ref.read(videoPostProvider(widget.video.id).notifier).likeVideo();
   }
 
   @override
