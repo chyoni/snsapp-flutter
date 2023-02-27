@@ -458,7 +458,7 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 ### #109 Cloud Functions
 
-- Functions은 firebase를 사용할 때 미들웨어 같은 녀석인데 예를 들어, 내 firestore에 데이터에 대해 functions의 조건에 따라 trigger가 되는 경우 
+- Functions은 firebase를 사용할 때 미들웨어 같은 녀석인데 예를 들어, 내 firestore에 데이터에 대해 functions의 조건에 따라 trigger가 되는 경우
   조건은 (onCreate, onDelete, onUpdate, onWrite) 뭐 이렇게 있고 여튼 이 조건에 부합할 때 해당 데이터를 가져와서 추가적인 작업을 할 수 있다.
 
 ```bash
@@ -472,16 +472,16 @@ firebase init functions
   - ESLint는 사용하지 않음
   - NPM dependencies는 설치
 
-# 이 작업을 끝내면 프로젝트 루트 경로에 functions이라는 폴더가 생긴다. 
-# functions > src > index.ts 파일에서 실제 우리가 어떤 행위를 할지 소스를 작성하면 된다. 
+# 이 작업을 끝내면 프로젝트 루트 경로에 functions이라는 폴더가 생긴다.
+# functions > src > index.ts 파일에서 실제 우리가 어떤 행위를 할지 소스를 작성하면 된다.
 
-# 그리고 이렇게 작성을 하고 나서 firebase와 상호작용 하려면 아래 커맨드를 입력 
+# 그리고 이렇게 작성을 하고 나서 firebase와 상호작용 하려면 아래 커맨드를 입력
 # 아래 커맨드는 index.ts 파일을 업데이트하면 항상 적용해줘야 함
 firebase deploy --only functions
 
 위 커맨드를 입력했을 때 작업이 다 끝나면 firebase에 들어가서 functions 탭으로 가면 우리가 만든 function이 있을거다.
 
-자 근데 만약에 뭔가 새로운 module을 npm으로 내려받고 막 작업을 했을 때 deploy가 안되면 아래처럼 해보자 
+자 근데 만약에 뭔가 새로운 module을 npm으로 내려받고 막 작업을 했을 때 deploy가 안되면 아래처럼 해보자
 1. node_modules 폴더 지우기
 2. package-lock.json 파일 지우기
 3. npm i
@@ -502,3 +502,7 @@ npm i child-process-promise
 ### #111 Video thumbnail done
 
 ### #112 Real data on timeline screen
+
+### #113 Infinite Scroll with Firebase
+
+- firebase에서 firestore의 데이터를 가져올 때 orderBy의 어떤 기준으로 어디서부터 어디까지를 가져올 수 있다.

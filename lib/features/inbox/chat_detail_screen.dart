@@ -40,6 +40,7 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
   void _showEmojiTap() {}
 
   void _onSendingDmTap() {
+    // ignore: avoid_print
     print("sending!");
   }
 

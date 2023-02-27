@@ -20,11 +20,20 @@ class VideosRepository {
     await _db.collection("videos").add(video.toJson());
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos() {
-    return _db
+  Future<QuerySnapshot<Map<String, dynamic>>> fetchVideos({
+    int? lastItemCreatedAt,
+  }) {
+    final query = _db
         .collection("videos")
         .orderBy("createdAt", descending: true)
-        .get();
+        .limit(2);
+
+    if (lastItemCreatedAt == null) {
+      return query.get();
+    } else {
+      // ! startAfter는 orderBy에 따라 그 orderBy에 대해서 주어진 조건에 의해 query를 가져온다.
+      return query.startAfter([lastItemCreatedAt]).get();
+    }
   }
 }
 
