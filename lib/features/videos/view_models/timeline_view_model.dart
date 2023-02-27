@@ -11,7 +11,7 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
     // ! 그래서 watch(timelineProvider).isLoading을 호출하면 true를 리턴하게 된다.
     state = const AsyncValue.loading();
 
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     _list = [..._list];
     state = AsyncValue.data(_list);
