@@ -461,6 +461,9 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 - Functions은 firebase를 사용할 때 미들웨어 같은 녀석인데 예를 들어, 내 firestore에 데이터에 대해 functions의 조건에 따라 trigger가 되는 경우 
   조건은 (onCreate, onDelete, onUpdate, onWrite) 뭐 이렇게 있고 여튼 이 조건에 부합할 때 해당 데이터를 가져와서 추가적인 작업을 할 수 있다.
 
+- // ! 여기서 snapshot이란, onCreate이라는 메소드의 걸맞게 video가 만들어진 순간의 그 비디오를 가르킨다.
+  // ! ref는 해당 snapshot의 document에 접근한다. document는 그냥 그 object라고 생각해도 무방 (firebase에서는 하나하나의 데이터를 document라고 하니까)
+
 ```bash
 flutter pub add cloud_functions
 
@@ -476,8 +479,25 @@ firebase init functions
 # functions > src > index.ts 파일에서 실제 우리가 어떤 행위를 할지 소스를 작성하면 된다. 
 
 # 그리고 이렇게 작성을 하고 나서 firebase와 상호작용 하려면 아래 커맨드를 입력 
-
+# 아래 커맨드는 index.ts 파일을 업데이트하면 항상 적용해줘야 함
 firebase deploy --only functions
 
 위 커맨드를 입력했을 때 작업이 다 끝나면 firebase에 들어가서 functions 탭으로 가면 우리가 만든 function이 있을거다.
+
+자 근데 만약에 뭔가 새로운 module을 npm으로 내려받고 막 작업을 했을 때 deploy가 안되면 아래처럼 해보자 
+1. node_modules 폴더 지우기
+2. package-lock.json 파일 지우기
+3. npm i
+```
+
+### #110 ffmpeg
+
+- video, audio 등을 뭐 어떤 다른 형태로 변환해주는 package인가보다.
+- 이거를 사용해서 firebase에 올라간 동영상의 썸네일을 만드는 커밋
+- https://ffmpeg.org/ffmpeg.html
+
+```bash
+# functions 폴더 안에서 실행할 것 !!!!
+
+npm i child-process-promise
 ```
