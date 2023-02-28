@@ -36,6 +36,7 @@ class VideoPostState extends ConsumerState<VideoPost>
   late final VideoPlayerController _videoPlayerController;
   late final AnimationController _animationController;
   late bool _isPaused;
+  late int _likeCount;
   bool _isAllDesc = false;
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
@@ -95,6 +96,7 @@ class VideoPostState extends ConsumerState<VideoPost>
       duration: _animationDuration,
     );
     _isPaused = ref.read(playbackConfigProvider).autoplay ? false : true;
+    _likeCount = widget.video.likes;
     // videoConfig.addListener(() {
     //   setState(() {
     //     _isMuted = videoConfig.autoMute;
@@ -165,171 +167,194 @@ class VideoPostState extends ConsumerState<VideoPost>
   }
 
   void _onLikeTap() {
+    final currentLiked =
+        ref.watch(videoPostProvider(widget.video.id).notifier).isLiked;
     ref.read(videoPostProvider(widget.video.id).notifier).toggleVideo();
+    print(currentLiked);
+    if (currentLiked) {
+      _likeCount = _likeCount - 1;
+    } else {
+      _likeCount = _likeCount + 1;
+    }
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return VisibilityDetector(
-      key: Key("${widget.index}"),
-      onVisibilityChanged: _onVisibilityChanged,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: _videoPlayerController.value.isInitialized
-                ? VideoPlayer(_videoPlayerController)
-                : Image.network(
-                    widget.video.thumbnailUrl,
-                    fit: BoxFit.cover,
-                  ),
-          ),
-          Positioned.fill(
-            child: GestureDetector(
-              onTap: _onTogglePause,
+    return ref.watch(videoPostProvider(widget.video.id)).when(
+        error: (error, stackTrace) => Center(
+              child: Text("error occured -> $error"),
             ),
-          ),
-          Positioned.fill(
-            child: IgnorePointer(
-              child: Center(
-                child: AnimatedBuilder(
-                  animation: _animationController,
-                  builder: (context, child) {
-                    return Transform.scale(
-                      scale: _animationController.value,
-                      child: child,
-                    );
-                  },
-                  child: AnimatedOpacity(
-                    opacity: _isPaused ? 1 : 0,
-                    duration: _animationDuration,
-                    child: const FaIcon(
-                      FontAwesomeIcons.play,
-                      color: Colors.white,
-                      size: Sizes.size52,
+        loading: () => const Center(
+              child: CircularProgressIndicator.adaptive(),
+            ),
+        data: (isLiked) => VisibilityDetector(
+              key: Key("${widget.index}"),
+              onVisibilityChanged: _onVisibilityChanged,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: _videoPlayerController.value.isInitialized
+                        ? VideoPlayer(_videoPlayerController)
+                        : Image.network(
+                            widget.video.thumbnailUrl,
+                            fit: BoxFit.cover,
+                          ),
+                  ),
+                  Positioned.fill(
+                    child: GestureDetector(
+                      onTap: _onTogglePause,
                     ),
                   ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 30,
-            left: 20,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      "@${widget.video.creator}",
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: Sizes.size16,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                    Gaps.h5,
-                    FaIcon(
-                      FontAwesomeIcons.solidCircleCheck,
-                      size: Sizes.size16,
-                      color: Colors.teal.shade200,
-                    ),
-                  ],
-                ),
-                Gaps.v10,
-                Container(
-                  width: MediaQuery.of(context).size.width - 160,
-                  decoration: const BoxDecoration(),
-                  child: widget.video.description.length > 25 && !_isAllDesc
-                      ? Row(
-                          children: [
-                            Text(
-                              widget.video.description.substring(0, 10),
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: Sizes.size14,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Gaps.h10,
-                            const FaIcon(
-                              FontAwesomeIcons.ellipsis,
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: Center(
+                        child: AnimatedBuilder(
+                          animation: _animationController,
+                          builder: (context, child) {
+                            return Transform.scale(
+                              scale: _animationController.value,
+                              child: child,
+                            );
+                          },
+                          child: AnimatedOpacity(
+                            opacity: _isPaused ? 1 : 0,
+                            duration: _animationDuration,
+                            child: const FaIcon(
+                              FontAwesomeIcons.play,
                               color: Colors.white,
-                              size: Sizes.size12,
+                              size: Sizes.size52,
                             ),
-                            Gaps.h10,
-                            GestureDetector(
-                              onTap: _seeAllDescriptionTap,
-                              child: const Text(
-                                "See more",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: Sizes.size14,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            )
-                          ],
-                        )
-                      : Text(
-                          widget.video.description,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: Sizes.size14,
-                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 30,
-            right: 20,
-            child: Column(
-              children: [
-                !ref.watch(playbackConfigProvider).muted
-                    ? GestureDetector(
-                        onTap: () => _onVolumeMuteTap(context),
-                        child: const VideoButton(
-                            icon: FontAwesomeIcons.volumeHigh, text: ""),
-                      )
-                    : GestureDetector(
-                        onTap: () => _onVolumeHighTap(context),
-                        child: const VideoButton(
-                            icon: FontAwesomeIcons.volumeXmark, text: ""),
                       ),
-                Gaps.v10,
-                CircleAvatar(
-                  radius: 25,
-                  backgroundColor: Colors.black,
-                  foregroundColor: Colors.white,
-                  foregroundImage: NetworkImage(
-                    "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${widget.video.creatorUid}?alt=media",
+                    ),
                   ),
-                  child: Text(widget.video.creator),
-                ),
-                Gaps.v20,
-                GestureDetector(
-                  onTap: _onLikeTap,
-                  child: VideoButton(
-                      icon: FontAwesomeIcons.solidHeart,
-                      text: S.of(context).likeCount(widget.video.likes)),
-                ),
-                Gaps.v20,
-                GestureDetector(
-                  onTap: () => _onCommentsTap(context),
-                  child: VideoButton(
-                      icon: FontAwesomeIcons.solidComment,
-                      text: S.of(context).commentCount(widget.video.comments)),
-                ),
-                Gaps.v20,
-                const VideoButton(icon: FontAwesomeIcons.share, text: "Share"),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+                  Positioned(
+                    bottom: 30,
+                    left: 20,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "@${widget.video.creator}",
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: Sizes.size16,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            Gaps.h5,
+                            FaIcon(
+                              FontAwesomeIcons.solidCircleCheck,
+                              size: Sizes.size16,
+                              color: Colors.teal.shade200,
+                            ),
+                          ],
+                        ),
+                        Gaps.v10,
+                        Container(
+                          width: MediaQuery.of(context).size.width - 160,
+                          decoration: const BoxDecoration(),
+                          child: widget.video.description.length > 25 &&
+                                  !_isAllDesc
+                              ? Row(
+                                  children: [
+                                    Text(
+                                      widget.video.description.substring(0, 10),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: Sizes.size14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    Gaps.h10,
+                                    const FaIcon(
+                                      FontAwesomeIcons.ellipsis,
+                                      color: Colors.white,
+                                      size: Sizes.size12,
+                                    ),
+                                    Gaps.h10,
+                                    GestureDetector(
+                                      onTap: _seeAllDescriptionTap,
+                                      child: const Text(
+                                        "See more",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: Sizes.size14,
+                                          fontWeight: FontWeight.w800,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                )
+                              : Text(
+                                  widget.video.description,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: Sizes.size14,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 30,
+                    right: 20,
+                    child: Column(
+                      children: [
+                        !ref.watch(playbackConfigProvider).muted
+                            ? GestureDetector(
+                                onTap: () => _onVolumeMuteTap(context),
+                                child: const VideoButton(
+                                    icon: FontAwesomeIcons.volumeHigh,
+                                    text: ""),
+                              )
+                            : GestureDetector(
+                                onTap: () => _onVolumeHighTap(context),
+                                child: const VideoButton(
+                                    icon: FontAwesomeIcons.volumeXmark,
+                                    text: ""),
+                              ),
+                        Gaps.v10,
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundColor: Colors.black,
+                          foregroundColor: Colors.white,
+                          foregroundImage: NetworkImage(
+                            "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${widget.video.creatorUid}?alt=media",
+                          ),
+                          child: Text(widget.video.creator),
+                        ),
+                        Gaps.v20,
+                        GestureDetector(
+                          onTap: _onLikeTap,
+                          child: VideoButton(
+                              icon: FontAwesomeIcons.solidHeart,
+                              text: S.of(context).likeCount(_likeCount),
+                              isLiked: isLiked),
+                        ),
+                        Gaps.v20,
+                        GestureDetector(
+                          onTap: () => _onCommentsTap(context),
+                          child: VideoButton(
+                              icon: FontAwesomeIcons.solidComment,
+                              text: S
+                                  .of(context)
+                                  .commentCount(widget.video.comments)),
+                        ),
+                        Gaps.v20,
+                        const VideoButton(
+                            icon: FontAwesomeIcons.share, text: "Share"),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ));
   }
 }
