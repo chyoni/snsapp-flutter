@@ -165,7 +165,7 @@ class VideoPostState extends ConsumerState<VideoPost>
   }
 
   void _onLikeTap() {
-    ref.read(videoPostProvider(widget.video.id).notifier).likeVideo();
+    ref.read(videoPostProvider(widget.video.id).notifier).toggleVideo();
   }
 
   @override
@@ -310,9 +310,12 @@ class VideoPostState extends ConsumerState<VideoPost>
                   child: Text(widget.video.creator),
                 ),
                 Gaps.v20,
-                VideoButton(
-                    icon: FontAwesomeIcons.solidHeart,
-                    text: S.of(context).likeCount(widget.video.likes)),
+                GestureDetector(
+                  onTap: _onLikeTap,
+                  child: VideoButton(
+                      icon: FontAwesomeIcons.solidHeart,
+                      text: S.of(context).likeCount(widget.video.likes)),
+                ),
                 Gaps.v20,
                 GestureDetector(
                   onTap: () => _onCommentsTap(context),

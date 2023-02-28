@@ -44,3 +44,45 @@ export const onVideoCreated = functions.firestore
         videoId: snapshot.id,
       });
   });
+
+export const onLikeCreated = functions.firestore
+  .document("likes/{likeId}")
+  .onCreate(async (snapshot, context) => {
+    const db = admin.firestore();
+    const [videoId, userId] = snapshot.id.split("000");
+    await db
+      .collection("videos")
+      .doc(videoId)
+      .update({
+        likes: admin.firestore.FieldValue.increment(1),
+      });
+
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("likes")
+      .doc(snapshot.id)
+      .set({
+        videoId: videoId,
+      });
+  });
+
+export const onLikeRemoved = functions.firestore
+  .document("likes/{likeId}")
+  .onDelete(async (snapshot, context) => {
+    const db = admin.firestore();
+    const [videoId, userId] = snapshot.id.split("000");
+    await db
+      .collection("videos")
+      .doc(videoId)
+      .update({
+        likes: admin.firestore.FieldValue.increment(-1),
+      });
+
+    await db
+      .collection("users")
+      .doc(userId)
+      .collection("likes")
+      .doc(snapshot.id)
+      .delete();
+  });
