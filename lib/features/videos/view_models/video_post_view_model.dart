@@ -13,6 +13,8 @@ class VideoPostViewModel extends FamilyAsyncNotifier<bool, String> {
   late final _videoId;
   bool isLiked = false;
 
+  bool? get getIsLiked => state.value;
+
   @override
   FutureOr<bool> build(String arg) async {
     _videoId = arg;

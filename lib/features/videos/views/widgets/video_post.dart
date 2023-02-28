@@ -168,10 +168,9 @@ class VideoPostState extends ConsumerState<VideoPost>
 
   void _onLikeTap() {
     final currentLiked =
-        ref.watch(videoPostProvider(widget.video.id).notifier).isLiked;
+        ref.watch(videoPostProvider(widget.video.id).notifier).getIsLiked;
     ref.read(videoPostProvider(widget.video.id).notifier).toggleVideo();
-    print(currentLiked);
-    if (currentLiked) {
+    if (currentLiked!) {
       _likeCount = _likeCount - 1;
     } else {
       _likeCount = _likeCount + 1;
