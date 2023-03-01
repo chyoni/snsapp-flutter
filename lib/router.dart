@@ -5,9 +5,9 @@ import 'package:tiktok/common/widgets/main_navigation/main_navigation_screen.dar
 import 'package:tiktok/features/authentication/login_screen.dart';
 import 'package:tiktok/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok/features/authentication/sign_up_screen.dart';
-import 'package:tiktok/features/inbox/activity_screen.dart';
-import 'package:tiktok/features/inbox/chat_detail_screen.dart';
-import 'package:tiktok/features/inbox/chats_screen.dart';
+import 'package:tiktok/features/inbox/views/activity_screen.dart';
+import 'package:tiktok/features/inbox/views/chat_detail_screen.dart';
+import 'package:tiktok/features/inbox/views/chats_screen.dart';
 import 'package:tiktok/features/onboarding/interests_screen.dart';
 import 'package:tiktok/features/videos/views/video_recording_screen.dart';
 

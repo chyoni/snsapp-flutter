@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/inbox/activity_screen.dart';
-import 'package:tiktok/features/inbox/chats_screen.dart';
+import 'package:tiktok/features/inbox/views/activity_screen.dart';
+import 'package:tiktok/features/inbox/views/chats_screen.dart';
 
 class InboxScreen extends ConsumerWidget {
   const InboxScreen({super.key});

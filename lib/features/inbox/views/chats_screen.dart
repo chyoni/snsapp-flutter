@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/inbox/chat_detail_screen.dart';
+import 'package:tiktok/features/inbox/views/chat_detail_screen.dart';
+import 'package:tiktok/features/inbox/views/connect_chat_screen.dart';
 
 class ChatScreen extends StatefulWidget {
   static const String routeName = "chats";
@@ -17,10 +18,12 @@ class _ChatScreenState extends State<ChatScreen> {
   final GlobalKey<AnimatedListState> _key = GlobalKey<AnimatedListState>();
   final Duration _duration = const Duration(milliseconds: 300);
 
-  void _addItem() {
-    if (_key.currentState != null) {
-      _key.currentState!.insertItem(0, duration: _duration);
-    }
+  void _newChatRoom() {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const ConnectChatScreen(),
+      ),
+    );
   }
 
   void _deleteItem(int index) {
@@ -82,7 +85,7 @@ class _ChatScreenState extends State<ChatScreen> {
         title: const Text("Direct messages"),
         actions: [
           IconButton(
-            onPressed: _addItem,
+            onPressed: _newChatRoom,
             icon: const FaIcon(
               FontAwesomeIcons.plus,
               size: Sizes.size20,
