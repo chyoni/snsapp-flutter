@@ -98,7 +98,7 @@ class S {
     final String likeCountString = likeCountNumberFormat.format(likeCount);
 
     return Intl.message(
-      likeCountString,
+      '$likeCountString',
       name: 'likeCount',
       desc: 'Enter the like count',
       args: [likeCountString],
@@ -114,7 +114,7 @@ class S {
         commentCountNumberFormat.format(commentCount);
 
     return Intl.message(
-      commentCountString,
+      '$commentCountString',
       name: 'commentCount',
       desc: 'Enter the comment count',
       args: [commentCountString],

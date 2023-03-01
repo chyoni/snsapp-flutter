@@ -21,6 +21,12 @@ class ChatDetailScreen extends ConsumerStatefulWidget {
 class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
   bool isEnableSending = false;
 
+  @override
+  void initState() {
+    super.initState();
+    print(widget.chatId);
+  }
+
   void _onKeyboardDismiss() {
     FocusScope.of(context).unfocus();
   }

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/inbox/models/chat_list_item_model.dart';
 import 'package:tiktok/features/inbox/view_models/chats_view_model.dart';
 import 'package:tiktok/features/inbox/views/chat_detail_screen.dart';
 import 'package:tiktok/features/inbox/views/connect_chat_screen.dart';
@@ -28,41 +30,44 @@ class ChatScreenState extends ConsumerState<ChatScreen> {
     );
   }
 
-  void _deleteItem(int index) {
-    if (_key.currentState != null) {
-      _key.currentState!.removeItem(
-          index,
-          (context, animation) => SizeTransition(
-                sizeFactor: animation,
-                child: _makeTile(index),
-              ),
-          duration: _duration);
-    }
-  }
+  // void _deleteItem(int index) {
+  //   if (_key.currentState != null) {
+  //     _key.currentState!.removeItem(
+  //         index,
+  //         (context, animation) => SizeTransition(
+  //               sizeFactor: animation,
+  //               child: _makeTile(index),
+  //             ),
+  //         duration: _duration);
+  //   }
+  // }
 
-  void _onChatTap(int index) {
+  void _onChatTap(ChatListItemModel chatRoom) {
     context.pushNamed(
       ChatDetailScreen.routeName,
-      params: {"chatId": "$index"},
+      params: {"chatId": chatRoom.chatRoomId},
     );
   }
 
-  Widget _makeTile(int index) {
+  Widget _makeTile(ChatListItemModel chatRoom) {
     return ListTile(
-      onLongPress: () => _deleteItem(index),
-      onTap: () => _onChatTap(index),
+      onLongPress: () {},
+      onTap: () => _onChatTap(chatRoom),
       key: UniqueKey(),
-      leading: const CircleAvatar(
+      leading: CircleAvatar(
         radius: 30,
-        backgroundImage: AssetImage("assets/images/yerin2.jpg"),
+        backgroundImage: chatRoom.hasAvatar
+            ? NetworkImage(
+                "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${chatRoom.participantId}?alt=media")
+            : const AssetImage("assets/images/yerin2.jpg") as ImageProvider,
       ),
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          const Text(
-            "yerin_the_genuine",
-            style: TextStyle(
+          Text(
+            chatRoom.participantName,
+            style: const TextStyle(
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -81,38 +86,61 @@ class ChatScreenState extends ConsumerState<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    ref.read(chatsProvider.notifier).build;
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 1,
-        title: const Text("Direct messages"),
-        actions: [
-          IconButton(
-            onPressed: _newChatRoom,
-            icon: const FaIcon(
-              FontAwesomeIcons.plus,
-              size: Sizes.size20,
-            ),
+    return ref.watch(chatsProvider).when(
+          error: (error, stackTrace) => Center(
+            child: Text("error occured -> $error"),
           ),
-        ],
-      ),
-      body: AnimatedList(
-        key: _key,
-        padding: const EdgeInsets.symmetric(
-          vertical: Sizes.size10,
-        ),
-        itemBuilder:
-            (BuildContext context, int index, Animation<double> animation) {
-          // ! FadeTransition은 그 opacity가 애니메이티드 되는거
-          return FadeTransition(
-            key: UniqueKey(),
-            opacity: animation,
-            // ! SizeTransition은 아이템이 새로 추가될 때 위에서 아래로 스윽 하고 내려오는듯하게
-            child:
-                SizeTransition(sizeFactor: animation, child: _makeTile(index)),
-          );
-        },
-      ),
-    );
+          loading: () => const Center(
+            child: CircularProgressIndicator.adaptive(),
+          ),
+          data: (chatRooms) {
+            return Scaffold(
+              appBar: AppBar(
+                elevation: 1,
+                title: const Text("Direct messages"),
+                actions: [
+                  IconButton(
+                    onPressed: _newChatRoom,
+                    icon: const FaIcon(
+                      FontAwesomeIcons.plus,
+                      size: Sizes.size20,
+                    ),
+                  ),
+                ],
+              ),
+              body: ListView.separated(
+                padding: const EdgeInsets.symmetric(
+                  vertical: Sizes.size16,
+                ),
+                separatorBuilder: (context, index) => Gaps.v16,
+                itemCount: chatRooms.length,
+                itemBuilder: (context, index) {
+                  final chatRoom = chatRooms[index];
+                  return _makeTile(chatRoom);
+                },
+              ),
+              // ! AnimatedList
+              // body: AnimatedList(
+              //   key: _key,
+              //   padding: const EdgeInsets.symmetric(
+              //     vertical: Sizes.size10,
+              //   ),
+              //   initialItemCount: chatRooms.length,
+              //   itemBuilder: (BuildContext context, int index,
+              //       Animation<double> animation) {
+              //     final chatRoom = chatRooms[index];
+              //     // ! FadeTransition은 그 opacity가 애니메이티드 되는거
+              //     return FadeTransition(
+              //       key: UniqueKey(),
+              //       opacity: animation,
+              //       // ! SizeTransition은 아이템이 새로 추가될 때 위에서 아래로 스윽 하고 내려오는듯하게
+              //       child: SizeTransition(
+              //           sizeFactor: animation, child: _makeTile(chatRoom)),
+              //     );
+              //   },
+              // ),
+            );
+          },
+        );
   }
 }
