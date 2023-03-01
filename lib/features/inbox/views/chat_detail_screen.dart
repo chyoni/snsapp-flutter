@@ -82,9 +82,9 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
               ),
             ],
           ),
-          title: Text(
-            "yerin_the_genuine ${widget.chatId}",
-            style: const TextStyle(
+          title: const Text(
+            "yerin_the_genuine",
+            style: TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: Sizes.size16,
             ),

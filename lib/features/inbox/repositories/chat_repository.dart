@@ -20,6 +20,16 @@ class ChatRepository {
     }
     return query;
   }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getAllChats() async {
+    final chatRooms = await _db.collection("chat_rooms").get();
+    return chatRooms;
+  }
+
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserById(String uid) async {
+    final user = await _db.collection("users").doc(uid).get();
+    return user;
+  }
 }
 
 final chatRepo = Provider(

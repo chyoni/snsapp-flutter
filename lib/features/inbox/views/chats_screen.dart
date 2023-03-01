@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/inbox/view_models/chats_view_model.dart';
 import 'package:tiktok/features/inbox/views/chat_detail_screen.dart';
 import 'package:tiktok/features/inbox/views/connect_chat_screen.dart';
 
-class ChatScreen extends StatefulWidget {
+class ChatScreen extends ConsumerStatefulWidget {
   static const String routeName = "chats";
   static const String routePath = "/chats";
   const ChatScreen({super.key});
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  ChatScreenState createState() => ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class ChatScreenState extends ConsumerState<ChatScreen> {
   final GlobalKey<AnimatedListState> _key = GlobalKey<AnimatedListState>();
   final Duration _duration = const Duration(milliseconds: 300);
 
@@ -79,6 +81,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ref.read(chatsProvider.notifier).build;
     return Scaffold(
       appBar: AppBar(
         elevation: 1,

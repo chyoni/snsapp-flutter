@@ -6,7 +6,7 @@ import 'package:tiktok/features/inbox/models/user_list_litem_model.dart';
 import 'package:tiktok/features/inbox/repositories/chat_repository.dart';
 
 class ConnectChatViewModel extends AsyncNotifier<List<UserListItemModel>> {
-  late ChatRepository _chatRepository;
+  late final ChatRepository _chatRepository;
   List<UserListItemModel> _list = [];
 
   @override
