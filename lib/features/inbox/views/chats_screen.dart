@@ -44,10 +44,13 @@ class ChatScreenState extends ConsumerState<ChatScreen> {
   // }
 
   void _onChatTap(ChatListItemModel chatRoom) {
-    context.pushNamed(
-      ChatDetailScreen.routeName,
-      params: {"chatId": chatRoom.chatRoomId},
-    );
+    context.pushNamed(ChatDetailScreen.routeName, params: {
+      "chatId": chatRoom.chatRoomId,
+    }, queryParams: {
+      "participantName": chatRoom.participantName,
+      "participantId": chatRoom.participantId,
+      "participantAvatar": chatRoom.hasAvatar.toString(),
+    });
   }
 
   Widget _makeTile(ChatListItemModel chatRoom) {

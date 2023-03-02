@@ -4,15 +4,22 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok/features/inbox/view_models/chat_detail_view_model.dart';
 
 class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = "chatDetail";
   static const String routeURL = ":chatId";
   final String chatId;
+  final String participantName;
+  final String participantId;
+  final String participantAvatar;
   const ChatDetailScreen({
     super.key,
     required this.chatId,
+    required this.participantName,
+    required this.participantId,
+    required this.participantAvatar,
   });
 
   @override
@@ -22,12 +29,6 @@ class ChatDetailScreen extends ConsumerStatefulWidget {
 class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
   final TextEditingController _textEditingController = TextEditingController();
   bool isEnableSending = false;
-
-  @override
-  void initState() {
-    super.initState();
-    print(widget.chatId);
-  }
 
   void _onKeyboardDismiss() {
     FocusScope.of(context).unfocus();
@@ -70,9 +71,13 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
           leading: Stack(
             clipBehavior: Clip.hardEdge,
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: Sizes.size24,
-                backgroundImage: AssetImage("assets/images/yerin2.jpg"),
+                backgroundImage: widget.participantAvatar == "true"
+                    ? NetworkImage(
+                        "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${widget.participantId}?alt=media")
+                    : const AssetImage("assets/images/yerin2.jpg")
+                        as ImageProvider,
               ),
               Positioned(
                 bottom: 0,
@@ -98,9 +103,9 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
               ),
             ],
           ),
-          title: const Text(
-            "yerin_the_genuine",
-            style: TextStyle(
+          title: Text(
+            widget.participantName,
+            style: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: Sizes.size16,
             ),
@@ -128,47 +133,59 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
         children: [
           GestureDetector(
             onTap: _onKeyboardDismiss,
-            child: ListView.separated(
-              padding: const EdgeInsets.symmetric(
-                vertical: Sizes.size20,
-                horizontal: Sizes.size16,
-              ),
-              itemCount: 10,
-              separatorBuilder: (context, index) => Gaps.v10,
-              itemBuilder: (context, index) {
-                final fakeIsMine = index % 2 == 0;
-                return Row(
-                  mainAxisAlignment: fakeIsMine
-                      ? MainAxisAlignment.end
-                      : MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(
-                        Sizes.size12,
+            child: ref.watch(chatStreamProvider(widget.chatId)).when(
+                  error: (error, stackTrace) => Center(
+                    child: Text("error occured -> $error"),
+                  ),
+                  loading: () => const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  ),
+                  data: (messages) {
+                    return ListView.separated(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: Sizes.size20,
+                        horizontal: Sizes.size16,
                       ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: const Radius.circular(Sizes.size20),
-                          topRight: const Radius.circular(Sizes.size20),
-                          bottomLeft:
-                              Radius.circular(fakeIsMine ? Sizes.size20 : 2),
-                          bottomRight:
-                              Radius.circular(!fakeIsMine ? Sizes.size20 : 2),
-                        ),
-                        color: fakeIsMine
-                            ? Colors.blue
-                            : Theme.of(context).primaryColor,
-                      ),
-                      child: const Text(
-                        "Messages !",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-                  ],
-                );
-              },
-            ),
+                      itemCount: messages.length,
+                      separatorBuilder: (context, index) => Gaps.v10,
+                      itemBuilder: (context, index) {
+                        final message = messages[index];
+                        final isMine =
+                            message.userId == ref.watch(authRepo).user!.uid;
+                        return Row(
+                          mainAxisAlignment: isMine
+                              ? MainAxisAlignment.end
+                              : MainAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(
+                                Sizes.size12,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: const Radius.circular(Sizes.size20),
+                                  topRight: const Radius.circular(Sizes.size20),
+                                  bottomLeft: Radius.circular(
+                                      isMine ? Sizes.size20 : 2),
+                                  bottomRight: Radius.circular(
+                                      !isMine ? Sizes.size20 : 2),
+                                ),
+                                color: isMine
+                                    ? Colors.blue
+                                    : Theme.of(context).primaryColor,
+                              ),
+                              child: Text(
+                                message.message,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
           ),
           Positioned(
             bottom: 0,

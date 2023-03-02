@@ -19,10 +19,21 @@ class ChatsViewModel extends AsyncNotifier<List<ChatListItemModel>> {
     final meId = ref.read(authRepo).user!.uid;
 
     for (var room in allChatRooms.docs) {
-      final userId = room.id.split("000").first.trim();
-      if (meId != userId) continue;
+      final participants = room.id.split("000");
 
-      final participantId = room.id.split("000").last.trim();
+      if (participants[0].trim() != meId && participants[1].trim() != meId) {
+        continue;
+      }
+
+      String? participantId;
+      if (participants[0].trim() == meId) {
+        participantId = participants[1].trim();
+      } else if (participants[1].trim() == meId) {
+        participantId = participants[0].trim();
+      }
+
+      if (participantId == null) throw Error();
+
       final participant = await _chatRepository.getUserById(participantId);
       if (participant.data() == null) throw Error();
 

@@ -37,6 +37,7 @@ class ChatRepository {
         .collection("chat_rooms")
         .doc(chatRoomId)
         .collection("messages")
+        .orderBy("createdAt")
         .get();
     return messages;
   }

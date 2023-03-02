@@ -16,22 +16,30 @@ class ConnectChatScreen extends ConsumerStatefulWidget {
 }
 
 class ConnectChatScreenState extends ConsumerState<ConnectChatScreen> {
-  String? _currentUser;
+  String? _currentUserId;
+  String? _currentUserName;
+  String? _currentUserAvatar;
 
   void _onUserTap(UserListItemModel user) {
-    if (user.uid == _currentUser) {
-      _currentUser = null;
+    if (user.uid == _currentUserId) {
+      _currentUserId = null;
+      _currentUserName = null;
+      _currentUserAvatar = null;
     } else {
-      _currentUser = user.uid;
+      _currentUserId = user.uid;
+      _currentUserName = user.name;
+      _currentUserAvatar = user.hasAvatar.toString();
     }
     setState(() {});
   }
 
   void _createChatRoom() async {
-    if (_currentUser == null) return;
+    if (_currentUserId == null ||
+        _currentUserName == null ||
+        _currentUserAvatar == null) return;
     final chatRoomId = await ref
         .read(connectChatProvider.notifier)
-        .createChatRoom(_currentUser!);
+        .createChatRoom(_currentUserId!);
     if (chatRoomId == null) {
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
@@ -41,10 +49,13 @@ class ConnectChatScreenState extends ConsumerState<ConnectChatScreen> {
       );
     } else {
       // ignore: use_build_context_synchronously
-      context.pushNamed(
-        ChatDetailScreen.routeName,
-        params: {"chatId": chatRoomId},
-      );
+      context.pushNamed(ChatDetailScreen.routeName, params: {
+        "chatId": chatRoomId
+      }, queryParams: {
+        "participantName": _currentUserName,
+        "participantId": _currentUserId,
+        "participantAvatar": _currentUserAvatar,
+      });
     }
   }
 
@@ -66,7 +77,7 @@ class ConnectChatScreenState extends ConsumerState<ConnectChatScreen> {
                 title: const Text("New Message"),
                 actions: [
                   TextButton(
-                    onPressed: _currentUser == null ? null : _createChatRoom,
+                    onPressed: _currentUserId == null ? null : _createChatRoom,
                     child: const Text(
                       "Chat",
                       style: TextStyle(
@@ -104,7 +115,7 @@ class ConnectChatScreenState extends ConsumerState<ConnectChatScreen> {
                         fontSize: Sizes.size16,
                       ),
                     ),
-                    trailing: _currentUser == userData.uid
+                    trailing: _currentUserId == userData.uid
                         ? const Icon(
                             Icons.check_circle,
                             size: Sizes.size24,
