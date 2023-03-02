@@ -9,9 +9,7 @@ class ChatsViewModel extends AsyncNotifier<List<ChatListItemModel>> {
   late final ChatRepository _chatRepository;
   List<ChatListItemModel> _list = [];
 
-  @override
-  FutureOr<List<ChatListItemModel>> build() async {
-    _chatRepository = ref.read(chatRepo);
+  Future<List<ChatListItemModel>> _fetchChatList() async {
     List<ChatListItemModel> chatListItems = [];
     Map<String, dynamic>? lastMessage;
 
@@ -52,8 +50,21 @@ class ChatsViewModel extends AsyncNotifier<List<ChatListItemModel>> {
         lastMessageTime: lastMessage != null ? lastMessage["createdAt"] : null,
       ));
     }
-    _list = chatListItems;
+    return chatListItems;
+  }
+
+  @override
+  FutureOr<List<ChatListItemModel>> build() async {
+    _chatRepository = ref.read(chatRepo);
+
+    _list = await _fetchChatList();
     return _list;
+  }
+
+  Future<void> refresh() async {
+    final chatLists = await _fetchChatList();
+    _list = chatLists;
+    state = AsyncValue.data(chatLists);
   }
 }
 

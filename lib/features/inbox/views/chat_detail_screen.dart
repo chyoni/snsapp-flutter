@@ -70,7 +70,9 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
   }
 
   Future<void> _onMessageLongPressed(
-      BuildContext context, String messageId) async {
+    BuildContext context,
+    String messageId,
+  ) async {
     final RenderObject? overlay =
         Overlay.of(context)?.context.findRenderObject();
 
@@ -98,6 +100,8 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isSendingLoading =
+        ref.watch(chatDetailProvider(widget.chatId)).isLoading;
     return Scaffold(
       appBar: AppBar(
         title: ListTile(
@@ -302,25 +306,29 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
                     ),
                     Gaps.h20,
                     GestureDetector(
-                      onTap: isEnableSending ? _onSendingDmTap : null,
-                      child: Container(
-                        padding: const EdgeInsets.all(
-                          Sizes.size10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: isEnableSending
-                              ? Theme.of(context).primaryColor
-                              : Colors.grey,
-                          borderRadius: BorderRadius.circular(
-                            Sizes.size20,
-                          ),
-                        ),
-                        child: const FaIcon(
-                          FontAwesomeIcons.paperPlane,
-                          size: Sizes.size16,
-                          color: Colors.white,
-                        ),
-                      ),
+                      onTap: isEnableSending && !isSendingLoading
+                          ? _onSendingDmTap
+                          : null,
+                      child: isSendingLoading
+                          ? const CircularProgressIndicator.adaptive()
+                          : Container(
+                              padding: const EdgeInsets.all(
+                                Sizes.size10,
+                              ),
+                              decoration: BoxDecoration(
+                                color: isEnableSending
+                                    ? Theme.of(context).primaryColor
+                                    : Colors.grey,
+                                borderRadius: BorderRadius.circular(
+                                  Sizes.size20,
+                                ),
+                              ),
+                              child: const FaIcon(
+                                FontAwesomeIcons.paperPlane,
+                                size: Sizes.size16,
+                                color: Colors.white,
+                              ),
+                            ),
                     )
                   ],
                 ),

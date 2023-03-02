@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tiktok/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok/features/inbox/models/message_model.dart';
 import 'package:tiktok/features/inbox/repositories/chat_repository.dart';
+import 'package:tiktok/features/inbox/view_models/chats_view_model.dart';
 
 class ChatDetailViewModel extends FamilyAsyncNotifier<void, String> {
   late final String _chatRoomId;
@@ -17,14 +18,18 @@ class ChatDetailViewModel extends FamilyAsyncNotifier<void, String> {
   }
 
   Future<void> sendMessage(String message) async {
+    state = const AsyncValue.loading();
     final user = ref.read(authRepo).user;
     if (user == null) throw Error();
-
-    await _chatRepository.sendMessage(message, _chatRoomId, user.uid);
+    state = await AsyncValue.guard(() async {
+      await _chatRepository.sendMessage(message, _chatRoomId, user.uid);
+      await ref.read(chatsProvider.notifier).refresh();
+    });
   }
 
   Future<void> deleteMessage(String messageId) async {
     await _chatRepository.deleteMessage(messageId, _chatRoomId);
+    await ref.read(chatsProvider.notifier).refresh();
   }
 }
 

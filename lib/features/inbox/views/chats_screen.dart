@@ -20,6 +20,7 @@ class ChatScreen extends ConsumerStatefulWidget {
 }
 
 class ChatScreenState extends ConsumerState<ChatScreen> {
+  // ! AnimatedList
   // final GlobalKey<AnimatedListState> _key = GlobalKey<AnimatedListState>();
   // final Duration _duration = const Duration(milliseconds: 300);
 
@@ -31,6 +32,7 @@ class ChatScreenState extends ConsumerState<ChatScreen> {
     );
   }
 
+  // ! AnimatedList
   // void _deleteItem(int index) {
   //   if (_key.currentState != null) {
   //     _key.currentState!.removeItem(
