@@ -13,3 +13,9 @@ void showFirebaseErrorSnack(BuildContext context, Object? error) {
     ),
   );
 }
+
+DateTime convertTimestampToDateTime(int timestamp) {
+  final DateTime date =
+      DateTime.fromMillisecondsSinceEpoch((timestamp ~/ 1000) * 1000);
+  return date;
+}

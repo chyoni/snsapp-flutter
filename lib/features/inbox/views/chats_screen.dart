@@ -8,6 +8,7 @@ import 'package:tiktok/features/inbox/models/chat_list_item_model.dart';
 import 'package:tiktok/features/inbox/view_models/chats_view_model.dart';
 import 'package:tiktok/features/inbox/views/chat_detail_screen.dart';
 import 'package:tiktok/features/inbox/views/connect_chat_screen.dart';
+import 'package:tiktok/utils.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   static const String routeName = "chats";
@@ -19,8 +20,8 @@ class ChatScreen extends ConsumerStatefulWidget {
 }
 
 class ChatScreenState extends ConsumerState<ChatScreen> {
-  final GlobalKey<AnimatedListState> _key = GlobalKey<AnimatedListState>();
-  final Duration _duration = const Duration(milliseconds: 300);
+  // final GlobalKey<AnimatedListState> _key = GlobalKey<AnimatedListState>();
+  // final Duration _duration = const Duration(milliseconds: 300);
 
   void _newChatRoom() {
     Navigator.of(context).push(
@@ -58,7 +59,8 @@ class ChatScreenState extends ConsumerState<ChatScreen> {
         radius: 30,
         backgroundImage: chatRoom.hasAvatar
             ? NetworkImage(
-                "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${chatRoom.participantId}?alt=media")
+                "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${chatRoom.participantId}?alt=media",
+              )
             : const AssetImage("assets/images/yerin2.jpg") as ImageProvider,
       ),
       title: Row(
@@ -72,7 +74,11 @@ class ChatScreenState extends ConsumerState<ChatScreen> {
             ),
           ),
           Text(
-            "2:16 PM",
+            chatRoom.lastMessageTime != null
+                ? convertTimestampToDateTime(chatRoom.lastMessageTime!)
+                    .toString()
+                    .split(".")[0]
+                : "",
             style: TextStyle(
               color: Colors.grey.shade500,
               fontSize: Sizes.size12,
@@ -80,7 +86,7 @@ class ChatScreenState extends ConsumerState<ChatScreen> {
           ),
         ],
       ),
-      subtitle: const Text("치워낭!"),
+      subtitle: Text(chatRoom.lastMessage != null ? chatRoom.lastMessage! : ""),
     );
   }
 

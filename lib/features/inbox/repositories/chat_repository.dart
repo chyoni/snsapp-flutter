@@ -30,6 +30,29 @@ class ChatRepository {
     final user = await _db.collection("users").doc(uid).get();
     return user;
   }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getAllMessages(
+      String chatRoomId) async {
+    final messages = await _db
+        .collection("chat_rooms")
+        .doc(chatRoomId)
+        .collection("messages")
+        .get();
+    return messages;
+  }
+
+  Future<void> sendMessage(
+      String message, String chatRoomId, String senderId) async {
+    await _db
+        .collection("chat_rooms")
+        .doc(chatRoomId)
+        .collection("messages")
+        .add({
+      "userId": senderId,
+      "message": message,
+      "createdAt": DateTime.now().millisecondsSinceEpoch,
+    });
+  }
 }
 
 final chatRepo = Provider(

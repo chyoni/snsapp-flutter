@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/inbox/view_models/chat_detail_view_model.dart';
 
 class ChatDetailScreen extends ConsumerStatefulWidget {
   static const String routeName = "chatDetail";
@@ -19,6 +20,7 @@ class ChatDetailScreen extends ConsumerStatefulWidget {
 }
 
 class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
+  final TextEditingController _textEditingController = TextEditingController();
   bool isEnableSending = false;
 
   @override
@@ -45,9 +47,17 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
 
   void _showEmojiTap() {}
 
-  void _onSendingDmTap() {
-    // ignore: avoid_print
-    print("sending!");
+  Future<void> _onSendingDmTap() async {
+    final message = _textEditingController.text;
+    if (message == "") return;
+    await ref
+        .read(chatDetailProvider(widget.chatId).notifier)
+        .sendMessage(message);
+
+    setState(() {
+      isEnableSending = false;
+      _textEditingController.text = "";
+    });
   }
 
   @override
@@ -180,6 +190,7 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
                       child: SizedBox(
                         height: Sizes.size44,
                         child: TextField(
+                          controller: _textEditingController,
                           onChanged: (value) => _onEditText(value),
                           // ! 키보드에서 return이 newline이 되는 아래 4줄 (이를 사용하려면 TextField의 height를 정해줘야하는데 그를 위해 Sizedbox로 감싸주기)
                           expands: true,

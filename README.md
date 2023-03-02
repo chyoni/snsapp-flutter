@@ -518,6 +518,5 @@ npm i child-process-promise
 ### #117 All chats list 1
 
 ### #118 All chats list 2
-TODO: 
-- [ ] Get last message 
-- [ ] Get last message time
+
+### #119 All chats list done / send message done
