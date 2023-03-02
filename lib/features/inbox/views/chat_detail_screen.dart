@@ -28,6 +28,7 @@ class ChatDetailScreen extends ConsumerStatefulWidget {
 
 class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
   final TextEditingController _textEditingController = TextEditingController();
+  Offset _tapPosition = Offset.zero;
   bool isEnableSending = false;
 
   void _onKeyboardDismiss() {
@@ -59,6 +60,40 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
       isEnableSending = false;
       _textEditingController.text = "";
     });
+  }
+
+  void _getTapPosition(TapDownDetails details) {
+    final RenderBox referenceBox = context.findRenderObject() as RenderBox;
+    setState(() {
+      _tapPosition = referenceBox.globalToLocal(details.globalPosition);
+    });
+  }
+
+  Future<void> _onMessageLongPressed(
+      BuildContext context, String messageId) async {
+    final RenderObject? overlay =
+        Overlay.of(context)?.context.findRenderObject();
+
+    final result = await showMenu(
+      context: context,
+      position: RelativeRect.fromRect(
+        Rect.fromLTWH(_tapPosition.dx, _tapPosition.dy, 30, 30),
+        Rect.fromLTWH(0, 0, overlay!.paintBounds.size.width,
+            overlay.paintBounds.size.height),
+      ),
+      items: [
+        const PopupMenuItem(
+          value: "Remove",
+          child: Text("Remove"),
+        )
+      ],
+    );
+
+    if (result == "Remove") {
+      await ref
+          .read(chatDetailProvider(widget.chatId).notifier)
+          .deleteMessage(messageId);
+    }
   }
 
   @override
@@ -152,35 +187,43 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
                         final message = messages[index];
                         final isMine =
                             message.userId == ref.watch(authRepo).user!.uid;
-                        return Row(
-                          mainAxisAlignment: isMine
-                              ? MainAxisAlignment.end
-                              : MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(
-                                Sizes.size12,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: const Radius.circular(Sizes.size20),
-                                  topRight: const Radius.circular(Sizes.size20),
-                                  bottomLeft: Radius.circular(
-                                      isMine ? Sizes.size20 : 2),
-                                  bottomRight: Radius.circular(
-                                      !isMine ? Sizes.size20 : 2),
+                        return GestureDetector(
+                          onTapDown: (details) => _getTapPosition(details),
+                          onLongPress: isMine
+                              ? () => _onMessageLongPressed(context, message.id)
+                              : null,
+                          child: Row(
+                            mainAxisAlignment: isMine
+                                ? MainAxisAlignment.end
+                                : MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(
+                                  Sizes.size12,
                                 ),
-                                color: isMine
-                                    ? Colors.blue
-                                    : Theme.of(context).primaryColor,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft:
+                                        const Radius.circular(Sizes.size20),
+                                    topRight:
+                                        const Radius.circular(Sizes.size20),
+                                    bottomLeft: Radius.circular(
+                                        isMine ? Sizes.size20 : 2),
+                                    bottomRight: Radius.circular(
+                                        !isMine ? Sizes.size20 : 2),
+                                  ),
+                                  color: isMine
+                                      ? Colors.blue
+                                      : Theme.of(context).primaryColor,
+                                ),
+                                child: Text(
+                                  message.message,
+                                  style: const TextStyle(color: Colors.white),
+                                ),
                               ),
-                              child: Text(
-                                message.message,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         );
                       },
                     );

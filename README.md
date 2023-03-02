@@ -524,3 +524,5 @@ npm i child-process-promise
 ### #120 Chat detail stream provider
 
 - `StreamProvider`는 WebSocket같은 녀석, Connection을 유지하고 있는 상태에서 새로운 데이터가 들어오거나 나갈 때 바로바로 반응해줌
+
+### #121 Delete message with ContextMenuPopup

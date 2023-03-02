@@ -54,6 +54,15 @@ class ChatRepository {
       "createdAt": DateTime.now().millisecondsSinceEpoch,
     });
   }
+
+  Future<void> deleteMessage(String messageId, String chatRoomId) async {
+    await _db
+        .collection("chat_rooms")
+        .doc(chatRoomId)
+        .collection("messages")
+        .doc(messageId)
+        .delete();
+  }
 }
 
 final chatRepo = Provider(
