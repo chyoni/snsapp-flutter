@@ -11,7 +11,7 @@ import 'package:tiktok/features/users/view_models/users_view_model.dart';
 import 'package:tiktok/features/users/views/widgets/avatar.dart';
 import 'package:tiktok/features/users/views/widgets/persist_header_tab_bar.dart';
 import 'package:tiktok/features/videos/models/video_model.dart';
-import 'package:tiktok/features/videos/views/widgets/video_post.dart';
+import 'package:tiktok/features/videos/views/video_timeline_screen.dart';
 
 class UserProfileScreen extends ConsumerStatefulWidget {
   final String username;
@@ -43,11 +43,16 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
     );
   }
 
-  void _startPageView(VideoModel video, int index) {
+  void _startPageView(List<VideoModel> videos) {
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) =>
+    //         VideoPost(video: video, onVideoFinished: () {}, index: index),
+    //   ),
+    // );
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) =>
-            VideoPost(video: video, onVideoFinished: () {}, index: index),
+        builder: (context) => VideoTimelineScreen(videos: videos),
       ),
     );
   }
@@ -402,8 +407,7 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                                   return Column(
                                     children: [
                                       GestureDetector(
-                                        onTap: () =>
-                                            _startPageView(video, index),
+                                        onTap: () => _startPageView(videos),
                                         child: Container(
                                           clipBehavior: Clip.hardEdge,
                                           decoration: BoxDecoration(
