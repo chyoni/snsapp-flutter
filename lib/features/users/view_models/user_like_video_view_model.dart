@@ -36,6 +36,14 @@ class UserLikeVideoViewModel extends AsyncNotifier<List<VideoModel>> {
     }
     return videos;
   }
+
+  Future<void> refresh() async {
+    await Future.delayed(const Duration(seconds: 7));
+    final updated = await getLikeVideos();
+
+    _list = updated;
+    state = AsyncValue.data(_list);
+  }
 }
 
 final userLikeVideoProvider =

@@ -532,3 +532,12 @@ npm i child-process-promise
 ### #123 Video like react
 
 ### #124 user's like video 1
+
+### #124 user's like video done
+
+### #125 Video like all done 
+
+- [x] 좋아요 누르면 이모티콘 색, 좋아요 카운트 변경
+- [x] 좋아요 누르면 해당 비디오 프로필에 패치
+- [x] 좋아요 취소 시, 해당 비디오 프로필에서 제거
+- [x] 프로필에서 좋아요 누르거나 취소해도 위와 동일

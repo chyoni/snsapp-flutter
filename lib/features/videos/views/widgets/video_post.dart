@@ -4,9 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
+import 'package:tiktok/features/users/view_models/user_like_video_view_model.dart';
 import 'package:tiktok/features/videos/models/video_model.dart';
 import 'package:tiktok/features/videos/view_models/playback_config_view_model.dart';
-import 'package:tiktok/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok/features/videos/view_models/video_post_view_model.dart';
 import 'package:tiktok/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok/features/videos/views/widgets/video_comments.dart';
@@ -165,19 +165,18 @@ class VideoPostState extends ConsumerState<VideoPost>
     _onTogglePause();
   }
 
-  void _onLikeTap() {
-    final currentLiked =
-        ref.watch(videoPostProvider(widget.video.id).notifier).getIsLiked;
+  void _onLikeTap() async {
     ref.read(videoPostProvider(widget.video.id).notifier).toggleVideo();
-    if (currentLiked!) {
-      ref
-          .read(timelineProvider.notifier)
-          .saveStateLiked(videoId: widget.video.id, isLike: false);
-    } else {
-      ref
-          .read(timelineProvider.notifier)
-          .saveStateLiked(videoId: widget.video.id, isLike: true);
-    }
+    // if (currentLiked!) {
+    //   ref
+    //       .read(timelineProvider.notifier)
+    //       .saveStateLiked(videoId: widget.video.id, isLike: false);
+    // } else {
+    //   ref
+    //       .read(timelineProvider.notifier)
+    //       .saveStateLiked(videoId: widget.video.id, isLike: true);
+    // }
+    await ref.read(userLikeVideoProvider.notifier).refresh();
   }
 
   @override
@@ -189,7 +188,7 @@ class VideoPostState extends ConsumerState<VideoPost>
         loading: () => const Center(
               child: CircularProgressIndicator.adaptive(),
             ),
-        data: (isLiked) => VisibilityDetector(
+        data: (video) => VisibilityDetector(
               key: Key("${widget.index}"),
               onVisibilityChanged: _onVisibilityChanged,
               child: Stack(
@@ -198,7 +197,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                     child: _videoPlayerController.value.isInitialized
                         ? VideoPlayer(_videoPlayerController)
                         : Image.network(
-                            widget.video.thumbnailUrl,
+                            video.thumbnailUrl,
                             fit: BoxFit.cover,
                           ),
                   ),
@@ -240,7 +239,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                         Row(
                           children: [
                             Text(
-                              "@${widget.video.creator}",
+                              "@${video.creator}",
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: Sizes.size16,
@@ -259,12 +258,11 @@ class VideoPostState extends ConsumerState<VideoPost>
                         Container(
                           width: MediaQuery.of(context).size.width - 160,
                           decoration: const BoxDecoration(),
-                          child: widget.video.description.length > 25 &&
-                                  !_isAllDesc
+                          child: video.description.length > 25 && !_isAllDesc
                               ? Row(
                                   children: [
                                     Text(
-                                      widget.video.description.substring(0, 10),
+                                      video.description.substring(0, 10),
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: Sizes.size14,
@@ -292,7 +290,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                                   ],
                                 )
                               : Text(
-                                  widget.video.description,
+                                  video.description,
                                   style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: Sizes.size14,
@@ -327,26 +325,24 @@ class VideoPostState extends ConsumerState<VideoPost>
                           backgroundColor: Colors.black,
                           foregroundColor: Colors.white,
                           foregroundImage: NetworkImage(
-                            "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${widget.video.creatorUid}?alt=media",
+                            "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${video.creatorUid}?alt=media",
                           ),
-                          child: Text(widget.video.creator),
+                          child: Text(video.creator),
                         ),
                         Gaps.v20,
                         GestureDetector(
                           onTap: _onLikeTap,
                           child: VideoButton(
                               icon: FontAwesomeIcons.solidHeart,
-                              text: S.of(context).likeCount(widget.video.likes),
-                              isLiked: isLiked),
+                              text: S.of(context).likeCount(video.likes),
+                              isLiked: video.isLiked),
                         ),
                         Gaps.v20,
                         GestureDetector(
                           onTap: () => _onCommentsTap(context),
                           child: VideoButton(
                               icon: FontAwesomeIcons.solidComment,
-                              text: S
-                                  .of(context)
-                                  .commentCount(widget.video.comments)),
+                              text: S.of(context).commentCount(video.comments)),
                         ),
                         Gaps.v20,
                         const VideoButton(

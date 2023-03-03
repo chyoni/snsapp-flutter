@@ -50,6 +50,7 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
     //         VideoPost(video: video, onVideoFinished: () {}, index: index),
     //   ),
     // );
+    //print(videos[1].likes);
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => VideoTimelineScreen(videos: videos),

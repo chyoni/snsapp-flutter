@@ -7,6 +7,7 @@ class VideoModel {
   final String creatorUid;
   final String creator;
   final int likes;
+  final bool isLiked;
   final int comments;
   final int createdAt;
 
@@ -21,11 +22,13 @@ class VideoModel {
     required this.likes,
     required this.comments,
     required this.createdAt,
+    this.isLiked = false,
   });
 
   VideoModel.fromJson({
     required Map<String, dynamic> json,
     required String videoId,
+    bool? isLiked,
   })  : id = videoId,
         title = json["title"],
         description = json["description"],
@@ -34,6 +37,7 @@ class VideoModel {
         creatorUid = json["creatorUid"],
         creator = json["creator"],
         likes = json["likes"],
+        isLiked = isLiked ?? false,
         comments = json["comments"],
         createdAt = json["createdAt"];
 
@@ -47,6 +51,7 @@ class VideoModel {
       "creatorUid": creatorUid,
       "creator": creator,
       "likes": likes,
+      "isLiked": isLiked,
       "comments": comments,
       "createdAt": createdAt,
     };
@@ -61,6 +66,7 @@ class VideoModel {
     String? creatorUid,
     String? creator,
     int? likes,
+    bool? isLiked,
     int? comments,
     int? createdAt,
   }) {
@@ -73,6 +79,7 @@ class VideoModel {
       creatorUid: creatorUid ?? this.creatorUid,
       creator: creator ?? this.creator,
       likes: likes ?? this.likes,
+      isLiked: isLiked ?? this.isLiked,
       comments: comments ?? this.comments,
       createdAt: createdAt ?? this.createdAt,
     );
