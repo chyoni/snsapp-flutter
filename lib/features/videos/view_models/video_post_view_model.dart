@@ -15,17 +15,22 @@ class VideoPostViewModel extends FamilyAsyncNotifier<bool, String> {
 
   bool? get getIsLiked => state.value;
 
-  @override
-  FutureOr<bool> build(String arg) async {
-    _videoId = arg;
-    _repository = ref.read(videosRepo);
-
+  Future<bool> fetchIsLiked() async {
     final user = ref.read(authRepo).user;
     if (user == null) {
       isLiked = false;
       return isLiked;
     }
-    isLiked = await _repository.isLiked(_videoId, user.uid);
+    final result = await _repository.isLiked(_videoId, user.uid);
+    return result;
+  }
+
+  @override
+  FutureOr<bool> build(String arg) async {
+    _videoId = arg;
+    _repository = ref.read(videosRepo);
+
+    isLiked = await fetchIsLiked();
     return isLiked;
   }
 

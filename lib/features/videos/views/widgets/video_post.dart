@@ -6,6 +6,7 @@ import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/videos/models/video_model.dart';
 import 'package:tiktok/features/videos/view_models/playback_config_view_model.dart';
+import 'package:tiktok/features/videos/view_models/timeline_view_model.dart';
 import 'package:tiktok/features/videos/view_models/video_post_view_model.dart';
 import 'package:tiktok/features/videos/views/widgets/video_button.dart';
 import 'package:tiktok/features/videos/views/widgets/video_comments.dart';
@@ -36,7 +37,6 @@ class VideoPostState extends ConsumerState<VideoPost>
   late final VideoPlayerController _videoPlayerController;
   late final AnimationController _animationController;
   late bool _isPaused;
-  late int _likeCount;
   bool _isAllDesc = false;
   final Duration _animationDuration = const Duration(milliseconds: 200);
 
@@ -96,7 +96,6 @@ class VideoPostState extends ConsumerState<VideoPost>
       duration: _animationDuration,
     );
     _isPaused = ref.read(playbackConfigProvider).autoplay ? false : true;
-    _likeCount = widget.video.likes;
     // videoConfig.addListener(() {
     //   setState(() {
     //     _isMuted = videoConfig.autoMute;
@@ -171,11 +170,14 @@ class VideoPostState extends ConsumerState<VideoPost>
         ref.watch(videoPostProvider(widget.video.id).notifier).getIsLiked;
     ref.read(videoPostProvider(widget.video.id).notifier).toggleVideo();
     if (currentLiked!) {
-      _likeCount = _likeCount - 1;
+      ref
+          .read(timelineProvider.notifier)
+          .saveStateLiked(videoId: widget.video.id, isLike: false);
     } else {
-      _likeCount = _likeCount + 1;
+      ref
+          .read(timelineProvider.notifier)
+          .saveStateLiked(videoId: widget.video.id, isLike: true);
     }
-    setState(() {});
   }
 
   @override
@@ -334,7 +336,7 @@ class VideoPostState extends ConsumerState<VideoPost>
                           onTap: _onLikeTap,
                           child: VideoButton(
                               icon: FontAwesomeIcons.solidHeart,
-                              text: S.of(context).likeCount(_likeCount),
+                              text: S.of(context).likeCount(widget.video.likes),
                               isLiked: isLiked),
                         ),
                         Gaps.v20,
