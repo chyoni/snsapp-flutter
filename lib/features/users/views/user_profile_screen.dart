@@ -5,10 +5,13 @@ import 'package:tiktok/constants/gaps.dart';
 import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok/features/settings/settings_screen.dart';
-import 'package:tiktok/features/users/user_edit_screen.dart';
+import 'package:tiktok/features/users/view_models/user_like_video_view_model.dart';
+import 'package:tiktok/features/users/views/user_edit_screen.dart';
 import 'package:tiktok/features/users/view_models/users_view_model.dart';
-import 'package:tiktok/features/users/widgets/avatar.dart';
-import 'package:tiktok/features/users/widgets/persist_header_tab_bar.dart';
+import 'package:tiktok/features/users/views/widgets/avatar.dart';
+import 'package:tiktok/features/users/views/widgets/persist_header_tab_bar.dart';
+import 'package:tiktok/features/videos/models/video_model.dart';
+import 'package:tiktok/features/videos/views/widgets/video_post.dart';
 
 class UserProfileScreen extends ConsumerStatefulWidget {
   final String username;
@@ -36,6 +39,15 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (context) => const UserEditScreen(),
+      ),
+    );
+  }
+
+  void _startPageView(VideoModel video, int index) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) =>
+            VideoPost(video: video, onVideoFinished: () {}, index: index),
       ),
     );
   }
@@ -289,7 +301,7 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                           crossAxisCount: 3,
                           crossAxisSpacing: Sizes.size2,
                           mainAxisSpacing: Sizes.size1,
-                          // ! 9 너비, 20 높이로 생각하면됨
+                          // ! 9 너비, 15 높이로 생각하면됨
                           childAspectRatio: 9 / 15,
                         ),
                         itemBuilder: (context, index) => Column(
@@ -365,9 +377,57 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                           ],
                         ),
                       ),
-                      const Center(
-                        child: Text("Tab 2"),
-                      ),
+                      ref.watch(userLikeVideoProvider).when(
+                            error: (error, stackTrace) => Center(
+                              child: Text("error occured -> $error"),
+                            ),
+                            loading: () => const Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            ),
+                            data: (videos) {
+                              return GridView.builder(
+                                itemCount: videos.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: Sizes.size2,
+                                  mainAxisSpacing: Sizes.size1,
+                                  childAspectRatio: 9 / 15,
+                                ),
+                                keyboardDismissBehavior:
+                                    ScrollViewKeyboardDismissBehavior.onDrag,
+                                padding: EdgeInsets.zero,
+                                itemBuilder: (context, index) {
+                                  final video = videos[index];
+                                  return Column(
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () =>
+                                            _startPageView(video, index),
+                                        child: Container(
+                                          clipBehavior: Clip.hardEdge,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              Sizes.size4,
+                                            ),
+                                          ),
+                                          child: AspectRatio(
+                                            aspectRatio: 9 / 15,
+                                            child: FadeInImage.assetNetwork(
+                                              fit: BoxFit.cover,
+                                              placeholder:
+                                                  "assets/images/placeholder.jpg",
+                                              image: video.thumbnailUrl,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          )
                     ],
                   ),
                 ),

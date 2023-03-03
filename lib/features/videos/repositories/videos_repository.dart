@@ -57,6 +57,11 @@ class VideosRepository {
     if (like.exists) return true;
     return false;
   }
+
+  Future<Map<String, dynamic>?> getVideo(String videoId) async {
+    final video = await _db.collection("videos").doc(videoId).get();
+    return video.data();
+  }
 }
 
 final videosRepo = Provider(

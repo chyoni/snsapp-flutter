@@ -40,7 +40,7 @@ class TimelineViewModel extends AsyncNotifier<List<VideoModel>> {
     state = AsyncValue.data(videos);
   }
 
-  saveStateLiked({required String videoId, required bool isLike}) {
+  void saveStateLiked({required String videoId, required bool isLike}) {
     final updateVideos = _list.map((video) {
       if (video.id == videoId) {
         if (isLike) {
