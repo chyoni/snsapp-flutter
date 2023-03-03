@@ -33,6 +33,12 @@ class UserRepository {
         await _db.collection("users").doc(uid).collection("likes").get();
     return likeVideos;
   }
+
+  Future<QuerySnapshot<Map<String, dynamic>>> getUserVideos(String uid) async {
+    final userVideos =
+        await _db.collection("users").doc(uid).collection("videos").get();
+    return userVideos;
+  }
 }
 
 final userRepo = Provider(
