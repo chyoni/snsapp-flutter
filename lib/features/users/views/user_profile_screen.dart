@@ -6,6 +6,7 @@ import 'package:tiktok/constants/sizes.dart';
 import 'package:tiktok/features/authentication/repositories/authentication_repository.dart';
 import 'package:tiktok/features/settings/settings_screen.dart';
 import 'package:tiktok/features/users/view_models/user_like_video_view_model.dart';
+import 'package:tiktok/features/users/view_models/user_videos_view_model.dart';
 import 'package:tiktok/features/users/views/user_edit_screen.dart';
 import 'package:tiktok/features/users/view_models/users_view_model.dart';
 import 'package:tiktok/features/users/views/widgets/avatar.dart';
@@ -297,92 +298,110 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                   },
                   body: TabBarView(
                     children: [
-                      GridView.builder(
-                        // ! GridView는 그 우리가 했던 unfocus를 사용하지 않고도 이런 옵션이 있다.
-                        keyboardDismissBehavior:
-                            ScrollViewKeyboardDismissBehavior.onDrag,
-                        padding: EdgeInsets.zero,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                          crossAxisSpacing: Sizes.size2,
-                          mainAxisSpacing: Sizes.size1,
-                          // ! 9 너비, 15 높이로 생각하면됨
-                          childAspectRatio: 9 / 15,
-                        ),
-                        itemBuilder: (context, index) => Column(
-                          children: [
-                            Stack(
-                              children: [
-                                Container(
-                                  clipBehavior: Clip.hardEdge,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(
-                                      Sizes.size4,
-                                    ),
-                                  ),
-                                  child: AspectRatio(
-                                    aspectRatio: 9 / 15,
-                                    child: FadeInImage.assetNetwork(
-                                      fit: BoxFit.cover,
-                                      placeholder:
-                                          "assets/images/placeholder.jpg",
-                                      image:
-                                          "https://images.unsplash.com/photo-1573865526739-10659fec78a5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=715&q=80",
-                                    ),
-                                  ),
-                                ),
-                                if (index == 0)
-                                  Positioned(
-                                    top: 5,
-                                    left: 5,
-                                    child: Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: Sizes.size4,
-                                          vertical: Sizes.size2,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Theme.of(context).primaryColor,
-                                          borderRadius: BorderRadius.circular(
-                                            Sizes.size4,
-                                          ),
-                                        ),
-                                        child: const Text(
-                                          "Pinned",
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                            fontSize: Sizes.size12,
-                                          ),
-                                        )),
-                                  ),
-                                Positioned(
-                                  bottom: 2,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: const [
-                                      Icon(
-                                        Icons.play_arrow_outlined,
-                                        size: Sizes.size28,
-                                        color: Colors.white,
-                                      ),
-                                      Gaps.h5,
-                                      Text(
-                                        "4.1M",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
+                      ref.watch(userVideosProvider).when(
+                            error: (error, stackTrace) => Center(
+                              child: Text("error occured -> $error"),
                             ),
-                          ],
-                        ),
-                      ),
+                            loading: () => const Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            ),
+                            data: (videos) {
+                              return GridView.builder(
+                                // ! GridView는 그 우리가 했던 unfocus를 사용하지 않고도 이런 옵션이 있다.
+                                keyboardDismissBehavior:
+                                    ScrollViewKeyboardDismissBehavior.onDrag,
+                                padding: EdgeInsets.zero,
+                                itemCount: videos.length,
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 3,
+                                  crossAxisSpacing: Sizes.size2,
+                                  mainAxisSpacing: Sizes.size1,
+                                  // ! 9 너비, 15 높이로 생각하면됨
+                                  childAspectRatio: 9 / 15,
+                                ),
+                                itemBuilder: (context, index) {
+                                  final video = videos[index];
+                                  return Column(
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Container(
+                                            clipBehavior: Clip.hardEdge,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                Sizes.size4,
+                                              ),
+                                            ),
+                                            child: AspectRatio(
+                                              aspectRatio: 9 / 15,
+                                              child: FadeInImage.assetNetwork(
+                                                fit: BoxFit.cover,
+                                                placeholder:
+                                                    "assets/images/placeholder.jpg",
+                                                image: video.thumbnailUrl,
+                                              ),
+                                            ),
+                                          ),
+                                          if (index == 0)
+                                            Positioned(
+                                              top: 5,
+                                              left: 5,
+                                              child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                    horizontal: Sizes.size4,
+                                                    vertical: Sizes.size2,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      Sizes.size4,
+                                                    ),
+                                                  ),
+                                                  child: const Text(
+                                                    "Pinned",
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                      fontSize: Sizes.size12,
+                                                    ),
+                                                  )),
+                                            ),
+                                          Positioned(
+                                            bottom: 2,
+                                            child: Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: const [
+                                                Icon(
+                                                  Icons.play_arrow_outlined,
+                                                  size: Sizes.size28,
+                                                  color: Colors.white,
+                                                ),
+                                                Gaps.h5,
+                                                Text(
+                                                  "4.1M",
+                                                  style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
                       ref.watch(userLikeVideoProvider).when(
                             error: (error, stackTrace) => Center(
                               child: Text("error occured -> $error"),
