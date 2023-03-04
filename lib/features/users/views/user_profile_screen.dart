@@ -277,12 +277,12 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                               ),
                             ),
                             Gaps.v14,
-                            const Padding(
-                              padding: EdgeInsets.symmetric(
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
                                 horizontal: Sizes.size20,
                               ),
                               child: Text(
-                                "플러터 개꿀잼",
+                                data.bio,
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -322,81 +322,85 @@ class UserProfileScreenState extends ConsumerState<UserProfileScreen> {
                                 ),
                                 itemBuilder: (context, index) {
                                   final video = videos[index];
-                                  return Column(
-                                    children: [
-                                      Stack(
-                                        children: [
-                                          Container(
-                                            clipBehavior: Clip.hardEdge,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                Sizes.size4,
+                                  return GestureDetector(
+                                    onTap: () => _startPageView(videos),
+                                    child: Column(
+                                      children: [
+                                        Stack(
+                                          children: [
+                                            Container(
+                                              clipBehavior: Clip.hardEdge,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                  Sizes.size4,
+                                                ),
+                                              ),
+                                              child: AspectRatio(
+                                                aspectRatio: 9 / 15,
+                                                child: FadeInImage.assetNetwork(
+                                                  fit: BoxFit.cover,
+                                                  placeholder:
+                                                      "assets/images/placeholder.jpg",
+                                                  image: video.thumbnailUrl,
+                                                ),
                                               ),
                                             ),
-                                            child: AspectRatio(
-                                              aspectRatio: 9 / 15,
-                                              child: FadeInImage.assetNetwork(
-                                                fit: BoxFit.cover,
-                                                placeholder:
-                                                    "assets/images/placeholder.jpg",
-                                                image: video.thumbnailUrl,
-                                              ),
-                                            ),
-                                          ),
-                                          if (index == 0)
-                                            Positioned(
-                                              top: 5,
-                                              left: 5,
-                                              child: Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: Sizes.size4,
-                                                    vertical: Sizes.size2,
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                      Sizes.size4,
+                                            if (index == 0)
+                                              Positioned(
+                                                top: 5,
+                                                left: 5,
+                                                child: Container(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                      horizontal: Sizes.size4,
+                                                      vertical: Sizes.size2,
                                                     ),
+                                                    decoration: BoxDecoration(
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                        Sizes.size4,
+                                                      ),
+                                                    ),
+                                                    child: const Text(
+                                                      "Pinned",
+                                                      style: TextStyle(
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        fontSize: Sizes.size12,
+                                                      ),
+                                                    )),
+                                              ),
+                                            Positioned(
+                                              bottom: 2,
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: const [
+                                                  Icon(
+                                                    Icons.play_arrow_outlined,
+                                                    size: Sizes.size28,
+                                                    color: Colors.white,
                                                   ),
-                                                  child: const Text(
-                                                    "Pinned",
+                                                  Gaps.h5,
+                                                  Text(
+                                                    "4.1M",
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: Sizes.size12,
+                                                          FontWeight.w500,
                                                     ),
-                                                  )),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          Positioned(
-                                            bottom: 2,
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
-                                              children: const [
-                                                Icon(
-                                                  Icons.play_arrow_outlined,
-                                                  size: Sizes.size28,
-                                                  color: Colors.white,
-                                                ),
-                                                Gaps.h5,
-                                                Text(
-                                                  "4.1M",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   );
                                 },
                               );

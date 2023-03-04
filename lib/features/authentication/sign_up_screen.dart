@@ -111,17 +111,18 @@ class SignUpScreen extends ConsumerWidget {
               ),
             ),
           ),
-          bottomNavigationBar: BottomAppBar(
+          bottomNavigationBar: Container(
             color: ref.watch(commonConfigProvider).darkMode
                 ? Colors.black38
                 : Colors.grey.shade50,
-            elevation: 3,
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: Sizes.size36),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Already have an account?"),
+                  const Text(
+                    "Already have an account?",
+                  ),
                   Gaps.h10,
                   GestureDetector(
                     onTap: () => onLoginTap(context),

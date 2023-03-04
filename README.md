@@ -413,7 +413,7 @@ export PATH="$PATH":"$HOME/.pub-cache/bin"
 - Step 4까지 다 해야해 !
 
 - 우리가 사용할 plugin은 firebase_auth, cloud_firestore, firebase_storage이고 이거를 설치하려면 `flutter pub add <plugin name>`를 실행
-- 그리고 firebase plugin을 설치하거나 제거했으면 무조건 flutterfire configure 실행 다시해줘야하네
+- 그리고 firebase plugin을 설치하거나 제거했으면 무조건 `flutterfire configure` 실행 다시해줘야하네
 - 그 flutterfire configure할 때 macos는 체크해제할건데 체크해제하려면 스페이스바 누르면 됨
 
 ### #94 Firebase authentication
@@ -535,9 +535,21 @@ npm i child-process-promise
 
 ### #124 user's like video done
 
-### #125 Video like all done 
+### #125 Video like all done
 
 - [x] 좋아요 누르면 이모티콘 색, 좋아요 카운트 변경
 - [x] 좋아요 누르면 해당 비디오 프로필에 패치
 - [x] 좋아요 취소 시, 해당 비디오 프로필에서 제거
 - [x] 프로필에서 좋아요 누르거나 취소해도 위와 동일
+
+### Push notification
+
+- 우선, Android로 해야한다. 왜냐하면 iOS는 App Developer 등록을 해야하는데 이거 등록하려면 아마도 돈 내야할듯 identifier가 필요해서..
+  아래 링크로 필요한 플러그인을 다운받을 수 있다.
+
+- https://firebase.google.com/docs/cloud-messaging/flutter/client
+
+```bash
+flutter pub add firebase_messaging
+flutterfire configure
+```

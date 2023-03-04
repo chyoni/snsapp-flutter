@@ -76,7 +76,10 @@ class MainNavigationScreenState extends ConsumerState<MainNavigationScreen> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.only(
+          bottom: Sizes.size12,
+        ),
         color: _selectedIndex == 0
             ? Colors.black
             : ref.watch(commonConfigProvider).darkMode

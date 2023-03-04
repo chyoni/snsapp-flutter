@@ -327,7 +327,6 @@ class VideoPostState extends ConsumerState<VideoPost>
                           foregroundImage: NetworkImage(
                             "https://firebasestorage.googleapis.com/v0/b/chiwon99881tiktok.appspot.com/o/avatars%2F${video.creatorUid}?alt=media",
                           ),
-                          child: Text(video.creator),
                         ),
                         Gaps.v20,
                         GestureDetector(

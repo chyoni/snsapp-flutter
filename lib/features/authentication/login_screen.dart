@@ -67,11 +67,10 @@ class LoginScreen extends ConsumerWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
+      bottomNavigationBar: Container(
         color: ref.watch(commonConfigProvider).darkMode
             ? Colors.black
             : Colors.grey.shade50,
-        elevation: 3,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: Sizes.size36),
           child: Row(

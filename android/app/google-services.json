@@ -31,10 +31,10 @@
               "client_type": 3
             },
             {
-              "client_id": "70460671611-br42tiidv17nmip2vdgg533o93fiajip.apps.googleusercontent.com",
+              "client_id": "70460671611-boeqtkk788hrn4hgoafpibuf4nrkbrav.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "chyonee.clone.tiktok"
+                "bundle_id": "com.example.tiktok"
               }
             }
           ]
