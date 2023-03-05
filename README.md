@@ -555,3 +555,13 @@ flutterfire configure
 ```
 
 ### Firebase push notification (Foreground / Background / Terminated)
+
+### Target notification
+
+- 이거는 만약 내가 어떤 특정 유저의 비디오를 좋아요 눌렀을 때 그 유저(target)한테 알림이 가도록 하는 방식인데,
+  이걸 구현하기 위해 firebase functions을 사용할거다. 그리고 Cloud messaging api를 사용하기 위해 또 해줘야하는 작업은
+
+  - https://console.cloud.google.com/apis/api/googlecloudmessaging.googleapis.com
+  - 여기서 해당 API를 Enable해줘야한다.
+
+- Target은 firebase notification을 사용하기 위해 발급되는 token으로 특정 유저의 Device에 접근할 수 있다.
