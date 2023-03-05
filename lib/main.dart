@@ -8,7 +8,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tiktok/common/repo/common_config_repo.dart';
 import 'package:tiktok/common/view_models/common_config_vm.dart';
 import 'package:tiktok/constants/sizes.dart';
-import 'package:tiktok/features/notifications/notifications_provider.dart';
 import 'package:tiktok/features/videos/repositories/playback_config_repository.dart';
 import 'package:tiktok/features/videos/view_models/playback_config_view_model.dart';
 import 'package:tiktok/firebase_options.dart';
@@ -58,7 +57,6 @@ class TikTokApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(notificationsProvider);
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
       debugShowCheckedModeBanner: false,

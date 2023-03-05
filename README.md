@@ -553,3 +553,5 @@ npm i child-process-promise
 flutter pub add firebase_messaging
 flutterfire configure
 ```
+
+### Firebase push notification (Foreground / Background / Terminated)
