@@ -1,5 +1,5 @@
-import * as functions from "firebase-functions";
-import * as admin from "firebase-admin";
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 
 admin.initializeApp();
 
@@ -10,19 +10,19 @@ admin.initializeApp();
 // ! SQL에서 relation과 유사한거라고 봐도 무방할듯
 
 export const onVideoCreated = functions.firestore
-  .document("videos/{videoId}")
+  .document('videos/{videoId}')
   .onCreate(async (snapshot, context) => {
-    const spawn = require("child-process-promise").spawn;
+    const spawn = require('child-process-promise').spawn;
     const video = snapshot.data();
-    await spawn("ffmpeg", [
-      "-i",
+    await spawn('ffmpeg', [
+      '-i',
       video.fileUrl,
-      "-ss",
-      "00:00:01.000",
-      "-vframes",
-      "1",
-      "-vf",
-      "scale=150:-1",
+      '-ss',
+      '00:00:01.000',
+      '-vframes',
+      '1',
+      '-vf',
+      'scale=150:-1',
       `/tmp/${snapshot.id}.jpg`,
     ]);
 
@@ -35,9 +35,9 @@ export const onVideoCreated = functions.firestore
 
     const db = admin.firestore();
     await db
-      .collection("users")
+      .collection('users')
       .doc(video.creatorUid)
-      .collection("videos")
+      .collection('videos')
       .doc(snapshot.id)
       .set({
         thumbnailUrl: file.publicUrl(),
@@ -46,43 +46,65 @@ export const onVideoCreated = functions.firestore
   });
 
 export const onLikeCreated = functions.firestore
-  .document("likes/{likeId}")
+  .document('likes/{likeId}')
   .onCreate(async (snapshot, context) => {
     const db = admin.firestore();
-    const [videoId, userId] = snapshot.id.split("000");
+    const [videoId, userId] = snapshot.id.split('000');
     await db
-      .collection("videos")
+      .collection('videos')
       .doc(videoId)
       .update({
         likes: admin.firestore.FieldValue.increment(1),
       });
 
     await db
-      .collection("users")
+      .collection('users')
       .doc(userId)
-      .collection("likes")
+      .collection('likes')
       .doc(snapshot.id)
       .set({
         videoId: videoId,
       });
+
+    const video = await (
+      await db.collection('videos').doc(videoId).get()
+    ).data();
+    if (video) {
+      const creatorUid = video.creatorUid;
+      const user = await (
+        await db.collection('users').doc(creatorUid).get()
+      ).data();
+      if (user) {
+        const token = user.token;
+        await admin.messaging().sendToDevice(token, {
+          data: {
+            screen: '123',
+          },
+          notification: {
+            title: 'someone liked your video',
+            body: 'Likes + 1 !',
+          },
+        });
+      }
+    }
   });
 
 export const onLikeRemoved = functions.firestore
-  .document("likes/{likeId}")
+  .document('likes/{likeId}')
   .onDelete(async (snapshot, context) => {
     const db = admin.firestore();
-    const [videoId, userId] = snapshot.id.split("000");
+    const [videoId, userId] = snapshot.id.split('000');
     await db
-      .collection("videos")
+      .collection('videos')
       .doc(videoId)
       .update({
         likes: admin.firestore.FieldValue.increment(-1),
       });
 
     await db
-      .collection("users")
+      .collection('users')
       .doc(userId)
-      .collection("likes")
+      .collection('likes')
       .doc(snapshot.id)
       .delete();
   });
