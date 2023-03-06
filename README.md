@@ -566,10 +566,11 @@ flutterfire configure
 
 - Target은 firebase notification을 사용하기 위해 발급되는 token으로 특정 유저의 Device에 접근할 수 있다.
 
-
 ### Unit Test
 
 ### Widget Test
 
 - Mocking SharedPreferences
-- Get ThemeData 
+- Get ThemeData
+
+### Integration Test

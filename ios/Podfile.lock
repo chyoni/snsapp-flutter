@@ -604,7 +604,7 @@ PODS:
   - BoringSSL-GRPC/Interface (0.0.24)
   - camera_avfoundation (0.0.1):
     - Flutter
-  - cloud_firestore (4.4.2):
+  - cloud_firestore (4.4.3):
     - Firebase/Firestore (= 10.3.0)
     - firebase_core
     - Flutter
@@ -630,7 +630,7 @@ PODS:
   - Firebase/Storage (10.3.0):
     - Firebase/CoreOnly
     - FirebaseStorage (~> 10.3.0)
-  - firebase_auth (4.2.8):
+  - firebase_auth (4.2.9):
     - Firebase/Auth (= 10.3.0)
     - firebase_core
     - Flutter
@@ -641,7 +641,7 @@ PODS:
     - Firebase/Messaging (= 10.3.0)
     - firebase_core
     - Flutter
-  - firebase_storage (11.0.13):
+  - firebase_storage (11.0.14):
     - Firebase/Storage (= 10.3.0)
     - firebase_core
     - Flutter
@@ -781,6 +781,8 @@ PODS:
   - GTMSessionFetcher/Core (3.1.0)
   - image_picker_ios (0.0.1):
     - Flutter
+  - integration_test (0.0.1):
+    - Flutter
   - leveldb-library (1.22.1)
   - Libuv-gRPC (0.0.10):
     - Libuv-gRPC/Implementation (= 0.0.10)
@@ -816,6 +818,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - gallery_saver (from `.symlinks/plugins/gallery_saver/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
   - permission_handler_apple (from `.symlinks/plugins/permission_handler_apple/ios`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/ios`)
@@ -870,6 +873,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/gallery_saver/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
   path_provider_foundation:
     :path: ".symlinks/plugins/path_provider_foundation/ios"
   permission_handler_apple:
@@ -882,14 +887,14 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
-  camera_avfoundation: 07c77549ea54ad95d8581be86617c094a46280d9
-  cloud_firestore: 2d8c9f23063a6f735004f9b52cc743f7d8c8a5ae
+  camera_avfoundation: 3125e8cd1a4387f6f31c6c63abb8a55892a9eeeb
+  cloud_firestore: 94326bb743acbfe43c68f933dab8a094e84d5849
   cloud_functions: c47b0379bca7f5f60884a27696248459de0a1f6b
   Firebase: f92fc551ead69c94168d36c2b26188263860acd9
-  firebase_auth: d9f3339f118479cf41bd9b20daacc2bb590f285c
+  firebase_auth: 4e8c693e848ed13b263de2d702d55fa82ed04a79
   firebase_core: 128d8c43c3a453a4a67463314fc3761bedff860b
   firebase_messaging: 8ac28baba96e69a58ad26b4bb5f9ee67c3e5efe2
-  firebase_storage: 1cf1f798f92d7d66b0bab3d866f63f1bf41def1c
+  firebase_storage: bdbef04ce485eb426152016c735736bc3615b8c0
   FirebaseAppCheckInterop: 95bc238f8755d597cad95815b3c448f8617f720f
   FirebaseAuth: 0e415d29d846c1dce2fb641e46f35e9888d9bec6
   FirebaseAuthInterop: e1a53afba01599095100f92d6d3ecb75da6b5fa8
@@ -910,15 +915,16 @@ SPEC CHECKSUMS:
   "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
   gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
   GTMSessionFetcher: c9e714f7eec91a55641e2bab9f45fd83a219b882
-  image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
+  image_picker_ios: 4a8aadfbb6dc30ad5141a2ce3832af9214a705b5
+  integration_test: a1e7d09bd98eca2fc37aefd79d4f41ad37bdbbe5
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
-  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
+  path_provider_foundation: c68054786f1b4f3343858c1e1d0caaded73f0be9
   permission_handler_apple: 44366e37eaf29454a1e7b1b7d736c2cceaeb17ce
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
-  shared_preferences_foundation: 297b3ebca31b34ec92be11acd7fb0ba932c822ca
-  video_player_avfoundation: e489aac24ef5cf7af82702979ed16f2a5ef84cff
+  shared_preferences_foundation: 986fc17f3d3251412d18b0265f9c64113a8c2472
+  video_player_avfoundation: 81e49bb3d9fb63dccf9fa0f6d877dc3ddbeac126
 
 PODFILE CHECKSUM: 4673bec5489b515c16faf96657682a87cffecb4a
 
