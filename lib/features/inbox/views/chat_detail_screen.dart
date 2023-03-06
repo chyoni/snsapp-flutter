@@ -74,7 +74,7 @@ class ChatDetailScreenState extends ConsumerState<ChatDetailScreen> {
     String messageId,
   ) async {
     final RenderObject? overlay =
-        Overlay.of(context).context.findRenderObject();
+        Overlay.of(context)?.context.findRenderObject();
 
     final result = await showMenu(
       context: context,
