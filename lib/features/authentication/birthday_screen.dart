@@ -16,7 +16,7 @@ class BirthdayScreen extends ConsumerStatefulWidget {
 class BirthdayScreenState extends ConsumerState<BirthdayScreen> {
   final TextEditingController _birthdayController = TextEditingController();
 
-  DateTime initialDate = DateTime.now();
+  DateTime initialDate = DateTime(2011, 9, 7);
 
   @override
   void initState() {

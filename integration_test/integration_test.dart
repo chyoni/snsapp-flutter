@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
@@ -23,16 +24,19 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     final pref = await SharedPreferences.getInstance();
     pref.setBool("darkMode", false);
-    await tester.pumpWidget(ProviderScope(
-      overrides: [
-        commonConfigProvider.overrideWith(
-          () => CommonConfigViewModel(
-            CommonConfigRepository(pref),
+    await tester.pumpWidget(
+      ProviderScope(
+        overrides: [
+          commonConfigProvider.overrideWith(
+            () => CommonConfigViewModel(
+              CommonConfigRepository(pref),
+            ),
           ),
-        ),
-      ],
-      child: const TikTokApp(),
-    ));
+        ],
+        child: const TikTokApp(),
+      ),
+    );
+
     await tester.pumpAndSettle();
     expect(find.text("Sign up for TikTok"), findsOneWidget);
     final login = find.text("Log in");
@@ -48,5 +52,28 @@ void main() {
     expect(emailBtn, findsOneWidget);
     await tester.tap(emailBtn);
     await tester.pumpAndSettle();
+
+    final usernameInput = find.byType(TextField).first;
+    await tester.enterText(usernameInput, "test");
+    await tester.pumpAndSettle();
+    await tester.tap(find.text("Next"));
+    await tester.pumpAndSettle();
+
+    final emailInput = find.byType(TextField).first;
+    await tester.enterText(emailInput, "test@testing.com");
+    await tester.pumpAndSettle();
+    await tester.tap(find.text("Next"));
+    await tester.pumpAndSettle();
+
+    final passwordInput = find.byType(TextField).first;
+    await tester.enterText(passwordInput, "qwer1234!@");
+    await tester.pumpAndSettle();
+    await tester.tap(find.text("Next"));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text("Next"));
+
+    await tester.pumpAndSettle();
+    await tester.pumpAndSettle(const Duration(seconds: 15));
+    expect(find.text("Choose your interests"), findsOneWidget);
   });
 }
